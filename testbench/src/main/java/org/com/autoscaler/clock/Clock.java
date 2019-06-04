@@ -36,7 +36,10 @@ public class Clock implements IClock {
     public Clock(ClockEventPublisher clockEventPublisher) {
         this.clockEventPublisher = clockEventPublisher;
     }
-
+ 
+    /**
+     * Start the clock starts the discrete simulation
+     */
     @Override
     public void startClock() {
         state = ClockState.RUNNING;
@@ -50,19 +53,28 @@ public class Clock implements IClock {
         // }
 
     }
-
+    
+    /**
+     * Stop the clock ends the simulation
+     */
     @Override
     public void stopClock() {
         state = ClockState.STOPPED;
 
     }
-
+    
+    /**
+     * Pause the clock to pause simulation
+     */
     @Override
     public void pauseClock() {
         // TODO Auto-generated method stub
 
     }
-
+    
+    /**
+     * Initialize all required clock fields
+     */
     @Override
     public void initClock(double intervalDurationInSeconds, int clockTickTillWorkloadChange,
             int clockTicksTillScalingDecision) {

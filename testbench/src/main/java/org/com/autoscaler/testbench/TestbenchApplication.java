@@ -10,6 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * Main class that start the SpringBoot application
+ * @author Niko
+ *
+ */
 @SpringBootApplication()
 @ComponentScan({"org.com.autoscaler"})
 public class TestbenchApplication  {

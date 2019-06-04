@@ -12,6 +12,12 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * Main class that initializes and starts the simulation.
+ * The run function is triggered as soon as the SPringApplication has fully started
+ * @author Niko
+ *
+ */
 @Component
 public class ApplicationStartUpRunner implements ApplicationRunner {
 
@@ -20,7 +26,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
     private final IClock clock;
     
     
-    @Value("${intervalDurationInSeconds}")
+    
     private double intervalDurationInSeconds;
 
     @Autowired

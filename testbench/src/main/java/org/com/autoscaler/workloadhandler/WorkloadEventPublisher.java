@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
+/**
+ * Publishes any wokrload handler related events like the change of the current workload
+ * @author Niko
+ *
+ */
 @Component
 public class WorkloadEventPublisher implements IWorkloadHandlerEventPublisher {
 
@@ -14,7 +19,10 @@ public class WorkloadEventPublisher implements IWorkloadHandlerEventPublisher {
 
     @Autowired
     private ApplicationEventPublisher applEventPublisher;
-
+   
+    /**
+     * Indicates, that the current wokrload has changed
+     */
     @Override
     public void fireWorkloadChangedEvent(WorkloadInfo workload, int clockTickCount, double intervalDurationInSeconds) {
         log.info("Fire workload changed event. ArrivalRate: " + workload.getArrivalRate()
