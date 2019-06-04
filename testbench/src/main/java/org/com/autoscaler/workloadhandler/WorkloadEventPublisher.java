@@ -1,0 +1,29 @@
+package org.com.autoscaler.workloadhandler;
+
+import org.com.autoscaler.events.WorkloadChangedEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
+
+@Component
+public class WorkloadEventPublisher implements IWorkloadHandlerEventPublisher {
+
+    private final Logger log = LoggerFactory.getLogger(WorkloadEventPublisher.class);
+
+    @Autowired
+    private ApplicationEventPublisher applEventPublisher;
+
+    @Override
+    public void fireWorkloadChangedEvent(WorkloadInfo workload, int clockTickCount, double intervalDurationInSeconds) {
+        log.info("Fire workload changed event. ArrivalRate: " + workload.getArrivalRate()
+                + " ; Requests per Intervall: " + workload.getRequestsPerIntervall());
+
+        WorkloadChangedEvent event = new WorkloadChangedEvent(this, workload, clockTickCount,
+                intervalDurationInSeconds);
+        applEventPublisher.publishEvent(event);
+
+    }
+
+}

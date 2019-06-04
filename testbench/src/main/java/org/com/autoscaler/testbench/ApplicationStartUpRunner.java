@@ -2,7 +2,7 @@ package org.com.autoscaler.testbench;
 
 import java.util.Arrays;
 
-import org.com.autoscaler.clock.Clock;
+import org.com.autoscaler.clock.IClock;
 import org.com.autoscaler.testbench.test.HelloService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +17,14 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationStartUpRunner.class);
 
-    private final Clock clock;
+    private final IClock clock;
     
     
     @Value("${intervalDurationInSeconds}")
     private double intervalDurationInSeconds;
 
     @Autowired
-    public ApplicationStartUpRunner(Clock clock) {
+    public ApplicationStartUpRunner(IClock clock) {
         this.clock = clock;
     }
 

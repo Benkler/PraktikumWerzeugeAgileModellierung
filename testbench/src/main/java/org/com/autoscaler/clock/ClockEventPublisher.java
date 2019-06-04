@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClockEventPublisher {
+public class ClockEventPublisher implements IClockEventPublisher {
 
     private final Logger log = LoggerFactory.getLogger(ClockEventPublisher.class);
 

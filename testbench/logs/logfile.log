@@ -448,3 +448,121 @@ Consider defining a bean of type 'org.com.autoscaler.clock.Clock' in your config
 2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 8
 2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 8
 2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 9
+2019-06-04 18:15:54.662  INFO 13360 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 13360 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 18:15:54.666  INFO 13360 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 18:15:55.152  WARN 13360 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'applicationStartUpRunner' defined in file [C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench\target\classes\org\com\autoscaler\testbench\ApplicationStartUpRunner.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.com.autoscaler.clock.Clock' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2019-06-04 18:15:55.161  INFO 13360 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-06-04 18:15:55.299 ERROR 13360 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in org.com.autoscaler.testbench.ApplicationStartUpRunner required a bean of type 'org.com.autoscaler.clock.Clock' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.com.autoscaler.clock.Clock' in your configuration.
+
+2019-06-04 18:19:21.997  INFO 8740 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 8740 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 18:19:22.029  INFO 8740 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 18:19:22.813  INFO 8740 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 1.209 seconds (JVM running for 5.636)
+2019-06-04 18:19:22.815  INFO 8740 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 18:19:22.817  INFO 8740 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 18:19:22.817  INFO 8740 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 18:19:22.818  INFO 8740 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 18:19:22.818  INFO 8740 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 18:19:22.819  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 0
+2019-06-04 18:19:22.820  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 0
+2019-06-04 18:19:22.820  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 0
+2019-06-04 18:19:22.820  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 1
+2019-06-04 18:19:22.821  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 2
+2019-06-04 18:19:22.821  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 2
+2019-06-04 18:19:22.821  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 3
+2019-06-04 18:19:22.821  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 4
+2019-06-04 18:19:22.822  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 4
+2019-06-04 18:19:22.823  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 5
+2019-06-04 18:19:22.823  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 5
+2019-06-04 18:19:22.823  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 6
+2019-06-04 18:19:22.824  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 6
+2019-06-04 18:19:22.824  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 7
+2019-06-04 18:19:22.824  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 8
+2019-06-04 18:19:22.824  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 8
+2019-06-04 18:19:22.825  INFO 8740 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 9
+2019-06-04 18:19:45.103  INFO 11128 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 11128 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 18:19:45.106  INFO 11128 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 18:19:45.593  WARN 11128 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'applicationStartUpRunner' defined in file [C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench\target\classes\org\com\autoscaler\testbench\ApplicationStartUpRunner.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.com.autoscaler.clock.IClock' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2019-06-04 18:19:45.606  INFO 11128 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-06-04 18:19:45.745 ERROR 11128 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in org.com.autoscaler.testbench.ApplicationStartUpRunner required a bean of type 'org.com.autoscaler.clock.IClock' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.com.autoscaler.clock.IClock' in your configuration.
+
+2019-06-04 19:20:44.277  INFO 12748 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 12748 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 19:20:44.281  INFO 12748 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 19:20:44.744  WARN 12748 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'workloadHandler' defined in file [C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench\target\classes\org\com\autoscaler\workloadhandler\WorkloadHandler.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.com.autoscaler.workloadhandler.IWorkloadHandlerEventPublisher' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2019-06-04 19:20:44.755  INFO 12748 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-06-04 19:20:44.964 ERROR 12748 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in org.com.autoscaler.workloadhandler.WorkloadHandler required a bean of type 'org.com.autoscaler.workloadhandler.IWorkloadHandlerEventPublisher' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.com.autoscaler.workloadhandler.IWorkloadHandlerEventPublisher' in your configuration.
+
+2019-06-04 19:21:49.151  INFO 13508 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 13508 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 19:21:49.155  INFO 13508 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 19:21:49.789  INFO 13508 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 1.014 seconds (JVM running for 4.389)
+2019-06-04 19:21:49.790  INFO 13508 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 19:21:49.792  INFO 13508 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 19:21:49.792  INFO 13508 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 19:21:49.793  INFO 13508 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 19:21:49.793  INFO 13508 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 19:21:49.794  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 0
+2019-06-04 19:21:49.794  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 0
+2019-06-04 19:21:49.795  INFO 13508 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 19:21:49.796  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 0
+2019-06-04 19:21:49.796  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 1
+2019-06-04 19:21:49.797  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 2
+2019-06-04 19:21:49.797  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 2
+2019-06-04 19:21:49.797  INFO 13508 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 19:21:49.798  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 3
+2019-06-04 19:21:49.799  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 4
+2019-06-04 19:21:49.799  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 4
+2019-06-04 19:21:49.799  INFO 13508 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 19:21:49.799  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 5
+2019-06-04 19:21:49.801  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 5
+2019-06-04 19:21:49.802  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 6
+2019-06-04 19:21:49.802  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 6
+2019-06-04 19:21:49.802  INFO 13508 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 19:21:49.803  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 7
+2019-06-04 19:21:49.803  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 8
+2019-06-04 19:21:49.803  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 8
+2019-06-04 19:21:49.804  INFO 13508 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 19:21:49.804  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 9
