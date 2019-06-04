@@ -566,3 +566,43 @@ Consider defining a bean of type 'org.com.autoscaler.workloadhandler.IWorkloadHa
 2019-06-04 19:21:49.803  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 8
 2019-06-04 19:21:49.804  INFO 13508 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
 2019-06-04 19:21:49.804  INFO 13508 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 9
+2019-06-04 22:14:33.592  INFO 13892 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 13892 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 22:14:33.619  INFO 13892 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 22:14:34.377  INFO 13892 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 1.22 seconds (JVM running for 6.524)
+2019-06-04 22:14:34.379  INFO 13892 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 22:14:34.382  INFO 13892 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 22:14:34.382  INFO 13892 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 22:14:34.382  INFO 13892 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 22:14:34.383  INFO 13892 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 22:14:34.383  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 0
+2019-06-04 22:14:34.384  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.384  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 0
+2019-06-04 22:14:34.385  INFO 13892 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 22:14:34.386  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 0
+2019-06-04 22:14:34.386  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 1
+2019-06-04 22:14:34.386  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.387  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 2
+2019-06-04 22:14:34.387  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.389  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 2
+2019-06-04 22:14:34.389  INFO 13892 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 22:14:34.389  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 3
+2019-06-04 22:14:34.390  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.390  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 4
+2019-06-04 22:14:34.390  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.391  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 4
+2019-06-04 22:14:34.391  INFO 13892 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 22:14:34.391  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 5
+2019-06-04 22:14:34.391  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.392  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 5
+2019-06-04 22:14:34.392  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 6
+2019-06-04 22:14:34.392  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.392  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 6
+2019-06-04 22:14:34.393  INFO 13892 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 22:14:34.393  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 7
+2019-06-04 22:14:34.393  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.394  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 8
+2019-06-04 22:14:34.394  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 22:14:34.394  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 8
+2019-06-04 22:14:34.394  INFO 13892 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 22:14:34.395  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 9
+2019-06-04 22:14:34.395  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event

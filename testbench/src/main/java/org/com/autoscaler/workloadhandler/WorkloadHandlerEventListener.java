@@ -15,10 +15,14 @@ public class WorkloadHandlerEventListener implements IWorkloadHandlerEventListen
     @Autowired
     IWorkloadHandler handler;
     
+
+
     @Override
-    public void onApplicationEvent(TriggerWorkloadHandlerEvent event) {
+    public void handleTriggerWorkloadHandlerEvent(TriggerWorkloadHandlerEvent event) {
         handler.processNewWorkloadInfo(event);
         
     }
+    
+  
 
 }

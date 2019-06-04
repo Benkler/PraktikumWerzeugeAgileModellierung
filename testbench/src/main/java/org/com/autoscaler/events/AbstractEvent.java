@@ -25,7 +25,7 @@ public abstract class AbstractEvent extends ApplicationEvent {
      */
     private static final long serialVersionUID = 1763084861796216090L;
 
-    public int getIntervallCount() {
+    public int getClockTickCount() {
         return clockTickCount;
     }
 

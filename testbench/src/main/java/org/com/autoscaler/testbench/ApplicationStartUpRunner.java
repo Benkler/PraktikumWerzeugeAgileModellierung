@@ -2,6 +2,7 @@ package org.com.autoscaler.testbench;
 
 import java.util.Arrays;
 
+import org.com.autoscaler.clock.ClockInformation;
 import org.com.autoscaler.clock.IClock;
 import org.com.autoscaler.testbench.test.HelloService;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
     
     
     
-    private double intervalDurationInSeconds;
+   
 
     @Autowired
     public ApplicationStartUpRunner(IClock clock) {
@@ -36,12 +37,13 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        intervalDurationInSeconds = 2;
+    
        logCommandLineParameters(args);
        
        //ReadSetUp of Infrastructure Modell
        
-       clock.initClock(1,2,5); //TODO auslesen
+       ClockInformation info = new ClockInformation(0, 1, 2, 5);
+       clock.initClock(info); //TODO auslesen
        clock.startClock();
         
 

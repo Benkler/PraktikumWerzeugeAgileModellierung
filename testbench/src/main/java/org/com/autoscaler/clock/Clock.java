@@ -25,6 +25,8 @@ public class Clock implements IClock {
     private double intervalDurationInSeconds;
     private int clockTicksTillWorkloadChange;
     private int clockTicksTillScalingDecision;
+    
+    
 
     private boolean initialized = false;
     private ClockState state;
@@ -76,20 +78,21 @@ public class Clock implements IClock {
      * Initialize all required clock fields
      */
     @Override
-    public void initClock(double intervalDurationInSeconds, int clockTickTillWorkloadChange,
-            int clockTicksTillScalingDecision) {
+    public void initClock(ClockInformation clockInfo) {
         if (initialized)
             return; // only allow initClock once!
 
+        
+        
+        
+        this.intervalDurationInSeconds = clockInfo.getIntervalDurationInSeconds();
+        this.clockTickCount = 0;
+        this.clockTicksTillScalingDecision = clockInfo.getClockTicksTillScalingDecision();
+        this.clockTicksTillWorkloadChange = clockInfo.getClockTicksTillWorkloadChange();
+        
         assert(intervalDurationInSeconds > 0);
         assert(clockTicksTillScalingDecision > 0);
-        assert(clockTickTillWorkloadChange > 0);
-        
-        
-        this.intervalDurationInSeconds = intervalDurationInSeconds;
-        this.clockTickCount = 0;
-        this.clockTicksTillScalingDecision = clockTicksTillScalingDecision;
-        this.clockTicksTillWorkloadChange = clockTickTillWorkloadChange;
+        assert(clockTicksTillWorkloadChange > 0);
 
         initialized = true;
         state = ClockState.INITIALIZED;
