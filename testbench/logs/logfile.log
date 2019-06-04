@@ -269,3 +269,182 @@ Caused by: java.lang.Exception: Abort
 	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:804) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
 	... 11 common frames omitted
 
+2019-06-04 15:14:30.760  INFO 1528 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 1528 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 15:14:30.764  INFO 1528 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 15:14:31.296  INFO 1528 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 0.89 seconds (JVM running for 4.608)
+2019-06-04 15:14:31.298  INFO 1528 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 15:14:31.299  INFO 1528 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 15:14:31.300  INFO 1528 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 15:14:31.300  INFO 1528 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 15:14:31.300  INFO 1528 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 15:16:59.926  INFO 10728 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 10728 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 15:16:59.941  INFO 10728 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 15:17:00.542  INFO 10728 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 0.93 seconds (JVM running for 4.328)
+2019-06-04 15:17:00.543 ERROR 10728 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:17:00.543 ERROR 10728 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:17:00.544  INFO 10728 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 15:17:00.545  INFO 10728 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 15:17:00.546  INFO 10728 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 15:17:00.546  INFO 10728 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 15:17:00.546  INFO 10728 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 15:17:00.546 ERROR 10728 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:17:00.547 ERROR 10728 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:17:39.127  INFO 3712 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 3712 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 15:17:39.130  INFO 3712 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 15:17:39.695  INFO 3712 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 0.931 seconds (JVM running for 4.237)
+2019-06-04 15:17:39.695 ERROR 3712 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:17:39.695 ERROR 3712 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:17:39.695  INFO 3712 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 15:17:39.695  INFO 3712 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 15:17:39.695  INFO 3712 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 15:17:39.695  INFO 3712 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 15:17:39.695  INFO 3712 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 15:17:39.695 ERROR 3712 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:17:39.695 ERROR 3712 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:18:19.034  INFO 10952 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 10952 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 15:18:19.034  INFO 10952 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 15:18:19.635  INFO 10952 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 0.98 seconds (JVM running for 4.258)
+2019-06-04 15:18:19.635 ERROR 10952 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:18:19.635 ERROR 10952 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:18:19.635 ERROR 10952 --- [main] o.c.a.t.test.DefaultHelloService         : I  ist: 0
+2019-06-04 15:18:19.635  INFO 10952 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 15:18:19.651  INFO 10952 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 15:18:19.651  INFO 10952 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 15:18:19.651  INFO 10952 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 15:18:19.651  INFO 10952 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 15:18:19.651 ERROR 10952 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:18:19.651 ERROR 10952 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:18:19.651 ERROR 10952 --- [main] o.c.a.t.test.DefaultHelloService         : I  ist: 1
+2019-06-04 15:19:36.996  INFO 3432 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 3432 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 15:19:36.996  INFO 3432 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 15:19:37.687  INFO 3432 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 1.111 seconds (JVM running for 5.372)
+2019-06-04 15:19:37.689 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:19:37.689 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:19:37.689 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : I  ist: 0
+2019-06-04 15:19:37.690  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 15:19:37.691  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 15:19:37.692  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 15:19:37.692  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 15:19:37.692  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 15:19:37.693 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:19:37.693 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:19:37.693 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : I  ist: 1
+2019-06-04 15:19:37.693 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:19:37.693 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:19:37.694 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : I  ist: 2
+2019-06-04 15:19:37.694  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner2        : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 15:19:37.694  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner2        : NonOptionArgs: []
+2019-06-04 15:19:37.694  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner2        : OptionNames: [input.path.workload]
+2019-06-04 15:19:37.695  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner2        : arg-input.path.workload=[test2]
+2019-06-04 15:19:37.695  INFO 3432 --- [main] o.c.a.t.ApplicationStartUpRunner2        : Contains input.path.workload: true
+2019-06-04 15:19:37.695 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : InitVar
+2019-06-04 15:19:37.695 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : test2
+2019-06-04 15:19:37.695 ERROR 3432 --- [main] o.c.a.t.test.DefaultHelloService         : I  ist: 3
+2019-06-04 16:46:05.121  INFO 13856 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 13856 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 16:46:05.136  INFO 13856 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 16:46:05.596  WARN 13856 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'applicationStartUpRunner' defined in file [C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench\target\classes\org\com\autoscaler\testbench\ApplicationStartUpRunner.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.com.autoscaler.clock.Clock' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2019-06-04 16:46:05.605  INFO 13856 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-06-04 16:46:05.856 ERROR 13856 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in org.com.autoscaler.testbench.ApplicationStartUpRunner required a bean of type 'org.com.autoscaler.clock.Clock' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.com.autoscaler.clock.Clock' in your configuration.
+
+2019-06-04 16:47:57.820  INFO 4784 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 4784 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 16:47:57.823  INFO 4784 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 16:47:58.282  WARN 4784 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'applicationStartUpRunner' defined in file [C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench\target\classes\org\com\autoscaler\testbench\ApplicationStartUpRunner.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.com.autoscaler.clock.Clock' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2019-06-04 16:47:58.298  INFO 4784 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-06-04 16:47:58.545 ERROR 4784 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in org.com.autoscaler.testbench.ApplicationStartUpRunner required a bean of type 'org.com.autoscaler.clock.Clock' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.com.autoscaler.clock.Clock' in your configuration.
+
+2019-06-04 16:49:33.402  INFO 13920 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 13920 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 16:49:33.417  INFO 13920 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 16:49:33.885  WARN 13920 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'applicationStartUpRunner' defined in file [C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench\target\classes\org\com\autoscaler\testbench\ApplicationStartUpRunner.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.com.autoscaler.clock.Clock' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2019-06-04 16:49:33.885  INFO 13920 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-06-04 16:49:34.010 ERROR 13920 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in org.com.autoscaler.testbench.ApplicationStartUpRunner required a bean of type 'org.com.autoscaler.clock.Clock' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.com.autoscaler.clock.Clock' in your configuration.
+
+2019-06-04 16:53:17.922  INFO 8088 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 8088 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 16:53:17.938  INFO 8088 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 16:53:18.515  INFO 8088 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 0.92 seconds (JVM running for 4.325)
+2019-06-04 16:53:18.531  INFO 8088 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 16:53:18.531  INFO 8088 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 16:53:18.531  INFO 8088 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 16:53:18.531  INFO 8088 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 16:53:18.531  INFO 8088 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 16:53:18.531  INFO 8088 --- [main] org.com.autoscaler.clock.ClockImpl       : +++++++++++++++++++++++++++++ IntervalDuration is: 1.0
+2019-06-04 16:53:18.531  INFO 8088 --- [main] org.com.autoscaler.clock.ClockImpl       : +++++++++++++++++++++++++++++ IntervalDuration is: 1.0
+2019-06-04 16:58:38.481  INFO 8644 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 8644 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 16:58:38.481  INFO 8644 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 16:58:39.078  INFO 8644 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 1.003 seconds (JVM running for 4.55)
+2019-06-04 16:58:39.078  INFO 8644 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 16:58:39.078  INFO 8644 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 16:58:39.078  INFO 8644 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 16:58:39.078  INFO 8644 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 16:58:39.078  INFO 8644 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 16:58:39.078  INFO 8644 --- [main] org.com.autoscaler.clock.ClockImpl       : +++++++++++++++++++++++++++++ IntervalDuration is: 3.0
+2019-06-04 16:58:39.078  INFO 8644 --- [main] org.com.autoscaler.clock.ClockImpl       : +++++++++++++++++++++++++++++ IntervalDuration is: 3.0
+2019-06-04 17:24:03.639  INFO 14076 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 14076 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 17:24:03.642  INFO 14076 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 17:24:04.427  INFO 14076 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 1.156 seconds (JVM running for 5.449)
+2019-06-04 17:24:04.427  INFO 14076 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 0
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 0
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 0
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 1
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 2
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 2
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 3
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 4
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 4
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 5
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 5
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 6
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 6
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 7
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 8
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 8
+2019-06-04 17:24:04.442  INFO 14076 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 9

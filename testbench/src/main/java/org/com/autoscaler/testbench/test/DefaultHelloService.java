@@ -10,6 +10,8 @@ public class DefaultHelloService implements HelloService {
 
     private final Logger log = LoggerFactory.getLogger(DefaultHelloService.class);
 
+    private int i=0;
+    
     @Value("${input.path.workload}")
     private String path;
     
@@ -20,6 +22,8 @@ public class DefaultHelloService implements HelloService {
     public void hello() {
         log.error(path2);
         log.error(path);
+        log.error("I  ist: " + i);
+        i++;
     }
 
 }
