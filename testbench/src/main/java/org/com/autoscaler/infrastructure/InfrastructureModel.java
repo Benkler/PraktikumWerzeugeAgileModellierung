@@ -13,14 +13,20 @@ public class InfrastructureModel implements IInfrastructureModel {
     private final Logger log = LoggerFactory.getLogger(InfrastructureModel.class);
     private boolean initialized = false;
 
+    /*
+     * Holds Information about current Infrastructure including Queue and Virtual
+     * Machines
+     */
     private InfrastructureInformation infrastructureInfo;
-    
+
+    private Queue queue;
+
     @Autowired
     private IInfrastructureModelEventPublisher publisher;
 
     @Override
     public void handleClockTick(ClockEvent clockEvent) {
-        //TODO send infrastructure State event
+        // TODO send infrastructure State event
 
     }
 
@@ -36,8 +42,15 @@ public class InfrastructureModel implements IInfrastructureModel {
             return;
 
         this.infrastructureInfo = infrastructure;
+        queue.setQueueParameters(infrastructure.getMinQueueLength(), infrastructure.getMaxQueueLength());
         initialized = true;
 
+    }
+
+    private InfrastructureState getState() {
+        InfrastructureState state = new InfrastructureState();
+
+        return state;
     }
 
 }

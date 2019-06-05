@@ -606,3 +606,48 @@ Consider defining a bean of type 'org.com.autoscaler.workloadhandler.IWorkloadHa
 2019-06-04 22:14:34.394  INFO 13892 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
 2019-06-04 22:14:34.395  INFO 13892 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 9
 2019-06-04 22:14:34.395  INFO 13892 --- [main] o.c.a.i.InfrastructureModelEventListener : --------------------------Handle CLock Event
+2019-06-04 23:41:47.663  INFO 4200 --- [main] o.c.a.testbench.TestbenchApplication     : Starting TestbenchApplication on Niko-Pc with PID 4200 (started by Niko in C:\Users\Nikolaus\Desktop\Praktikum Werkzeuge für Agile Modellierung\GitRepo\testbench)
+2019-06-04 23:41:47.666  INFO 4200 --- [main] o.c.a.testbench.TestbenchApplication     : No active profile set, falling back to default profiles: default
+2019-06-04 23:41:48.399  INFO 4200 --- [main] o.c.a.testbench.TestbenchApplication     : Started TestbenchApplication in 1.157 seconds (JVM running for 5.888)
+2019-06-04 23:41:48.401  INFO 4200 --- [main] o.c.a.t.ApplicationStartUpRunner         : Application started with command-line Arguments: [--input.path.workload=test2]
+2019-06-04 23:41:48.403  INFO 4200 --- [main] o.c.a.t.ApplicationStartUpRunner         : NonOptionArgs: []
+2019-06-04 23:41:48.404  INFO 4200 --- [main] o.c.a.t.ApplicationStartUpRunner         : OptionNames: [input.path.workload]
+2019-06-04 23:41:48.404  INFO 4200 --- [main] o.c.a.t.ApplicationStartUpRunner         : arg-input.path.workload=[test2]
+2019-06-04 23:41:48.405  INFO 4200 --- [main] o.c.a.t.ApplicationStartUpRunner         : Contains input.path.workload: true
+2019-06-04 23:41:48.405  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 0
+2019-06-04 23:41:48.406  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 0
+2019-06-04 23:41:48.407  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 0
+2019-06-04 23:41:48.407  INFO 4200 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 23:41:48.408  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle workload change event with clock tick count: 0
+2019-06-04 23:41:48.409  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 0
+2019-06-04 23:41:48.409  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 1
+2019-06-04 23:41:48.409  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 1
+2019-06-04 23:41:48.410  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 2
+2019-06-04 23:41:48.411  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 2
+2019-06-04 23:41:48.411  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 2
+2019-06-04 23:41:48.411  INFO 4200 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 23:41:48.412  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle workload change event with clock tick count: 2
+2019-06-04 23:41:48.412  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 3
+2019-06-04 23:41:48.412  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 3
+2019-06-04 23:41:48.413  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 4
+2019-06-04 23:41:48.413  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 4
+2019-06-04 23:41:48.413  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 4
+2019-06-04 23:41:48.413  INFO 4200 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 23:41:48.414  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle workload change event with clock tick count: 4
+2019-06-04 23:41:48.414  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 5
+2019-06-04 23:41:48.414  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 5
+2019-06-04 23:41:48.414  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger auto scaler event fired. Clock Tick Count: 5
+2019-06-04 23:41:48.415  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 6
+2019-06-04 23:41:48.415  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 6
+2019-06-04 23:41:48.415  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 6
+2019-06-04 23:41:48.416  INFO 4200 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 23:41:48.419  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle workload change event with clock tick count: 6
+2019-06-04 23:41:48.419  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 7
+2019-06-04 23:41:48.420  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 7
+2019-06-04 23:41:48.420  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 8
+2019-06-04 23:41:48.421  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 8
+2019-06-04 23:41:48.421  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Trigger workload handler event fired. Clock Tick Count: 8
+2019-06-04 23:41:48.421  INFO 4200 --- [main] o.c.a.w.WorkloadEventPublisher           : Fire workload changed event. ArrivalRate: 2.0 ; Requests per Intervall: 2
+2019-06-04 23:41:48.422  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle workload change event with clock tick count: 8
+2019-06-04 23:41:48.422  INFO 4200 --- [main] o.c.a.clock.ClockEventPublisher          : Normal clock event fired. Clock Tick Count: 9
+2019-06-04 23:41:48.422  INFO 4200 --- [main] o.c.a.i.InfrastructureModelEventListener : handle clock event with clock tick count: 9
