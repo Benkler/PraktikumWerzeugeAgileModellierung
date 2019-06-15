@@ -49,7 +49,7 @@ public class InfrastructureModel implements IInfrastructureModel {
 
     private InfrastructureState getState() {
         InfrastructureState state = new InfrastructureState();
-
+    //TODO create state
         return state;
     }
 

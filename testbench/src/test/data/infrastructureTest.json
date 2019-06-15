@@ -1,0 +1,23 @@
+
+
+{
+  "virtualMachines": [
+    {"id": 12,
+    "tasksPerIntervall": 200
+    },
+   {"id": 11,
+    "tasksPerIntervall": 220
+    },
+    {"id": 10,
+    "tasksPerIntervall": 230
+    }
+  ],
+  "vmMax": 20,
+  "vmMin": 2,
+  "queue":{
+      "queueLengthMin": 0,
+  "queueLengthMax": 123
+  }
+ 
+  
+}
