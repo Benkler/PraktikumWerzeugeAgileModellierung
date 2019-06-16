@@ -14,10 +14,16 @@
   ],
   "vmMax": 20,
   "vmMin": 2,
+  "interva"
+  
+  "monitoringDelay": 4,
+   "vmStartUpTime": 100,
+  
   "queue":{
       "queueLengthMin": 0,
   "queueLengthMax": 123
   }
+  
  
   
 }

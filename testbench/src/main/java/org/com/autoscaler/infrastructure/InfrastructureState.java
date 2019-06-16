@@ -1,77 +1,114 @@
 package org.com.autoscaler.infrastructure;
 
+import java.util.List;
+
+import org.springframework.util.Assert;
+
 /**
- * Class that represents the current state of the entire infrastructure,
- * including the queue state
+ * Class to bundle Infrastructure Information
  * 
  * @author Niko
  *
  */
 public class InfrastructureState {
 
-    private int currentArrivalRateInTasksPerIntervall;
+    private final int minAmountVM;
+    private final int maxAmountVM;
+    
+    private static final int MILLIS = 1000;
+   
+    private final double intervallDurationInMilliSeconds;
+
+    public double getIntervallDurationInMilliSeconds() {
+        return intervallDurationInMilliSeconds;
+    }
+
+    public void setVirtualMachines(List<VirtualMachine> virtualMachines) {
+        this.virtualMachines = virtualMachines;
+    }
 
     /*
-     * arrival rate and queue fill together!
+     * Represents the amount of tasks ALL VMs are able to process during a clock
+     * intervall
      */
-    private int currentCapacityInTasksPerIntervall;
-    private int desiredCapacityInTasksPerIntervall;
-
-    private int tasksInQueue;
-    private double queueFillInPercent;
-
-    private int amountOfVMs;
-
-    public InfrastructureState() {
-
-    }
-
-    public int getCurrentCapacityInTasksPerIntervall() {
-        return currentCapacityInTasksPerIntervall;
-    }
-
-    public void setCurrentCapacityInTasksPerIntervall(int currentCapacityInTasksPerIntervall) {
-        this.currentCapacityInTasksPerIntervall = currentCapacityInTasksPerIntervall;
-    }
-
-    public int getDesiredCapacityInTasksPerIntervall() {
-        return desiredCapacityInTasksPerIntervall;
-    }
-
-    public void setDesiredCapacityInTasksPerIntervall(int desiredCapacityInTasksPerIntervall) {
-        this.desiredCapacityInTasksPerIntervall = desiredCapacityInTasksPerIntervall;
-    }
-
-    public double getQueueFillInPercent() {
-        return queueFillInPercent;
-    }
-
-    public void setQueueFillInPercent(double queueFillInPercent) {
-        this.queueFillInPercent = queueFillInPercent;
-    }
-
+    private  int currentCapacityInTasksPerInterval;
+    
     public int getCurrentArrivalRateInTasksPerIntervall() {
         return currentArrivalRateInTasksPerIntervall;
     }
 
-    public void setCurrentArrivalRateInTasksPerIntervall(int currentArrivalRateInTasksPerIntervall) {
-        this.currentArrivalRateInTasksPerIntervall = currentArrivalRateInTasksPerIntervall;
+    /*
+     * Represents the amount of tasks ALL VMs are able to process per second
+     */
+    private int currentCapacityInTasksPerSecond;
+    
+    /*
+     * Represents the currentArrivalRate
+     */
+    private int currentArrivalRateInTasksPerIntervall;
+    
+    /*
+     * Holds currentInformation about virtual Machines
+     */
+    private List<VirtualMachine> virtualMachines;
+
+    public InfrastructureState(int minAmountVM, int maxAmountVM, List<VirtualMachine> virtualMachines,
+           double intervallDurationInMilliSeconds) {
+
+        if (minAmountVM < 0 || maxAmountVM < 0 || maxAmountVM < minAmountVM) {
+            throw new IllegalArgumentException("Invalid parameters for minimum and maximum amount of virtual machines");
+        }
+        
+       
+
+        this.minAmountVM = minAmountVM;
+        this.maxAmountVM = maxAmountVM;
+
+        this.intervallDurationInMilliSeconds = intervallDurationInMilliSeconds;
+        this.virtualMachines = virtualMachines;
+        this.currentArrivalRateInTasksPerIntervall = 0;
+        calculateCurrentCapacity();
     }
 
-    public int getTasksInQueue() {
-        return tasksInQueue;
+    public List<VirtualMachine> getVirtualMachines() {
+        return virtualMachines;
     }
 
-    public void setTasksInQueue(int tasksInQueue) {
-        this.tasksInQueue = tasksInQueue;
+   
+    public int getMinAmountVM() {
+        return minAmountVM;
     }
 
-    public int getAmountOfVMs() {
-        return amountOfVMs;
+    public int getMaxAmountVM() {
+        return maxAmountVM;
     }
 
-    public void setAmountOfVMs(int amountOfVMs) {
-        this.amountOfVMs = amountOfVMs;
+   
+    public int getCurrentCapacityInTasksPerSecond() {
+        return currentCapacityInTasksPerSecond;
+    }
+
+ 
+    
+
+   
+    public int getCurrentCapacityInTasksPerInterval() {
+        return currentCapacityInTasksPerInterval;
+    }
+
+    /*
+     * Recalculate the current capacity
+     */
+    private void calculateCurrentCapacity() {
+        currentCapacityInTasksPerInterval = 0;
+        currentCapacityInTasksPerSecond = 0;
+
+        for (VirtualMachine vm : virtualMachines) {
+            currentCapacityInTasksPerInterval += vm.getTasksPerClockInterval();
+        }
+        
+       currentCapacityInTasksPerSecond = Math.round((float)(currentCapacityInTasksPerInterval * MILLIS / intervallDurationInMilliSeconds));
+      
     }
 
 }

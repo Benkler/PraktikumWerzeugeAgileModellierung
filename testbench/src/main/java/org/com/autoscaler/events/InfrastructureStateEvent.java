@@ -1,13 +1,13 @@
 package org.com.autoscaler.events;
 
-import org.com.autoscaler.infrastructure.InfrastructureState;
+import org.com.autoscaler.infrastructure.InfrastructureStateTransferObject;
 
 public class InfrastructureStateEvent extends AbstractEvent {
 
-    private final InfrastructureState state;
+    private final InfrastructureStateTransferObject state;
     
-    public InfrastructureStateEvent(Object source, int clockTickCount, double intervalDurationInSeconds, InfrastructureState state) {
-        super(source, clockTickCount, intervalDurationInSeconds);
+    public InfrastructureStateEvent(Object source, int clockTickCount, double intervalDurationInMilliSeconds, InfrastructureStateTransferObject state) {
+        super(source, clockTickCount, intervalDurationInMilliSeconds);
         this.state = state;
     }
 
@@ -16,7 +16,7 @@ public class InfrastructureStateEvent extends AbstractEvent {
      */
     private static final long serialVersionUID = 622342663226466121L;
     
-    public InfrastructureState getInfrastructureState() {
+    public InfrastructureStateTransferObject getInfrastructureState() {
         return state;
     }
 

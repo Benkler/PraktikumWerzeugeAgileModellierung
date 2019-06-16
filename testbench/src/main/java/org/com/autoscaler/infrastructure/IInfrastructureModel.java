@@ -9,6 +9,8 @@ public interface IInfrastructureModel {
     
     public void changeWorkload(WorkloadChangedEvent wlChangedEvent);
     
-    public void initInfrastructureModel(InfrastructureInformation infrastructure);
+    public void initInfrastructureModel(InfrastructureState infrastructure);
+    
+    public InfrastructureStateTransferObject getInfrastructureState();
 
 }

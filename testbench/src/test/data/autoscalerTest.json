@@ -1,8 +1,9 @@
 
 
 {
- 
-  "monitoringDelay": 4,
-  "vmStartUpTime": 100
-  
+	"lowerThreshold": 0.96,
+	"upperThreshold": 1.06,
+	"vmTasksPerIntervall": 200,
+	"vmMax": 20,
+	"vmMin": 2
 }

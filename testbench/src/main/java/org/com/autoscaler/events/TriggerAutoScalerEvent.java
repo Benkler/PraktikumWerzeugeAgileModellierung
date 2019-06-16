@@ -7,8 +7,8 @@ package org.com.autoscaler.events;
  */
 public class TriggerAutoScalerEvent extends AbstractEvent {
 
-    public TriggerAutoScalerEvent(Object source, int clockTickCount, double intervalDurationInSeconds) {
-        super(source, clockTickCount, intervalDurationInSeconds);
+    public TriggerAutoScalerEvent(Object source, int clockTickCount, double intervalDurationInMilliSeconds) {
+        super(source, clockTickCount, intervalDurationInMilliSeconds);
         // TODO Auto-generated constructor stub
     }
 

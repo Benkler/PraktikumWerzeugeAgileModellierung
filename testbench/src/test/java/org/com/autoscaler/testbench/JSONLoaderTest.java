@@ -31,8 +31,10 @@ public class JSONLoaderTest {
         JSONLoader loader = new JSONLoader();
 
         AutoscalerPOJO autoscaler = loader.loadAutoScalerInformation("src/test/data/autoscalerTest.json");
-        assertEquals(autoscaler.getMonitoringDelay(), 4);
-        assertEquals(autoscaler.getVmStartUpTime(), 100);
+       
+        assertEquals(autoscaler.getLowerThreshold(), 0.96, 0.001);
+        assertEquals(autoscaler.getUpperThreshold(), 1.06, 0.001);
+ 
 
     }
     
@@ -46,6 +48,9 @@ public class JSONLoaderTest {
         assertEquals(infrastructure.getVmMin(), 2);
         assertEquals(infrastructure.getQueue().getQueueLengthMax(), 123);
         assertEquals(infrastructure.getQueue().getQueueLengthMin(), 0);
+        
+        assertEquals(infrastructure.getMonitoringDelay(), 4);
+        assertEquals(infrastructure.getVmStartUpTime(), 100);
         
         assertEquals(infrastructure.getVirtualMachines().get(0).getId(), 12);
         assertEquals(infrastructure.getVirtualMachines().get(0).getTasksPerIntervall(), 200);

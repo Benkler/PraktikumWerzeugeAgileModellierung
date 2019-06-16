@@ -8,21 +8,21 @@ package org.com.autoscaler.workloadhandler;
 public class WorkloadInfo {
     
     public WorkloadInfo(int requestsPerIntervall, double intervallDurationInSeconds) {
-       this.requestsPerIntervall = requestsPerIntervall;
+       this.arrivalRateInTasksPerIntervall = requestsPerIntervall;
        this.intervallDurationInSeconds = intervallDurationInSeconds;
-       this.arrivalRate = requestsPerIntervall/intervallDurationInSeconds;
+       this.arrivalRateInTasksPerSecond = requestsPerIntervall/intervallDurationInSeconds;
                
     }
     
     /*
      * Arrival Rate in requests per second!
      */
-    private double arrivalRate; 
+    private double arrivalRateInTasksPerSecond; 
     
     /*
      *Amount of requests per time interval used by the clock 
      */
-    private int requestsPerIntervall;
+    private int arrivalRateInTasksPerIntervall;
     
     
     /*
@@ -31,13 +31,13 @@ public class WorkloadInfo {
     private double intervallDurationInSeconds;
 
 
-    public double getArrivalRate() {
-        return arrivalRate;
+    public double getArrivalRateInTasksPerSecond() {
+        return arrivalRateInTasksPerSecond;
     }
 
 
-    public int getRequestsPerIntervall() {
-        return requestsPerIntervall;
+    public int getarrivalRateInTasksPerIntervall() {
+        return arrivalRateInTasksPerIntervall;
     }
     
     

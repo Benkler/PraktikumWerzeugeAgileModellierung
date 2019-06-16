@@ -15,30 +15,25 @@ public class VirtualMachine {
      */
     private int tasksPerClockInterval;
 
-    /*
-     * Represents the amount of tasks a VM is able to process per second
-     */
-    private int tasksPerSecond;
+   
     
     /*
      * The (unique) id of a VM <br> 
-     * If persisted, this can be changed to uuid
+     * If persisted, this can be changed to uuid 
      */
     private int id;
 
-    public VirtualMachine(int id, int tasksPerClockInterval, int taskPersecond) {
+    public VirtualMachine(int id, int tasksPerClockInterval) {
         this.id = id;
        this.tasksPerClockInterval = tasksPerClockInterval;
-       this.tasksPerSecond = taskPersecond;
+       
     }
 
     public int getTasksPerClockInterval() {
         return tasksPerClockInterval;
     }
 
-    public int getTasksPerSecond() {
-        return tasksPerSecond;
-    }
+   
     
     public int getId() {
         return id;

@@ -10,8 +10,8 @@ package org.com.autoscaler.events;
 public class TriggerWorkloadHandlerEvent extends AbstractEvent {
 
     public TriggerWorkloadHandlerEvent(Object source, final int clockTickCount,
-            final double intervalDurationInSeconds) {
-        super(source, clockTickCount, intervalDurationInSeconds);
+            final double intervalDurationInMilliSeconds) {
+        super(source, clockTickCount, intervalDurationInMilliSeconds);
 
     }
 

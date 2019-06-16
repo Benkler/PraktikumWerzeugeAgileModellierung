@@ -22,7 +22,7 @@ public class Clock implements IClock {
 
     // Clock Settings
     private int clockTickCount;
-    private double intervalDurationInSeconds;
+    private double intervalDurationInMilliSeconds;
     private int clockTicksTillWorkloadChange;
     private int clockTicksTillScalingDecision;
     
@@ -85,12 +85,12 @@ public class Clock implements IClock {
         
         
         
-        this.intervalDurationInSeconds = clockInfo.getIntervalDurationInSeconds();
+        this.intervalDurationInMilliSeconds = clockInfo.getIntervalDurationInSeconds();
         this.clockTickCount = 0;
         this.clockTicksTillScalingDecision = clockInfo.getClockTicksTillScalingDecision();
         this.clockTicksTillWorkloadChange = clockInfo.getClockTicksTillWorkloadChange();
         
-        assert(intervalDurationInSeconds > 0);
+        assert(intervalDurationInMilliSeconds > 0);
         assert(clockTicksTillScalingDecision > 0);
         assert(clockTicksTillWorkloadChange > 0);
 
@@ -104,14 +104,14 @@ public class Clock implements IClock {
      * change in workload etc. are executed according to predefined granularity
      */
     private void fireEvents() {
-        clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInSeconds);
+        clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInMilliSeconds);
 
         if (clockTickCount % clockTicksTillWorkloadChange == 0) {
-            clockEventPublisher.fireTriggerWorkloadHandlerEvent(clockTickCount, intervalDurationInSeconds);
+            clockEventPublisher.fireTriggerWorkloadHandlerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
 
         if (clockTickCount % clockTicksTillScalingDecision == 0) {
-            clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount, intervalDurationInSeconds);
+            clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
         
         clockTickCount++;

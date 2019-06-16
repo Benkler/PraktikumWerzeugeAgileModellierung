@@ -12,12 +12,12 @@ import org.springframework.context.ApplicationEvent;
 public abstract class AbstractEvent extends ApplicationEvent {
 
     private final int clockTickCount;
-    private final double intervalDuratioInSeconds;
+    private final double intervalDuratioInMilliSeconds;
 
-    public AbstractEvent(Object source, final int clockTickCount, final double intervalDurationInSeconds) {
+    public AbstractEvent(Object source, final int clockTickCount, final double intervalDurationInMilliSeconds) {
         super(source);
         this.clockTickCount = clockTickCount;
-        this.intervalDuratioInSeconds = intervalDurationInSeconds;
+        this.intervalDuratioInMilliSeconds = intervalDurationInMilliSeconds;
     }
 
     /**
@@ -29,8 +29,8 @@ public abstract class AbstractEvent extends ApplicationEvent {
         return clockTickCount;
     }
 
-    public double getIntervallDuratioInSeconds() {
-        return intervalDuratioInSeconds;
+    public double getIntervallDuratioInMilliSeconds() {
+        return intervalDuratioInMilliSeconds;
     }
 
 }

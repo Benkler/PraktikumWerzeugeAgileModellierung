@@ -29,9 +29,9 @@ public class WorkloadHandler implements IWorkloadHandler {
     @Override
     public void processNewWorkloadInfo(TriggerWorkloadHandlerEvent triggerEvent) {
         int requestsPerIntervall = 2;
-        WorkloadInfo workload = new WorkloadInfo(requestsPerIntervall, triggerEvent.getIntervallDuratioInSeconds());
+        WorkloadInfo workload = new WorkloadInfo(requestsPerIntervall, triggerEvent.getIntervallDuratioInMilliSeconds());
         publisher.fireWorkloadChangedEvent(workload, triggerEvent.getClockTickCount(),
-                triggerEvent.getIntervallDuratioInSeconds());
+                triggerEvent.getIntervallDuratioInMilliSeconds());
 
     }
 

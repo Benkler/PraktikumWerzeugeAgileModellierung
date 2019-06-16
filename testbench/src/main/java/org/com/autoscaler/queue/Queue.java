@@ -1,8 +1,9 @@
-package org.com.autoscaler.infrastructure;
+package org.com.autoscaler.queue;
 
 import org.springframework.stereotype.Component;
 
-public class Queue {
+@Component
+public class Queue implements IQueue {
 
     /*
      * Should be 0 in most use cases
@@ -10,13 +11,19 @@ public class Queue {
     private int minLength;
     private int maxLength;
     private int currentLevelInTasks;
+    
+    private boolean init = false;
 
-    public void setQueueParameters(int minLength, int maxLength) {
+    @Override
+    public void initQueue(int minLength, int maxLength) {
+        if (init) return;
+        
         if (minLength < 0 || maxLength < 0 || maxLength < minLength) {
             throw new IllegalArgumentException("Invalid Queue parameters");
         }
         this.minLength = minLength;
         this.maxLength = maxLength;
+        this.currentLevelInTasks = 0;
 
     }
 
@@ -29,6 +36,7 @@ public class Queue {
      * @param jobs
      * @return
      */
+    @Override
     public int enqueue(int jobs) {
         int enqueuedJobs = 0;
         if(currentLevelInTasks + jobs <= maxLength) {
@@ -47,6 +55,7 @@ public class Queue {
      * currentLevel - jobs > minLength: Return jobs jobs < minLength: Return
      * currentLevel - minLength
      */
+    @Override
     public int dequeue(int jobs) {
         int dequeuedJobs = 0;
 
@@ -71,6 +80,7 @@ public class Queue {
 
     }
 
+    @Override
     public boolean isFull() {
 
         if (currentLevelInTasks > maxLength) {
@@ -80,6 +90,7 @@ public class Queue {
         return currentLevelInTasks == maxLength;
     }
 
+    @Override
     public boolean isEmpty() {
         if (currentLevelInTasks < minLength) {
             throw new IllegalStateException("Queue underflow");
@@ -88,13 +99,15 @@ public class Queue {
         return currentLevelInTasks == minLength;
     }
 
+    @Override
     public int currentLevelInTasks() {
         return currentLevelInTasks;
     }
 
+    @Override
     public long currentLevelInPercent() {
 
-        return currentLevelInTasks / maxLength;
+        return (currentLevelInTasks / maxLength)*100;
     }
 
 }

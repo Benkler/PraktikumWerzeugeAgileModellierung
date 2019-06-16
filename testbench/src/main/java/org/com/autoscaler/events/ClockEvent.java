@@ -8,8 +8,8 @@ package org.com.autoscaler.events;
  */
 public class ClockEvent extends AbstractEvent {
 
-    public ClockEvent(Object source, int intervallCount, double intervalDurationInSeconds) {
-        super(source, intervallCount, intervalDurationInSeconds);
+    public ClockEvent(Object source, int intervallCount, double intervalDurationInMilliSeconds) {
+        super(source, intervallCount, intervalDurationInMilliSeconds);
         
     }
 

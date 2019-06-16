@@ -2,6 +2,7 @@ package org.com.autoscaler.infrastructure;
 
 import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.WorkloadChangedEvent;
+import org.com.autoscaler.queue.IQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,39 +18,56 @@ public class InfrastructureModel implements IInfrastructureModel {
      * Holds Information about current Infrastructure including Queue and Virtual
      * Machines
      */
-    private InfrastructureInformation infrastructureInfo;
+    private InfrastructureState infrastructureState;
 
-    private Queue queue;
+    private IQueue queue;
 
     @Autowired
     private IInfrastructureModelEventPublisher publisher;
 
     @Override
     public void handleClockTick(ClockEvent clockEvent) {
-        // TODO send infrastructure State event
+        int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
+        int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
+
+        int discrepancy = currentCapacity - currentArrivalRate;
+
+        if (discrepancy <= 0) { // arrival rate higher than capacity --> Enqueue
+            log.info(
+                    "Process Jobs: Arrival Rate at " + currentArrivalRate + " tasks per Intervall. Current capacity at "
+                            + currentCapacity + " tasks per Intervall. --> Enqueue " + Math.abs(discrepancy) + " elements");
+            queue.enqueue(Math.abs(discrepancy));
+        } else { // arrival rate lower than capacity --> Dequeue
+            log.info(
+                    "Process Jobs: Arrival Rate at " + currentArrivalRate + " tasks per Intervall. Current capacity at "
+                            + currentCapacity + " tasks per Intervall. --> Dequeue " + discrepancy + " elements");
+            queue.dequeue(discrepancy);
+        }
 
     }
 
     @Override
     public void changeWorkload(WorkloadChangedEvent wlChangedEvent) {
-        // TODO Auto-generated method stub
+       
 
     }
 
     @Override
-    public void initInfrastructureModel(InfrastructureInformation infrastructure) {
+    public void initInfrastructureModel(InfrastructureState infrastructure) {
         if (initialized)
             return;
 
-        this.infrastructureInfo = infrastructure;
-        queue.setQueueParameters(infrastructure.getMinQueueLength(), infrastructure.getMaxQueueLength());
+        this.infrastructureState = infrastructure;
         initialized = true;
+
+        // TODO init Queue
 
     }
 
-    private InfrastructureState getState() {
-        InfrastructureState state = new InfrastructureState();
-    //TODO create state
+    @Override
+    public InfrastructureStateTransferObject getInfrastructureState() {
+        // TODO build state
+        InfrastructureStateTransferObject state = new InfrastructureStateTransferObject();
         return state;
     }
 

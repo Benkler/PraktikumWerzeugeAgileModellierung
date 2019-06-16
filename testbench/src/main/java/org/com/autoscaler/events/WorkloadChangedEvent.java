@@ -11,8 +11,8 @@ public class WorkloadChangedEvent extends AbstractEvent {
 
     private WorkloadInfo workloadInfo;
     
-    public WorkloadChangedEvent(Object source, WorkloadInfo workloadInfo, int clockTickCount, double intervalDurationInSeconds) {
-        super(source, clockTickCount, intervalDurationInSeconds);
+    public WorkloadChangedEvent(Object source, WorkloadInfo workloadInfo, int clockTickCount, double intervalDurationInMilliSeconds) {
+        super(source, clockTickCount, intervalDurationInMilliSeconds);
         this.workloadInfo = workloadInfo;
     }
 
