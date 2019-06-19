@@ -44,7 +44,13 @@ public class VirtualMachine {
     public int getVmStartUpTime() {
         return vmStartUpTime;
     }
-    
-    
+
+    @Override
+    public String toString() {
+
+       return "Virtual Machine: \n id: " + id + "\n tasks per clock interval: " + tasksPerClockInterval
+                + "\n vm startup time: " + vmStartUpTime + "\n";
+
+           }
 
 }

@@ -3,7 +3,6 @@ package org.com.autoscaler.infrastructure;
 import java.util.List;
 
 import org.com.autoscaler.workloadhandler.WorkloadInfo;
-import org.springframework.util.Assert;
 
 /**
  * Class to bundle Infrastructure Information
@@ -118,9 +117,9 @@ public class InfrastructureState {
         return currentCapacityInTasksPerInterval;
     }
 
-    /*
-     * Recalculate the current capacity
-     */
+    /* 
+     * Recalculate the current capacity based on the available virtual machines
+     */ 
     private void calculateCurrentCapacity() {
         currentCapacityInTasksPerInterval = 0;
         currentCapacityInTasksPerSecond = 0;
@@ -131,6 +130,26 @@ public class InfrastructureState {
         
        currentCapacityInTasksPerSecond = Math.round((float)(currentCapacityInTasksPerInterval * MILLIS / intervallDurationInMilliSeconds));
       
+    }
+    
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+       sb.append("Current State of the Infrastructure: \n");
+       sb.append("minAmountVM: " + minAmountVM + "\n");
+       sb.append("maxAmountVM: " + maxAmountVM + "\n");
+       sb.append("intervallDurationInMilliSeconds: " + intervallDurationInMilliSeconds + "\n");
+       sb.append("virtualMachines: " + virtualMachines.toString() + "\n");
+       sb.append("currentArrivalRateInTasksPerIntervall: " + currentArrivalRateInTasksPerIntervall + "\n");
+       sb.append("currentArrivalRateInTasksPerSecond: " + currentArrivalRateInTasksPerSecond + "\n");
+       
+       
+
+        
+        
+        return sb.toString();
     }
 
 }

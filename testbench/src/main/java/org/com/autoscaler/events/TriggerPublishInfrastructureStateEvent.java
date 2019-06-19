@@ -1,5 +1,10 @@
 package org.com.autoscaler.events;
 
+/**
+ * Event to trigger infrastructure to publish current state
+ * @author Niko
+ *
+ */
 public class TriggerPublishInfrastructureStateEvent extends AbstractEvent {
 
     public TriggerPublishInfrastructureStateEvent(Object source, int clockTickCount,

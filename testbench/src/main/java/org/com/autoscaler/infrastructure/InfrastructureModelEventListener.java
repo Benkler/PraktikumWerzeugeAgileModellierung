@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Listens to any infratructure model based event
+ * @author Niko
+ *
+ */
 @Component
 public class InfrastructureModelEventListener implements IInfrastructureModelEventListener {
    
@@ -16,12 +21,18 @@ public class InfrastructureModelEventListener implements IInfrastructureModelEve
     @Autowired
     InfrastructureModel model;
     
+    /**
+     * Shortes time interval in system
+     */
     @Override
     public void handleClockEvent(ClockEvent clockEvent) {
         log.info("handle clock event with clock tick count: " + clockEvent.getClockTickCount());
         model.handleClockTick(clockEvent);
     }
-
+    
+    /**
+     * Adapt new workload 
+     */
     @Override
     public void handleWorkloadChangedEvent(WorkloadChangedEvent workloadChangedEvent) {
         log.info("handle workload change event with clock tick count: " + workloadChangedEvent.getClockTickCount());
@@ -29,6 +40,9 @@ public class InfrastructureModelEventListener implements IInfrastructureModelEve
         
     }
 
+    /**
+     * Process scaling decision
+     */
     @Override
     public void handleScalingEvent(ScalingEvent scalingEvent) {
         log.info("handle scaling event with clock tick count:  " + scalingEvent.getClockTickCount());

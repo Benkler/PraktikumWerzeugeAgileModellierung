@@ -3,7 +3,7 @@
 {
 	"monitoringDelay": 20,
 	"intervalDurationInMilliSeconds": 1,
-	"clockTicksTillScalingDecision": 2000,
+	"clockTicksTillScalingDecision": 5000,
 	"clockTicksTillWorkloadChange": 200,
-	"experimentDurationInMinutes": 60
+	"experimentDurationInMinutes": 1
 }

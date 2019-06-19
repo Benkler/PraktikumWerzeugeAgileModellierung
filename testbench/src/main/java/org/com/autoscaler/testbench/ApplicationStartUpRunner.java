@@ -7,7 +7,6 @@ import java.util.List;
 import org.com.autoscaler.clock.ClockInformation;
 import org.com.autoscaler.clock.IClock;
 import org.com.autoscaler.infrastructure.IInfrastructureModel;
-import org.com.autoscaler.infrastructure.InfrastructureModel;
 import org.com.autoscaler.infrastructure.InfrastructureState;
 import org.com.autoscaler.infrastructure.VirtualMachine;
 import org.com.autoscaler.parser.IJSONLoader;
@@ -19,13 +18,11 @@ import org.com.autoscaler.pojos.VirtualMachinePOJO;
 import org.com.autoscaler.pojos.WorkflowPOJO;
 import org.com.autoscaler.queue.IQueue;
 import org.com.autoscaler.scaler.IAutoScaler;
-import org.com.autoscaler.testbench.test.HelloService;
 import org.com.autoscaler.workloadhandler.IWorkloadHandler;
 import org.com.autoscaler.workloadhandler.WorkloadTransferObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -134,6 +131,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         autoScaler.initAutoScaler(autoscalerPOJO.getLowerThreshold(), autoscalerPOJO.getUpperThreshold(),
                 autoscalerPOJO.getVmTasksPerIntervall(), autoscalerPOJO.getVmMin(), autoscalerPOJO.getVmMax(),
                 autoscalerPOJO.getVmStartUpTime());
+       
     }
 
     private void initInfrastructure(String path) {
@@ -143,7 +141,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         for (VirtualMachinePOJO virtualMachine : infrastructurePOJO.getVirtualMachines()) {
             vms.add(new VirtualMachine(virtualMachine.getId(), virtualMachine.getTasksPerIntervall(),
                     virtualMachine.getVmStartUpTime()));
-        }
+        } 
 
         InfrastructureState state = new InfrastructureState(infrastructurePOJO.getVmMin(),
                 infrastructurePOJO.getVmMax(), vms, infrastructurePOJO.getIntervalDurationInMilliSeconds());

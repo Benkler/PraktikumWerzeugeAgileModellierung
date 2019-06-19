@@ -2,6 +2,11 @@ package org.com.autoscaler.queue;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Class that represents queue infrastructure.
+ * @author Niko
+ *
+ */
 @Component
 public class Queue implements IQueue {
 
@@ -38,6 +43,7 @@ public class Queue implements IQueue {
      */
     @Override
     public int enqueue(int jobs) {
+        //TODO  publish discard event!
         int enqueuedJobs = 0;
         if(currentLevelInTasks + jobs <= maxLength) {
             enqueuedJobs = jobs;

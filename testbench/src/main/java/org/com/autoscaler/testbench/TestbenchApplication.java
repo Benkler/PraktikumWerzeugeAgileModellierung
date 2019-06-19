@@ -1,13 +1,10 @@
 package org.com.autoscaler.testbench;
 
-import org.com.autoscaler.testbench.test.DefaultHelloService;
-import org.com.autoscaler.testbench.test.HelloService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 /**

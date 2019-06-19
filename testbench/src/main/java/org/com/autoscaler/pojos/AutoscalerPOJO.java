@@ -1,5 +1,10 @@
 package org.com.autoscaler.pojos;
 
+/**
+ * Represents AutoScaler info. For JSON deserialization. 
+ * @author Niko
+ *
+ */
 public class AutoscalerPOJO {
 
     private double lowerThreshold;
@@ -11,7 +16,7 @@ public class AutoscalerPOJO {
 
     public AutoscalerPOJO() {
         super();
-    }
+    } 
 
     @Override
     public String toString() {

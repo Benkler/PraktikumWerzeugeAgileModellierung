@@ -4,34 +4,33 @@ import java.util.List;
 
 /**
  * Class that represents the current state of the entire infrastructure,
- * including the queue state
+ * including the queue state. This class is used to bundle information, wrap it
+ * in infrastructure state event and publish so that any intereseted listeners
+ * are able to receive current state
  * 
  * @author Niko
  *
  */
 public class InfrastructureStateTransferObject {
 
-    private int currentArrivalRateInTasksPerIntervall;
-
     /*
-     * arrival rate and queue fill together!
+     * amount of tasks the all vms are able to process per interval
      */
     private int currentCapacityInTasksPerIntervall;
-    private int desiredCapacityInTasksPerIntervall;
-    
-    private int currentArrivalRateInTasksPerSecond;
 
     /*
-     * arrival rate and queue fill together!
+     * amount of tasks the all vms are able to process per second
      */
     private int currentCapacityInTasksPerSecond;
-    private int desiredCapacityInTasksPerSecond;
+
+    private int currentArrivalRateInTasksPerIntervall;
+
+    private int currentArrivalRateInTasksPerSecond;
 
     private int tasksInQueue;
     private double queueFillInPercent;
 
     private List<VirtualMachine> virtualMachines;
-   
 
     public List<VirtualMachine> getVirtualMachines() {
         return virtualMachines;
@@ -47,14 +46,6 @@ public class InfrastructureStateTransferObject {
 
     public void setCurrentCapacityInTasksPerIntervall(int currentCapacityInTasksPerIntervall) {
         this.currentCapacityInTasksPerIntervall = currentCapacityInTasksPerIntervall;
-    }
-
-    public int getDesiredCapacityInTasksPerIntervall() {
-        return desiredCapacityInTasksPerIntervall;
-    }
-
-    public void setDesiredCapacityInTasksPerIntervall(int desiredCapacityInTasksPerIntervall) {
-        this.desiredCapacityInTasksPerIntervall = desiredCapacityInTasksPerIntervall;
     }
 
     public double getQueueFillInPercent() {
@@ -97,5 +88,4 @@ public class InfrastructureStateTransferObject {
         this.currentCapacityInTasksPerSecond = currentCapacityInTasksPerSecond;
     }
 
-   
 }

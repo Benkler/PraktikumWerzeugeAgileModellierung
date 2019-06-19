@@ -1,14 +1,8 @@
 package org.com.autoscaler.clock;
 
-import javax.annotation.PostConstruct;
-
-import org.com.autoscaler.infrastructure.IInfrastructureModel;
-import org.com.autoscaler.queue.IQueue;
-import org.com.autoscaler.scaler.IAutoScaler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -65,7 +59,7 @@ public class Clock implements IClock {
     public void stopClock() {
         state = ClockState.STOPPED;
 
-    }
+    } 
 
     /**
      * Pause the clock to pause simulation
@@ -90,7 +84,7 @@ public class Clock implements IClock {
         this.clockTicksTillWorkloadChange = clockInfo.getClockTicksTillWorkloadChange();
         this.monitoringDelay = clockInfo.getMonitoringDelay();
 
-        /*
+        /* 
          * Calculate the clock ticks by duration in minutes and interval duration in
          * milli seconds
          */

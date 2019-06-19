@@ -1,7 +1,6 @@
 package org.com.autoscaler.workloadhandler;
 
 import org.com.autoscaler.events.TriggerWorkloadHandlerEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.EventListener;
 
 /**

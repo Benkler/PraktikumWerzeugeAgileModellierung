@@ -1,5 +1,10 @@
 package org.com.autoscaler.pojos;
 
+/**
+ * Represents queue info. For JSON deserialization. 
+ * @author Niko
+ *
+ */
 public class QueuePOJO {
 
     private int queueLengthMin;

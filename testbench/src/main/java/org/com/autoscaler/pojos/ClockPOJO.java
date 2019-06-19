@@ -1,5 +1,10 @@
 package org.com.autoscaler.pojos;
 
+/**
+ * Represents Clock info. For JSON deserialization. 
+ * @author Niko
+ *
+ */
 public class ClockPOJO {
 
     private double intervalDurationInMilliSeconds;

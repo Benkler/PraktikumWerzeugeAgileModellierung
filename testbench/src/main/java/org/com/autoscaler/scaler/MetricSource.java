@@ -28,12 +28,12 @@ public class MetricSource implements IMetricSource{
     @Override
     public double getValue() {
         
-       
+        
         
         InfrastructureStateTransferObject state = infrastructure.getInfrastructureState();
         
        
-        double capacityDiscrepancy =  state.getDesiredCapacityInTasksPerIntervall() / state.getCurrentCapacityInTasksPerIntervall();
+        double capacityDiscrepancy =  state.getCurrentArrivalRateInTasksPerIntervall() / state.getCurrentCapacityInTasksPerIntervall();
         
         return capacityDiscrepancy;
     }

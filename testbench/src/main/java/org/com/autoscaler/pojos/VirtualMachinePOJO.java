@@ -1,5 +1,10 @@
 package org.com.autoscaler.pojos;
 
+/**
+ * Represents virtual machine info. For JSON deserialization. 
+ * @author Niko
+ *
+ */
 public class VirtualMachinePOJO {
 
     private int id;

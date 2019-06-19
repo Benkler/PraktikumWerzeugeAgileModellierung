@@ -2,6 +2,11 @@ package org.com.autoscaler.pojos;
 
 import java.util.List;
 
+/**
+ * Represents infrastructure info. For JSON deserialization. 
+ * @author Niko
+ *
+ */
 public class InfrastructurePOJO {
 
     private List<VirtualMachinePOJO> virtualMachines;

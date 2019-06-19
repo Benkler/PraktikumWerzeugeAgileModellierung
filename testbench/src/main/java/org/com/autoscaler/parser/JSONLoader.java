@@ -1,7 +1,6 @@
 package org.com.autoscaler.parser;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import org.com.autoscaler.pojos.AutoscalerPOJO;
@@ -15,6 +14,12 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Utility class to load necessary information from json files
+ * 
+ * @author Niko
+ *
+ */
 @Service
 public class JSONLoader implements IJSONLoader {
 
@@ -25,7 +30,7 @@ public class JSONLoader implements IJSONLoader {
 
         InfrastructurePOJO infrastructure;
         File file = new File(path);
- 
+
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             infrastructure = objectMapper.readValue(file, InfrastructurePOJO.class);
@@ -36,7 +41,7 @@ public class JSONLoader implements IJSONLoader {
                     + e.getMessage());
             return null;
         }
- 
+
         return infrastructure;
     }
 
@@ -105,7 +110,7 @@ public class JSONLoader implements IJSONLoader {
 
     @Override
     public ClockPOJO loadClockInformation(String path) {
-       ClockPOJO clockInformation;
+        ClockPOJO clockInformation;
 
         File file = new File(path);
 

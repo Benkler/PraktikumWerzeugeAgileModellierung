@@ -34,7 +34,7 @@ public class AutoScaler implements IAutoScaler {
      */
     private int vmTasksPerIntervall; 
     private int vmStartUpTime;
-
+ 
     @Override
     public void initAutoScaler(double lowerThreshold, double upperThreshold, int vmTasksPerIntervall, int vmMin,
             int vmMax, int startUpTime) {
@@ -46,6 +46,8 @@ public class AutoScaler implements IAutoScaler {
             this.upperThreshold = upperThreshold;
             this.vmTasksPerIntervall = vmTasksPerIntervall;
             this.vmStartUpTime = startUpTime;
+            this.vmMax = vmMax;
+            this.vmMin = vmMin;
         }
 
     }
@@ -56,22 +58,27 @@ public class AutoScaler implements IAutoScaler {
     // this.metricSource = metricSource;
     // }
 
+    
+    //TODO do not scale under VM Min
     @Override
     public void update(TriggerAutoScalerEvent event) {
 
         double currentVal = metricSource.getValue();
         List<VirtualMachine> updatedInstances;
-
+        log.info("Autoscaler decision based on value: " + currentVal);
+        
         if (currentVal < lowerThreshold) {
-            updatedInstances = scaleUp();
-            log.info("Autoscaler decision: Scale up at clocktick " + event.getClockTickCount());
-            scalingController.setInstances(updatedInstances, event.getClockTickCount(),
-                    event.getIntervallDuratioInMilliSeconds(), ScalingMode.SCALE_UP);
-        } else if (currentVal > upperThreshold) {
             updatedInstances = scaleDown();
             log.info("Autoscaler decision: Scale down at clocktick: " + event.getClockTickCount());
             scalingController.setInstances(updatedInstances, event.getClockTickCount(),
                     event.getIntervallDuratioInMilliSeconds(), ScalingMode.SCALE_DOWN);
+        } else if (currentVal > upperThreshold) {
+            updatedInstances = scaleUp();
+            log.info("Autoscaler decision: Scale up at clocktick " + event.getClockTickCount());
+            scalingController.setInstances(updatedInstances, event.getClockTickCount(),
+                    event.getIntervallDuratioInMilliSeconds(), ScalingMode.SCALE_UP);
+            
+           
         } else {
             log.info("No Autoscaler decision neede: current capacity and desired capacity close enough together");
         }
@@ -91,8 +98,8 @@ public class AutoScaler implements IAutoScaler {
         int index = rand.nextInt(currentInstances.size());
 
         if (currentInstances.size() > vmMin) {
-            currentInstances.remove(index);
-            log.info("Successfully removed virtual machine");
+            VirtualMachine vm = currentInstances.remove(index);
+            log.info("Successfully removed virtual machine with id " + vm.getId());
         } else {
             log.info("Could not remove virtual machine. Minimal amount reached: " + vmMin);
         }
@@ -114,6 +121,9 @@ public class AutoScaler implements IAutoScaler {
 
             VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall,vmStartUpTime);
             currentInstances.add(tobeAdded);
+            log.info("Successfully added  virtual machine with id  " + tobeAdded.getId());
+        }else {
+            log.info("Could not add virtual machine. Maximal Amount reached: " + vmMax);
         }
 
         return currentInstances;

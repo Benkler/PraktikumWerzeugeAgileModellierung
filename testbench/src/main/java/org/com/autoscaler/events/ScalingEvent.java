@@ -2,11 +2,15 @@ package org.com.autoscaler.events;
 
 import java.util.List;
 
-
-
 import org.com.autoscaler.infrastructure.VirtualMachine;
 import org.com.autoscaler.util.ScalingMode;
 
+/**
+ * Event that encapsulates all necessary information of a scaling decision which are: <br>
+ *  - Scaling Mode and new set of virtual machines
+ * @author Niko
+ *
+ */
 public class ScalingEvent extends AbstractEvent{
     
     private List<VirtualMachine> virtualMachines;
