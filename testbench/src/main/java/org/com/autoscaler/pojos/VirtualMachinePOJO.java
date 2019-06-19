@@ -4,6 +4,7 @@ public class VirtualMachinePOJO {
 
     private int id;
     private int tasksPerIntervall;
+    private int vmStartUpTime;
 
     public int getId() {
         return id;
@@ -20,6 +21,17 @@ public class VirtualMachinePOJO {
     public void setTasksPerIntervall(int tasksPerIntervall) {
         this.tasksPerIntervall = tasksPerIntervall;
     }
+    
+   
+    public void setVmStartUpTime(int vmStartUpTime) {
+        this.vmStartUpTime = vmStartUpTime;
+    }
+    
+
+    public int getVmStartUpTime() {
+        return vmStartUpTime;
+    }
+
 
     public VirtualMachinePOJO() {
         super();
@@ -27,7 +39,7 @@ public class VirtualMachinePOJO {
 
     @Override
     public String toString() {
-        String output = " Id: " + id +"\n tasks per intervall: " + tasksPerIntervall +"\n";
+        String output = " Id: " + id +"\n tasks per intervall: " + tasksPerIntervall +"\n cm startuptime: " + vmStartUpTime;
         return output;
     }
 }

@@ -2,6 +2,7 @@ package org.com.autoscaler.infrastructure;
 
 import java.util.List;
 
+import org.com.autoscaler.workloadhandler.WorkloadInfo;
 import org.springframework.util.Assert;
 
 /**
@@ -19,34 +20,27 @@ public class InfrastructureState {
    
     private final double intervallDurationInMilliSeconds;
 
-    public double getIntervallDurationInMilliSeconds() {
-        return intervallDurationInMilliSeconds;
-    }
-
-    public void setVirtualMachines(List<VirtualMachine> virtualMachines) {
-        this.virtualMachines = virtualMachines;
-    }
-
     /*
      * Represents the amount of tasks ALL VMs are able to process during a clock
      * intervall
      */
     private  int currentCapacityInTasksPerInterval;
     
-    public int getCurrentArrivalRateInTasksPerIntervall() {
-        return currentArrivalRateInTasksPerIntervall;
-    }
-
     /*
      * Represents the amount of tasks ALL VMs are able to process per second
      */
-    private int currentCapacityInTasksPerSecond;
+    private int currentCapacityInTasksPerSecond; 
     
     /*
      * Represents the currentArrivalRate
      */
     private int currentArrivalRateInTasksPerIntervall;
     
+    
+    /*
+     * Represents the currentArrivalRate
+     */
+    private int currentArrivalRateInTasksPerSecond;
     /*
      * Holds currentInformation about virtual Machines
      */
@@ -67,8 +61,32 @@ public class InfrastructureState {
         this.intervallDurationInMilliSeconds = intervallDurationInMilliSeconds;
         this.virtualMachines = virtualMachines;
         this.currentArrivalRateInTasksPerIntervall = 0;
+        this.currentArrivalRateInTasksPerSecond = 0;
         calculateCurrentCapacity();
     }
+    
+   
+    public double getIntervallDurationInMilliSeconds() {
+        return intervallDurationInMilliSeconds;
+    }
+
+
+    public int getCurrentArrivalRateInTasksPerSecond() {
+        return currentArrivalRateInTasksPerSecond;
+    }
+
+
+    public int getCurrentArrivalRateInTasksPerIntervall() {
+        return currentArrivalRateInTasksPerIntervall;
+    }
+
+
+    public void setVirtualMachines(List<VirtualMachine> virtualMachines) {
+        this.virtualMachines = virtualMachines;
+        calculateCurrentCapacity();
+    }
+
+   
 
     public List<VirtualMachine> getVirtualMachines() {
         return virtualMachines;
@@ -89,7 +107,11 @@ public class InfrastructureState {
     }
 
  
-    
+    public void setWorkload(WorkloadInfo info) {
+        
+        currentArrivalRateInTasksPerIntervall = info.getArrivalRateInTasksPerIntervall();
+        currentArrivalRateInTasksPerSecond = info.getArrivalRateInTasksPerSecond();
+    }
 
    
     public int getCurrentCapacityInTasksPerInterval() {

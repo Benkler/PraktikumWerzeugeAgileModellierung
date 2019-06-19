@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AutoScalerEventListener implements IAutoScalerEventListener{
 
     @Autowired
-    AutoScaler autoScaler;
+    IAutoScaler autoScaler;
     
     @Override
     public void handleTriggerAutoScalerEvent(TriggerAutoScalerEvent event) {

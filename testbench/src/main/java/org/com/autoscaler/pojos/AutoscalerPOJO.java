@@ -7,8 +7,7 @@ public class AutoscalerPOJO {
     private int vmTasksPerIntervall;
     private int vmMax;
     private int vmMin;
-
-
+    private int vmStartUpTime;
 
     public AutoscalerPOJO() {
         super();
@@ -18,7 +17,8 @@ public class AutoscalerPOJO {
     public String toString() {
 
         String output = "Autoscaler Information: \n lower Threshold: " + lowerThreshold + "\n upper Treshhold: "
-                + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMax: " + vmMax + "\n vmMin: " + vmMin;
+                + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMax: " + vmMax
+                + "\n vmMin: " + vmMin + "\n cm Startuptime: " + vmStartUpTime;
         return output;
     }
 
@@ -45,7 +45,15 @@ public class AutoscalerPOJO {
     public void setUpperThreshold(double upperThreshold) {
         this.upperThreshold = upperThreshold;
     }
-    
+
+    public int getVmStartUpTime() {
+        return vmStartUpTime;
+    }
+
+    public void setVmStartUpTime(int vmStartUpTime) {
+        this.vmStartUpTime = vmStartUpTime;
+    }
+
     public int getVmMax() {
         return vmMax;
     }

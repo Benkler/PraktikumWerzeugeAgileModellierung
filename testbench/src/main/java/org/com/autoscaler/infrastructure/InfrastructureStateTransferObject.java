@@ -18,6 +18,14 @@ public class InfrastructureStateTransferObject {
      */
     private int currentCapacityInTasksPerIntervall;
     private int desiredCapacityInTasksPerIntervall;
+    
+    private int currentArrivalRateInTasksPerSecond;
+
+    /*
+     * arrival rate and queue fill together!
+     */
+    private int currentCapacityInTasksPerSecond;
+    private int desiredCapacityInTasksPerSecond;
 
     private int tasksInQueue;
     private double queueFillInPercent;
@@ -71,6 +79,22 @@ public class InfrastructureStateTransferObject {
 
     public void setTasksInQueue(int tasksInQueue) {
         this.tasksInQueue = tasksInQueue;
+    }
+
+    public int getCurrentArrivalRateInTasksPerSecond() {
+        return currentArrivalRateInTasksPerSecond;
+    }
+
+    public void setCurrentArrivalRateInTasksPerSecond(int currentArrivalRateInTasksPerSecond) {
+        this.currentArrivalRateInTasksPerSecond = currentArrivalRateInTasksPerSecond;
+    }
+
+    public int getCurrentCapacityInTasksPerSecond() {
+        return currentCapacityInTasksPerSecond;
+    }
+
+    public void setCurrentCapacityInTasksPerSecond(int currentCapacityInTasksPerSecond) {
+        this.currentCapacityInTasksPerSecond = currentCapacityInTasksPerSecond;
     }
 
    

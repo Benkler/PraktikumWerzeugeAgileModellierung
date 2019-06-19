@@ -27,6 +27,9 @@ public class MetricSource implements IMetricSource{
      */
     @Override
     public double getValue() {
+        
+       
+        
         InfrastructureStateTransferObject state = infrastructure.getInfrastructureState();
         
        

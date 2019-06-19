@@ -16,14 +16,17 @@ public class InfrastructureModelEventPublisher implements IInfrastructureModelEv
     @Autowired
     private ApplicationEventPublisher applEventPublisher;
 
+   
+
     @Override
-    public void fireInfrastructureStateEvent(InfrastructureStateTransferObject state, ClockEvent clockEvent) {
-        log.info("Fire infrastructure state event at clockTick: " + clockEvent.getClockTickCount());
-        InfrastructureStateEvent event = new InfrastructureStateEvent(this, clockEvent.getClockTickCount(),
-                clockEvent.getIntervallDuratioInMilliSeconds(), state);
+    public void fireInfrastructureStateEvent(InfrastructureStateTransferObject state, int clockTickCount,
+            double intervalDurationInSeconds) {
+        log.info("Fire infrastructure state event at clockTick: " + clockTickCount);
+        InfrastructureStateEvent event = new InfrastructureStateEvent(this, clockTickCount,
+                intervalDurationInSeconds, state);
         
         applEventPublisher.publishEvent(event);
-
-    }
+        
+    } 
 
 }

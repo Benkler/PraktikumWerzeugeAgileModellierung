@@ -5,23 +5,27 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.com.autoscaler.pojos.AutoscalerPOJO;
+import org.com.autoscaler.pojos.ClockPOJO;
 import org.com.autoscaler.pojos.InfrastructurePOJO;
 import org.com.autoscaler.pojos.QueuePOJO;
 import org.com.autoscaler.pojos.WorkflowPOJO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JSONLoader {
+@Service
+public class JSONLoader implements IJSONLoader {
 
     Logger log = LoggerFactory.getLogger(JSONLoader.class);
 
+    @Override
     public InfrastructurePOJO loadInfrastructureInformation(String path) {
 
         InfrastructurePOJO infrastructure;
         File file = new File(path);
-
+ 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             infrastructure = objectMapper.readValue(file, InfrastructurePOJO.class);
@@ -32,10 +36,11 @@ public class JSONLoader {
                     + e.getMessage());
             return null;
         }
-
+ 
         return infrastructure;
     }
 
+    @Override
     public QueuePOJO loadQueueInformation(String path) {
 
         QueuePOJO queue;
@@ -55,6 +60,7 @@ public class JSONLoader {
 
     }
 
+    @Override
     public WorkflowPOJO loadWorkflow(String path) {
 
         WorkflowPOJO workflow;
@@ -76,6 +82,7 @@ public class JSONLoader {
         return workflow;
     }
 
+    @Override
     public AutoscalerPOJO loadAutoScalerInformation(String path) {
         AutoscalerPOJO autoScaler;
 
@@ -94,6 +101,26 @@ public class JSONLoader {
 
         return autoScaler;
 
+    }
+
+    @Override
+    public ClockPOJO loadClockInformation(String path) {
+       ClockPOJO clockInformation;
+
+        File file = new File(path);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            clockInformation = mapper.readValue(file, ClockPOJO.class);
+            log.info("\n Successfully loaded clock information: \n " + clockInformation.toString());
+        } catch (IOException e) {
+            log.error("\n Could not deserialize Clock Information. Error message: " + e.getMessage());
+
+            return null;
+        }
+
+        return clockInformation;
     }
 
 }

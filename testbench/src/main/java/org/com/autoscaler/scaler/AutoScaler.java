@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AutoScaler {
+public class AutoScaler implements IAutoScaler {
 
     @Autowired
     private IScalingController scalingController;
@@ -32,10 +32,12 @@ public class AutoScaler {
     /*
      * Only temporary, Vm's can be different
      */
-    private int vmTasksPerIntervall;
+    private int vmTasksPerIntervall; 
+    private int vmStartUpTime;
 
+    @Override
     public void initAutoScaler(double lowerThreshold, double upperThreshold, int vmTasksPerIntervall, int vmMin,
-            int vmMax) {
+            int vmMax, int startUpTime) {
         if (!init) {
             log.info("Init Autoscaler with \n lowerThreshold: " + lowerThreshold + "\n upperThreshold: "
                     + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMin: " + vmMin
@@ -43,6 +45,7 @@ public class AutoScaler {
             this.lowerThreshold = lowerThreshold;
             this.upperThreshold = upperThreshold;
             this.vmTasksPerIntervall = vmTasksPerIntervall;
+            this.vmStartUpTime = startUpTime;
         }
 
     }
@@ -53,6 +56,7 @@ public class AutoScaler {
     // this.metricSource = metricSource;
     // }
 
+    @Override
     public void update(TriggerAutoScalerEvent event) {
 
         double currentVal = metricSource.getValue();
@@ -83,7 +87,7 @@ public class AutoScaler {
          * Generate Random id to remove
          * 
          */
-        Random rand = new Random();
+        Random rand = new Random(); 
         int index = rand.nextInt(currentInstances.size());
 
         if (currentInstances.size() > vmMin) {
@@ -108,7 +112,7 @@ public class AutoScaler {
 
         if (currentInstances.size() < vmMax) {
 
-            VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall);
+            VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall,vmStartUpTime);
             currentInstances.add(tobeAdded);
         }
 

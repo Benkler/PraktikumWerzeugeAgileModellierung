@@ -8,31 +8,32 @@ package org.com.autoscaler.clock;
 public class ClockInformation {
     
     // Clock Settings
-    private int clockTickCount;
-    private double intervalDurationInSeconds;
-    private int clockTicksTillWorkloadChange;
-    private int clockTicksTillScalingDecision;
+    private final double intervalDurationInMilliSeconds;
+    private final int clockTicksTillWorkloadChange;
+    private final int clockTicksTillScalingDecision;
+    private final int monitoringDelay;
+    private final int experimentDurationInMinutes;
     
-    public ClockInformation(int clockTickCount, double intervalDurationInSeconds, int clockTickTillWorkloadChange,
-            int clockTicksTillScalingDecision) {
-        
-        this.clockTickCount = clockTickCount;
-        this.intervalDurationInSeconds = intervalDurationInSeconds;
+    public ClockInformation(double intervalDurationInMilliSeconds, int clockTickTillWorkloadChange,
+            int clockTicksTillScalingDecision, int monitoringDelay, int experimentDurationInMinutes) {
+     
+        this.intervalDurationInMilliSeconds = intervalDurationInMilliSeconds;
         this.clockTicksTillWorkloadChange = clockTickTillWorkloadChange;
         this.clockTicksTillScalingDecision = clockTicksTillScalingDecision;
-        
+        this.monitoringDelay = monitoringDelay;
+        this.experimentDurationInMinutes = experimentDurationInMinutes;
     }
 
-    public int getClockTickCount() {
-        return clockTickCount;
+
+
+
+
+    public int getMonitoringDelay() {
+        return monitoringDelay;
     }
 
-    public void setClockTickCount(int clockTickCount) {
-        this.clockTickCount = clockTickCount;
-    }
-
-    public double getIntervalDurationInSeconds() {
-        return intervalDurationInSeconds;
+    public double getIntervalDurationInMilliSeconds() {
+        return intervalDurationInMilliSeconds;
     }
 
     public int getClockTicksTillWorkloadChange() {
@@ -41,6 +42,14 @@ public class ClockInformation {
 
     public int getClockTicksTillScalingDecision() {
         return clockTicksTillScalingDecision;
+    }
+
+
+
+
+
+    public int getExperimentDurationInMinutes() {
+        return experimentDurationInMinutes;
     }
     
     

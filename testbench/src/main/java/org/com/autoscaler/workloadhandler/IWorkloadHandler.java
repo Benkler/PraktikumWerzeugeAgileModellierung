@@ -6,6 +6,8 @@ public interface IWorkloadHandler{
     
     public void processNewWorkloadInfo(TriggerWorkloadHandlerEvent triggeEvent);
     
+    public void initWorkloadHandler(WorkloadTransferObject workFlow);
+    
     
 
 }

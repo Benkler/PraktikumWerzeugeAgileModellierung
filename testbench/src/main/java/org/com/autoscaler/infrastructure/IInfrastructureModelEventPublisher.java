@@ -5,6 +5,6 @@ import org.com.autoscaler.events.InfrastructureStateEvent;
 
 public interface IInfrastructureModelEventPublisher {
     
-    public void fireInfrastructureStateEvent(InfrastructureStateTransferObject state, ClockEvent clockEvent);
+    public void fireInfrastructureStateEvent(InfrastructureStateTransferObject state,int clockTickCount, double intervalDurationInSeconds);
 
 }

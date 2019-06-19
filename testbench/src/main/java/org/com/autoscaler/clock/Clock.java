@@ -2,6 +2,9 @@ package org.com.autoscaler.clock;
 
 import javax.annotation.PostConstruct;
 
+import org.com.autoscaler.infrastructure.IInfrastructureModel;
+import org.com.autoscaler.queue.IQueue;
+import org.com.autoscaler.scaler.IAutoScaler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +28,22 @@ public class Clock implements IClock {
     private double intervalDurationInMilliSeconds;
     private int clockTicksTillWorkloadChange;
     private int clockTicksTillScalingDecision;
-    
-    
-
+    private int monitoringDelay;
     private boolean initialized = false;
     private ClockState state;
+    private int experimentDurationInClockTicks;
+    private final int SECONDS = 60;
+    private final int MILLIS = 1000;
 
     // Autowired by Spring
     private IClockEventPublisher clockEventPublisher;
 
     @Autowired
-    public Clock(ClockEventPublisher clockEventPublisher) {
+    public Clock(IClockEventPublisher clockEventPublisher) {
         this.clockEventPublisher = clockEventPublisher;
+
     }
- 
+
     /**
      * Start the clock starts the discrete simulation
      */
@@ -46,16 +51,13 @@ public class Clock implements IClock {
     public void startClock() {
         state = ClockState.RUNNING;
 
-        for (int i = 0; i < 10; i++) {
+        while (clockTickCount <= experimentDurationInClockTicks) {
             fireEvents();
+            clockTickCount++;
         }
 
-        // while (state == ClockState.RUNNING) {
-        //
-        // }
-
     }
-    
+
     /**
      * Stop the clock ends the simulation
      */
@@ -64,7 +66,7 @@ public class Clock implements IClock {
         state = ClockState.STOPPED;
 
     }
-    
+
     /**
      * Pause the clock to pause simulation
      */
@@ -73,7 +75,7 @@ public class Clock implements IClock {
         // TODO Auto-generated method stub
 
     }
-    
+
     /**
      * Initialize all required clock fields
      */
@@ -82,17 +84,18 @@ public class Clock implements IClock {
         if (initialized)
             return; // only allow initClock once!
 
-        
-        
-        
-        this.intervalDurationInMilliSeconds = clockInfo.getIntervalDurationInSeconds();
+        this.intervalDurationInMilliSeconds = clockInfo.getIntervalDurationInMilliSeconds();
         this.clockTickCount = 0;
         this.clockTicksTillScalingDecision = clockInfo.getClockTicksTillScalingDecision();
         this.clockTicksTillWorkloadChange = clockInfo.getClockTicksTillWorkloadChange();
-        
-        assert(intervalDurationInMilliSeconds > 0);
-        assert(clockTicksTillScalingDecision > 0);
-        assert(clockTicksTillWorkloadChange > 0);
+        this.monitoringDelay = clockInfo.getMonitoringDelay();
+
+        /*
+         * Calculate the clock ticks by duration in minutes and interval duration in
+         * milli seconds
+         */
+        this.experimentDurationInClockTicks = Math.round((float) (clockInfo.getExperimentDurationInMinutes() * SECONDS
+                * MILLIS / intervalDurationInMilliSeconds));
 
         initialized = true;
         state = ClockState.INITIALIZED;
@@ -113,8 +116,10 @@ public class Clock implements IClock {
         if (clockTickCount % clockTicksTillScalingDecision == 0) {
             clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
-        
-        clockTickCount++;
+
+        if(clockTickCount % monitoringDelay == 0) {
+           // fire monitoring event
+        }
 
     }
 
