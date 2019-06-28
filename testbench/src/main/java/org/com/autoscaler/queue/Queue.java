@@ -1,5 +1,7 @@
 package org.com.autoscaler.queue;
 
+import org.com.autoscaler.events.ClockEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +20,9 @@ public class Queue implements IQueue {
     private int currentLevelInTasks;
     
     private boolean init = false;
+    
+    @Autowired
+    IQueueEventPublisher publisher;
 
     @Override
     public void initQueue(int minLength, int maxLength) {
@@ -42,16 +47,26 @@ public class Queue implements IQueue {
      * @return
      */
     @Override
-    public int enqueue(int jobs) {
-        //TODO  publish discard event!
+    public int enqueue(int jobs, ClockEvent clockEvent) {
+        
+        /*
+         * Jobs that will be enqueued
+         */
         int enqueuedJobs = 0;
+         
+        //Enough space in queue available
         if(currentLevelInTasks + jobs <= maxLength) {
             enqueuedJobs = jobs;
             currentLevelInTasks += jobs;
+            
+        //Need to discard Jobs    
         }else {
             
             enqueuedJobs = maxLength - currentLevelInTasks;
             currentLevelInTasks = maxLength;
+            
+            int discardedJobs = jobs-enqueuedJobs;
+            publisher.fireQueueDiscardJobsEvent(clockEvent, discardedJobs);
         }
         return enqueuedJobs;
     }

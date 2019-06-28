@@ -69,7 +69,7 @@ public class InfrastructureModel implements IInfrastructureModel {
             log.info("Process Jobs: Arrival Rate at " + currentArrivalRate
                     + " tasks per Intervall. Current capacity at " + currentCapacity
                     + " tasks per Intervall. --> Enqueue " + Math.abs(discrepancy) + " elements");
-            queue.enqueue(Math.abs(discrepancy));
+            queue.enqueue(Math.abs(discrepancy), clockEvent);
         } else { // arrival rate lower than capacity --> Dequeue
             log.info(
                     "Process Jobs: Arrival Rate at " + currentArrivalRate + " tasks per Intervall. Current capacity at "

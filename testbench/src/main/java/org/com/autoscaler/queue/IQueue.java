@@ -1,5 +1,7 @@
 package org.com.autoscaler.queue;
 
+import org.com.autoscaler.events.ClockEvent;
+
 public interface IQueue {
 
     void initQueue(int minLength, int maxLength);
@@ -13,7 +15,7 @@ public interface IQueue {
      * @param jobs
      * @return
      */
-    int enqueue(int jobs);
+    int enqueue(int jobs, ClockEvent event);
 
     /**
      * Return the amount of jobs that were dequeued. <br>
