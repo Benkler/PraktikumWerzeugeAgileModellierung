@@ -1,5 +1,6 @@
 package org.com.autoscaler.scaler;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -32,9 +33,9 @@ public class AutoScaler implements IAutoScaler {
     /*
      * Only temporary, Vm's can be different
      */
-    private int vmTasksPerIntervall; 
+    private int vmTasksPerIntervall;
     private int vmStartUpTime;
- 
+
     @Override
     public void initAutoScaler(double lowerThreshold, double upperThreshold, int vmTasksPerIntervall, int vmMin,
             int vmMax, int startUpTime) {
@@ -58,75 +59,104 @@ public class AutoScaler implements IAutoScaler {
     // this.metricSource = metricSource;
     // }
 
-    
-    //TODO do not scale under VM Min
+    // TODO do not scale under VM Min
     @Override
     public void update(TriggerAutoScalerEvent event) {
 
         double currentVal = metricSource.getValue();
         List<VirtualMachine> updatedInstances;
         log.info("Autoscaler decision based on value: " + currentVal);
-        
+
+        // Scale Down
         if (currentVal < lowerThreshold) {
             updatedInstances = scaleDown();
-            log.info("Autoscaler decision: Scale down at clocktick: " + event.getClockTickCount());
+
+            if (updatedInstances.size() == 0) {
+                log.info("Autoscaler decision: Scale down at clocktick: " + event.getClockTickCount()
+                        + " not possible. Minimum Amount of Virtual Machines reached ");
+                return;
+            }
+
+            log.info("Autoscaler decision: Scale down at clocktick: " + event.getClockTickCount() + ".  "
+                    + updatedInstances.size() + " virtual machines added");
             scalingController.setInstances(updatedInstances, event.getClockTickCount(),
                     event.getIntervallDuratioInMilliSeconds(), ScalingMode.SCALE_DOWN);
+
+            // Scale Up
         } else if (currentVal > upperThreshold) {
             updatedInstances = scaleUp();
+            
+            if (updatedInstances.size() == 0) {
+                log.info("Autoscaler decision: Scale up at clocktick: " + event.getClockTickCount()
+                        + " not possible. Maximum Amount of Virtual Machines reached ");
+                return;
+            }
+
             log.info("Autoscaler decision: Scale up at clocktick " + event.getClockTickCount());
             scalingController.setInstances(updatedInstances, event.getClockTickCount(),
                     event.getIntervallDuratioInMilliSeconds(), ScalingMode.SCALE_UP);
-            
-           
+
         } else {
             log.info("No Autoscaler decision neede: current capacity and desired capacity close enough together");
         }
 
-        // scalingController.setInstances(currentInstances);
+        
     }
 
+    /*
+     * Scale Down Operation --> This Autoscaler only selects one VM to shut down but
+     * it is possible to shut down more than one
+     */
     private List<VirtualMachine> scaleDown() {
 
         List<VirtualMachine> currentInstances = metricSource.getServiceInstances();
+        List<VirtualMachine> vmsToShutDown = new LinkedList<VirtualMachine>();
 
         /*
          * Generate Random id to remove
          * 
          */
-        Random rand = new Random(); 
+        Random rand = new Random();
         int index = rand.nextInt(currentInstances.size());
 
         if (currentInstances.size() > vmMin) {
             VirtualMachine vm = currentInstances.remove(index);
+            vmsToShutDown.add(vm);
             log.info("Successfully removed virtual machine with id " + vm.getId());
         } else {
             log.info("Could not remove virtual machine. Minimal amount reached: " + vmMin);
         }
 
-        return currentInstances;
+        return vmsToShutDown;
 
     }
 
+    /*
+     * This auto scaler currently selects one vm to boot up but in general more than
+     * one is possible
+     */
     private List<VirtualMachine> scaleUp() {
         List<VirtualMachine> currentInstances = metricSource.getServiceInstances();
+        List<VirtualMachine> vmsToBoot = new LinkedList<VirtualMachine>();
 
         /*
-         * Generate random id
+         * Generate random id 
          */
         Random rand = new Random();
-        int id = rand.nextInt();
+        //zero out the sign bits
+        int id = rand.nextInt() & Integer.MAX_VALUE;
 
         if (currentInstances.size() < vmMax) {
 
-            VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall,vmStartUpTime);
-            currentInstances.add(tobeAdded);
+            //VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall, vmStartUpTime);
+            VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall, 2);
+            vmsToBoot.add(tobeAdded);
             log.info("Successfully added  virtual machine with id  " + tobeAdded.getId());
-        }else {
+        } else {
             log.info("Could not add virtual machine. Maximal Amount reached: " + vmMax);
         }
 
-        return currentInstances;
+        return vmsToBoot;
     }
 
 }

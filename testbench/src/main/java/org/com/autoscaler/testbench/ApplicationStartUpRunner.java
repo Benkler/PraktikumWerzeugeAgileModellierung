@@ -1,6 +1,7 @@
 package org.com.autoscaler.testbench;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -137,9 +138,9 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
     private void initInfrastructure(String path) {
         InfrastructurePOJO infrastructurePOJO = jsonLoader.loadInfrastructureInformation(path);
 
-        List<VirtualMachine> vms = new LinkedList<VirtualMachine>();
+        HashMap<Integer,VirtualMachine> vms = new HashMap<Integer, VirtualMachine>();
         for (VirtualMachinePOJO virtualMachine : infrastructurePOJO.getVirtualMachines()) {
-            vms.add(new VirtualMachine(virtualMachine.getId(), virtualMachine.getTasksPerIntervall(),
+            vms.put(virtualMachine.getId(), new VirtualMachine(virtualMachine.getId(), virtualMachine.getTasksPerIntervall(),
                     virtualMachine.getVmStartUpTime()));
         } 
 

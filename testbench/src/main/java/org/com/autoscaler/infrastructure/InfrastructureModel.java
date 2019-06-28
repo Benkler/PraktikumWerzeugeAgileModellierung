@@ -1,5 +1,8 @@
 package org.com.autoscaler.infrastructure;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.ScalingEvent;
 import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
@@ -25,6 +28,8 @@ public class InfrastructureModel implements IInfrastructureModel {
     private final Logger log = LoggerFactory.getLogger(InfrastructureModel.class);
     private boolean initialized = false;
 
+    private VmBootingQueue vmBootingQueue;
+
     /*
      * Holds Information about current Infrastructure without queue
      */
@@ -49,6 +54,7 @@ public class InfrastructureModel implements IInfrastructureModel {
 
         this.infrastructureState = infrastructure;
         initialized = true;
+        vmBootingQueue = new VmBootingQueue();
         log.info("Infrastructure initialized: \n" + infrastructure.toString());
 
     }
@@ -60,11 +66,16 @@ public class InfrastructureModel implements IInfrastructureModel {
      */
     @Override
     public void handleClockTick(ClockEvent clockEvent) {
+        
+        //Check if new vms are ready
+        checkForBootedVirtualMachines();
+        
+        //Calculate Capacity
         int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
         int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
-
         int discrepancy = currentCapacity - currentArrivalRate;
 
+        //Execute (de-)queueing
         if (discrepancy <= 0) { // arrival rate higher than capacity --> Enqueue
             log.info("Process Jobs: Arrival Rate at " + currentArrivalRate
                     + " tasks per Intervall. Current capacity at " + currentCapacity
@@ -76,6 +87,9 @@ public class InfrastructureModel implements IInfrastructureModel {
                             + currentCapacity + " tasks per Intervall. --> Dequeue " + discrepancy + " elements");
             queue.dequeue(discrepancy);
         }
+        
+        //Reduce boot time
+        vmBootingQueue.reduceWaitingAmount();
 
     }
 
@@ -109,7 +123,7 @@ public class InfrastructureModel implements IInfrastructureModel {
         state.setCurrentCapacityInTasksPerIntervall(infrastructureState.getCurrentCapacityInTasksPerInterval());
         state.setCurrentCapacityInTasksPerSecond(infrastructureState.getCurrentCapacityInTasksPerSecond());
         state.setQueueFillInPercent(queue.currentLevelInPercent());
-        state.setVirtualMachines(infrastructureState.getVirtualMachines());
+        state.setVirtualMachines(new LinkedList<VirtualMachine>(infrastructureState.getVirtualMachines().values()));
 
         return state;
     }
@@ -133,25 +147,59 @@ public class InfrastructureModel implements IInfrastructureModel {
      */
     @Override
     public void scaleVirtualMachines(ScalingEvent event) {
-        log.info("SAcaling Decision with new amount of virtual machines: " + event.getVirtualMachines().size());
+        log.info("Sacaling Decision with new amount of virtual machines: " + event.getVirtualMachines().size());
 
         // Scale Down Immediately
         if (event.getMode() == ScalingMode.SCALE_DOWN) {
-            infrastructureState.setVirtualMachines(event.getVirtualMachines());
+            infrastructureState.scaleDownVirtualMachines(event.getVirtualMachines());
 
+            
+        //scale up by enqueueing in booting queue    
         } else if (event.getMode() == ScalingMode.SCALE_UP) {
             log.info("Execute scaling UP decision. Previous amount of virtual machines: "
                     + infrastructureState.getVirtualMachines().size() + "  ");
-            // event.getVirtualMachines().get(0).
-            infrastructureState.setVirtualMachines(event.getVirtualMachines());
 
-            log.info("New amount of virtual machines: " + infrastructureState.getVirtualMachines().size() + "  ");
+           
+            enqueueVirtualMachinesInBootingQueue(event.getVirtualMachines());
+
+            
 
         } else {
             throw new IllegalArgumentException(
                     "Scale Mode not supported. Expected either Scale_down or Sclae_up  but given " + event.getMode());
         }
 
+    }
+
+    /*
+     * Enqueue the set of virtual machines that where selected during the current
+     * scale up decision. They will be dequeued and added to the infrastructure as
+     * soon as there are completely up and running which is after a certain time of
+     * clock ticks
+     */
+    private void enqueueVirtualMachinesInBootingQueue(List<VirtualMachine> vms) {
+        log.info("Enqueue " + vms.size() + " virtual machines into booting queue");
+        vmBootingQueue.addVirtualMachinesToQueue(vms);
+    }
+   
+    /*
+     * Check if vms are booted
+     */
+    private void checkForBootedVirtualMachines() {
+     List<VirtualMachine> booted = vmBootingQueue.selectAndRemoveBootedVmsFromQueue();
+     if(booted.size() > 0) {
+         addVmsToInfrastructure(booted); 
+     }
+    }
+    
+    /*
+     * Add booted vms to infrastructure
+     */
+    private void addVmsToInfrastructure(List<VirtualMachine> vms) {
+        infrastructureState.scaleUpVirtualMachines(vms);
+        
+        log.info("Vms successfully booted: New amount of virtual machines: " + infrastructureState.getVirtualMachines().size() + "  ");
+        
     }
 
 }
