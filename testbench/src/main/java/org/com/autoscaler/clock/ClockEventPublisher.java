@@ -2,6 +2,7 @@ package org.com.autoscaler.clock;
 
 import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.TriggerAutoScalerEvent;
+import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
 import org.com.autoscaler.events.TriggerWorkloadHandlerEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ public class ClockEventPublisher implements IClockEventPublisher {
      * Fire clock event represents the smallest unit in the discrete time
      * simulation.
      */
+    @Override
     public void fireClockEvent(int clockTickCount, double intervalDurationInSeconds) {
         log.info("Normal clock event fired. Clock Tick Count: " + clockTickCount);
         ClockEvent clockEvent = new ClockEvent(this, clockTickCount, intervalDurationInSeconds);
@@ -40,6 +42,7 @@ public class ClockEventPublisher implements IClockEventPublisher {
      * that the workload usually does not change at every clock interval but rather
      * stays constant for a given amount of clock ticks
      */
+    @Override
     public void fireTriggerWorkloadHandlerEvent(int clockTickCount, double intervalDurationInSeconds) {
         log.info("Trigger workload handler event fired. Clock Tick Count: " + clockTickCount);
         TriggerWorkloadHandlerEvent wlHandlerEvent = new TriggerWorkloadHandlerEvent(this, clockTickCount,
@@ -54,12 +57,22 @@ public class ClockEventPublisher implements IClockEventPublisher {
      * amount of resources. This is due to the fact, that an auto scaling decision
      * should not happen on every clock tick or even on every worklaod change
      */
-    //TODO is das wirklich so, dass die Clock den scaler triggern soll?
+    // TODO is das wirklich so, dass die Clock den scaler triggern soll?
+    @Override
     public void fireTriggerAutoScalerEvent(int clockTickCount, double intervalDurationInSeconds) {
         log.info("Trigger auto scaler event fired. Clock Tick Count: " + clockTickCount);
         TriggerAutoScalerEvent scalerEvent = new TriggerAutoScalerEvent(this, clockTickCount,
                 intervalDurationInSeconds);
         applEventPublisher.publishEvent(scalerEvent);
+    }
+
+    @Override
+    public void fireTriggerPublishInfrastructureStateEvent(int clockTickCount, double intervallDurationInMilliSeconds) {
+        log.info("Trigger publish infrastructure event fired at clock tick count: " + clockTickCount);
+        TriggerPublishInfrastructureStateEvent event = new TriggerPublishInfrastructureStateEvent(this, clockTickCount,
+                intervallDurationInMilliSeconds);
+        applEventPublisher.publishEvent(event);
+
     }
 
 }

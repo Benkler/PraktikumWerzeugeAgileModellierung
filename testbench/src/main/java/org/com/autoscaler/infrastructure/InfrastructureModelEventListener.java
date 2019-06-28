@@ -2,6 +2,7 @@ package org.com.autoscaler.infrastructure;
 
 import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.ScalingEvent;
+import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
 import org.com.autoscaler.events.WorkloadChangedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,13 @@ public class InfrastructureModelEventListener implements IInfrastructureModelEve
     public void handleScalingEvent(ScalingEvent scalingEvent) {
         log.info("handle scaling event with clock tick count:  " + scalingEvent.getClockTickCount());
         model.scaleVirtualMachines(scalingEvent);
+        
+    }
+
+    @Override
+    public void handleTriggerPublishInfraStructureEvent(TriggerPublishInfrastructureStateEvent event) {
+        log.info("handle trigger publish infrastructure event at tick count: " + event.getClockTickCount());
+        model.publishInfrastructureState(event);
         
     }
 

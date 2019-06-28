@@ -88,7 +88,7 @@ public class JSONLoader implements IJSONLoader {
     }
 
     @Override
-    public AutoscalerPOJO loadAutoScalerInformation(String path) {
+    public AutoscalerPOJO loadAutoScalerInformation(String path) { 
         AutoscalerPOJO autoScaler;
 
         File file = new File(path);

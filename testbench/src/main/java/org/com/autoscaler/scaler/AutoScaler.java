@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.com.autoscaler.events.TriggerAutoScalerEvent;
 import org.com.autoscaler.infrastructure.VirtualMachine;
+import org.com.autoscaler.metricsource.IMetricSource;
 import org.com.autoscaler.util.ScalingMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class AutoScaler implements IAutoScaler {
     /*
      * Only temporary, Vm's can be different
      */
-    private int vmTasksPerIntervall;
+    private int vmTasksPerIntervall; 
     private int vmStartUpTime;
 
     @Override
@@ -63,7 +64,7 @@ public class AutoScaler implements IAutoScaler {
     @Override
     public void update(TriggerAutoScalerEvent event) {
 
-        double currentVal = metricSource.getValue();
+        double currentVal = metricSource.getCPUUtilization();
         List<VirtualMachine> updatedInstances;
         log.info("Autoscaler decision based on value: " + currentVal);
 
@@ -149,7 +150,7 @@ public class AutoScaler implements IAutoScaler {
         if (currentInstances.size() < vmMax) {
 
             //VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall, vmStartUpTime);
-            VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall, 2);
+            VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall, vmStartUpTime);
             vmsToBoot.add(tobeAdded);
             log.info("Successfully added  virtual machine with id  " + tobeAdded.getId());
         } else {

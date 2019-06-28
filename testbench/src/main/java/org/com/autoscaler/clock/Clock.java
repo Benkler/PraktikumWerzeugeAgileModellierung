@@ -102,7 +102,7 @@ public class Clock implements IClock {
      */
     private void fireEvents() {
         clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInMilliSeconds);
-
+ 
         if (clockTickCount % clockTicksTillWorkloadChange == 0) {
             clockEventPublisher.fireTriggerWorkloadHandlerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
@@ -112,7 +112,7 @@ public class Clock implements IClock {
         }
 
         if(clockTickCount % monitoringDelay == 0) {
-           // fire monitoring event
+           clockEventPublisher.fireTriggerPublishInfrastructureStateEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
 
     }

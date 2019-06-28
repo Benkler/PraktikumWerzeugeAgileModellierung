@@ -10,6 +10,7 @@ import org.com.autoscaler.clock.IClock;
 import org.com.autoscaler.infrastructure.IInfrastructureModel;
 import org.com.autoscaler.infrastructure.InfrastructureState;
 import org.com.autoscaler.infrastructure.VirtualMachine;
+import org.com.autoscaler.metricsource.IMetricSource;
 import org.com.autoscaler.parser.IJSONLoader;
 import org.com.autoscaler.pojos.AutoscalerPOJO;
 import org.com.autoscaler.pojos.ClockPOJO;
@@ -47,21 +48,23 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
     private final IAutoScaler autoScaler;
     private final IWorkloadHandler workloadHandler;
     private final IJSONLoader jsonLoader;
+    private final IMetricSource metricSource;
     private final int AUTOSCALERINDEX = 0;
     private final int INFRASTRUCTUREINDEX = 1;
     private final int QUEUEINDEX = 2;
     private final int WORKFLOWINDEX = 3;
-    private final int CLOCKINDEX = 4;
+    private final int CLOCKINDEX = 4; 
 
     @Autowired
     public ApplicationStartUpRunner(IClock clock, IQueue queue, IInfrastructureModel infrastructureModel,
-            IAutoScaler autoscaler, IWorkloadHandler workloadHandler, IJSONLoader jsonLoader) {
+            IAutoScaler autoscaler, IWorkloadHandler workloadHandler, IJSONLoader jsonLoader, IMetricSource metricSOurce) {
         this.clock = clock;
         this.queue = queue;
         this.infrastructure = infrastructureModel;
         this.autoScaler = autoscaler;
         this.workloadHandler = workloadHandler;
         this.jsonLoader = jsonLoader;
+        this.metricSource = metricSOurce;
     }
 
     @Override
@@ -78,7 +81,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         initQueue(queuePath);
 
         String autoScalerPath = "src/test/data/autoscalerTest.json";
-        initAutoScaler(autoScalerPath);
+        initAutoScalerAndMetricSource(autoScalerPath);
 
         String infrastructurePath = "src/test/data/infrastructureTest.json";
         initInfrastructure(infrastructurePath);
@@ -127,11 +130,12 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         queue.initQueue(queuePOJO.getQueueLengthMin(), queuePOJO.getQueueLengthMax());
     }
 
-    private void initAutoScaler(String path) {
+    private void initAutoScalerAndMetricSource(String path) {
         AutoscalerPOJO autoscalerPOJO = jsonLoader.loadAutoScalerInformation(path);
         autoScaler.initAutoScaler(autoscalerPOJO.getLowerThreshold(), autoscalerPOJO.getUpperThreshold(),
                 autoscalerPOJO.getVmTasksPerIntervall(), autoscalerPOJO.getVmMin(), autoscalerPOJO.getVmMax(),
                 autoscalerPOJO.getVmStartUpTime());
+        metricSource.initMetricSource(autoscalerPOJO.getCpuUtilWindow(), autoscalerPOJO.getQueueLengthWindow());
        
     }
 

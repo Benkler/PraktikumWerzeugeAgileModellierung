@@ -6,5 +6,7 @@
 	"vmTasksPerIntervall": 200, 
 	"vmStartUpTime": 100,
 	"vmMax": 20,
-	"vmMin": 2
+	"vmMin": 2,
+	"cpuUtilWindow" : 8,
+	"queueLengthWindow": 10
 }

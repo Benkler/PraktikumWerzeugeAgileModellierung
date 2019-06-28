@@ -32,7 +32,7 @@ public class InfrastructureModelEventPublisher implements IInfrastructureModelEv
         InfrastructureStateEvent event = new InfrastructureStateEvent(this, clockTickCount, intervalDurationInMilliSeconds,
                 state);
 
-        applEventPublisher.publishEvent(event);
+        applEventPublisher.publishEvent(event); 
 
     }
 

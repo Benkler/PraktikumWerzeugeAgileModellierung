@@ -22,8 +22,8 @@ public class JSONLoaderTest {
         IJSONLoader loader = new JSONLoader();
 
         QueuePOJO queue = loader.loadQueueInformation("src/test/data/queueTest.json");
-        assertEquals(queue.getQueueLengthMax(), 20);
-        assertEquals(queue.getQueueLengthMin(), 5);
+        assertEquals(queue.getQueueLengthMax(), 99999999);
+        assertEquals(queue.getQueueLengthMin(), 0);
 
     }
 
@@ -33,13 +33,15 @@ public class JSONLoaderTest {
 
         AutoscalerPOJO autoscaler = loader.loadAutoScalerInformation("src/test/data/autoscalerTest.json");
         assertEquals(autoscaler.getVmStartUpTime(), 100);
-        assertEquals(autoscaler.getLowerThreshold(), 0.96, 0.001);
-        assertEquals(autoscaler.getUpperThreshold(), 1.06, 0.001);
+        assertEquals(autoscaler.getLowerThreshold(), 0.97, 0.001);
+        assertEquals(autoscaler.getUpperThreshold(), 1.02, 0.001);
+        assertEquals(autoscaler.getCpuUtilWindow(), 10);
+        assertEquals(autoscaler.getQueueLengthWindow(), 10);
  
 
     }
     
-    @Test
+    @Test 
     public void loadInfrastructureTest() {
         IJSONLoader loader= new JSONLoader();
         

@@ -1,7 +1,8 @@
 package org.com.autoscaler.pojos;
 
 /**
- * Represents AutoScaler info. For JSON deserialization. 
+ * Represents AutoScaler info. For JSON deserialization.
+ * 
  * @author Niko
  *
  */
@@ -13,17 +14,20 @@ public class AutoscalerPOJO {
     private int vmMax;
     private int vmMin;
     private int vmStartUpTime;
+    private int cpuUtilWindow;
+    private int queueLengthWindow;
 
     public AutoscalerPOJO() {
         super();
-    } 
+    }
 
     @Override
     public String toString() {
 
         String output = "Autoscaler Information: \n lower Threshold: " + lowerThreshold + "\n upper Treshhold: "
                 + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMax: " + vmMax
-                + "\n vmMin: " + vmMin + "\n cm Startuptime: " + vmStartUpTime;
+                + "\n vmMin: " + vmMin + "\n vm Startuptime: " + vmStartUpTime + "\n cpuUtilWindow: " + cpuUtilWindow
+                + "\n queueLengthWindow: " + queueLengthWindow;
         return output;
     }
 
@@ -74,5 +78,23 @@ public class AutoscalerPOJO {
     public void setVmMin(int vmMin) {
         this.vmMin = vmMin;
     }
+
+    public int getCpuUtilWindow() {
+        return cpuUtilWindow;
+    }
+
+    public void setCpuUtilWindow(int cpuUtilWindow) {
+        this.cpuUtilWindow = cpuUtilWindow;
+    }
+
+    public int getQueueLengthWindow() {
+        return queueLengthWindow;
+    }
+
+    public void setQueueLengthWindow(int queueLengthWindow) {
+        this.queueLengthWindow = queueLengthWindow;
+    }
+    
+    
 
 }
