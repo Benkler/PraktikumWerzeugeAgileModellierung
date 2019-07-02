@@ -58,6 +58,7 @@ public class Clock implements IClock {
     @Override
     public void stopClock() {
         state = ClockState.STOPPED;
+        //TODO 
 
     } 
 
@@ -66,6 +67,7 @@ public class Clock implements IClock {
      */
     @Override
     public void pauseClock() {
+        state = ClockState.PAUSED;
         // TODO Auto-generated method stub
 
     }

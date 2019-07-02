@@ -1,4 +1,4 @@
-package org.com.autoscaler.util;
+package org.com.autoscaler.scaler;
 
 public enum ScalingMode {
 

@@ -8,7 +8,7 @@ import org.com.autoscaler.events.ScalingEvent;
 import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
 import org.com.autoscaler.events.WorkloadChangedEvent;
 import org.com.autoscaler.queue.IQueue;
-import org.com.autoscaler.util.ScalingMode;
+import org.com.autoscaler.scaler.ScalingMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +123,7 @@ public class InfrastructureModel implements IInfrastructureModel {
         state.setCurrentCapacityInTasksPerIntervall(infrastructureState.getCurrentCapacityInTasksPerInterval());
         state.setCurrentCapacityInTasksPerSecond(infrastructureState.getCurrentCapacityInTasksPerSecond());
         state.setQueueFillInPercent(queue.currentLevelInPercent());
+        state.setTasksInQueue(queue.currentLevelInTasks());
         state.setVirtualMachines(new LinkedList<VirtualMachine>(infrastructureState.getVirtualMachines().values()));
 
         return state;

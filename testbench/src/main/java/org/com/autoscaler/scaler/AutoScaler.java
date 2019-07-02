@@ -7,7 +7,6 @@ import java.util.Random;
 import org.com.autoscaler.events.TriggerAutoScalerEvent;
 import org.com.autoscaler.infrastructure.VirtualMachine;
 import org.com.autoscaler.metricsource.IMetricSource;
-import org.com.autoscaler.util.ScalingMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

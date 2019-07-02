@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class to bundle Infrastructure Information
+ * Class to bundle Infrastructure Information. Not used for publishing state. 
  * 
  * @author Niko
  *

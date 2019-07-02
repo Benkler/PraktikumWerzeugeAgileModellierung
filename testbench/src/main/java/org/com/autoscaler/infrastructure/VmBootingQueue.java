@@ -7,8 +7,19 @@ import java.util.stream.Collectors;
 
 import org.com.autoscaler.util.Pair;
 
+/**
+ * Represents the Virtual Machines that were selected by the autoscaler to start
+ * but are still booting.
+ * 
+ * @author Niko
+ *
+ */
 public class VmBootingQueue {
 
+    /*
+     * The Integer value represents the amount of clock ticks the virtual machine
+     * needs for booting
+     */
     private List<Pair<Integer, VirtualMachine>> bootingQueue;
 
     public VmBootingQueue() {
@@ -49,6 +60,10 @@ public class VmBootingQueue {
         return bootedVms;
     }
 
+    /**
+     * Each clock tick, this method gets triggered so that the amount of clock ticks
+     * until startup is reduced by 1
+     */
     public void reduceWaitingAmount() {
         List<Pair<Integer, VirtualMachine>> updatedQueue = new LinkedList<Pair<Integer, VirtualMachine>>();
 

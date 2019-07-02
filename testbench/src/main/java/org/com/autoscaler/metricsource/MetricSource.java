@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Proactive metric controller
+ * Reactive metric source provider that listens to Infrastructure Events and
+ * generates moving average. Autoscaler or any other interested component can
+ * request cpu utilization or queue length (both as moving average)
  * 
  * @author Niko
  *
@@ -26,17 +28,17 @@ public class MetricSource implements IMetricSource {
 
     private MovingAverage<Double> cpuUtilizationAverage;
     private MovingAverage<Integer> queueLengthAverage;
-    
+
     private boolean init = false;
-    
+
     @Override
     public void initMetricSource(int cpuUtilWindow, int queueLengthWindow) {
-        if(!init) {
+        if (!init) {
             init = true;
             cpuUtilizationAverage = new MovingAverage<Double>(cpuUtilWindow);
             queueLengthAverage = new MovingAverage<Integer>(queueLengthWindow);
         }
-        
+
     }
 
     @Autowired
@@ -50,7 +52,7 @@ public class MetricSource implements IMetricSource {
     @Override
     public double getCPUUtilization() {
 
-       return cpuUtilizationAverage.average();
+        return cpuUtilizationAverage.average();
     }
 
     @Override
@@ -69,21 +71,22 @@ public class MetricSource implements IMetricSource {
      */
     @Override
     public int getQueueLength() {
-        return  (int) Math.floor(queueLengthAverage.average());
+        return (int) Math.floor(queueLengthAverage.average());
 
     }
 
     @Override
     public void handleInfrastructureStateEvent(InfrastructureStateEvent event) {
-        
-        //Update CPU utilization
+
+        // Update CPU utilization
         double capacityDiscrepancy = (double) event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall()
                 / event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall();
         cpuUtilizationAverage.add(capacityDiscrepancy);
-        log.info("CurrentArrivalRate: " + event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall() + " currentCapacity: "
-                + event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall() + "  moving average discrepancy : " + cpuUtilizationAverage.average());
-        
-        //Update queue Length
+        log.info("CurrentArrivalRate: " + event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall()
+                + " currentCapacity: " + event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall()
+                + "  moving average discrepancy : " + cpuUtilizationAverage.average());
+
+        // Update queue Length
         queueLengthAverage.add(event.getInfrastructureState().getTasksInQueue());
         log.info("Moving average queue length: " + queueLengthAverage.average());
 

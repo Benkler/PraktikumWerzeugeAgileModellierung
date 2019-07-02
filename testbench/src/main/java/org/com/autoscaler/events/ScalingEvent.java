@@ -3,7 +3,7 @@ package org.com.autoscaler.events;
 import java.util.List;
 
 import org.com.autoscaler.infrastructure.VirtualMachine;
-import org.com.autoscaler.util.ScalingMode;
+import org.com.autoscaler.scaler.ScalingMode;
 
 /**
  * Event that encapsulates all necessary information of a scaling decision which are: <br>
