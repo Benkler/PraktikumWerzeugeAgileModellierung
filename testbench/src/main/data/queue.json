@@ -3,7 +3,7 @@
 {
  
   "queueLengthMin": 0,
-  "queueLengthMax": 99999999
+  "queueLengthMax": 80000
   
  
 } 

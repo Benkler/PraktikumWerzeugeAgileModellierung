@@ -30,6 +30,6 @@ public interface IQueue {
 
     int currentLevelInTasks();
 
-    long currentLevelInPercent();
+    double currentLevelInPercent();
 
 }

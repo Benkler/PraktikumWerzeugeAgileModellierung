@@ -54,7 +54,7 @@ public class CPUUtilTracker implements ICPUUtilTracker {
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }
-            file = new File(System.getProperty("user.home") + "\\Testbench\\test.csv\\");
+            file = new File(System.getProperty("user.home") + "\\Testbench\\cpuUtilization.csv\\");
             outputFile = new FileWriter(file);
             writer = new CSVWriter(outputFile);
             writer.writeNext(header);

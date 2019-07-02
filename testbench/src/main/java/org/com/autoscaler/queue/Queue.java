@@ -1,11 +1,13 @@
 package org.com.autoscaler.queue;
 
 import org.com.autoscaler.events.ClockEvent;
+import org.com.autoscaler.util.MathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  * Class that represents queue infrastructure.
+ * 
  * @author Niko
  *
  */
@@ -18,16 +20,17 @@ public class Queue implements IQueue {
     private int minLength;
     private int maxLength;
     private int currentLevelInTasks;
-    
+
     private boolean init = false;
-    
+
     @Autowired
     IQueueEventPublisher publisher;
 
     @Override
     public void initQueue(int minLength, int maxLength) {
-        if (init) return;
-        
+        if (init)
+            return;
+
         if (minLength < 0 || maxLength < 0 || maxLength < minLength) {
             throw new IllegalArgumentException("Invalid Queue parameters");
         }
@@ -48,24 +51,24 @@ public class Queue implements IQueue {
      */
     @Override
     public int enqueue(int jobs, ClockEvent clockEvent) {
-        
+
         /*
          * Jobs that will be enqueued
          */
         int enqueuedJobs = 0;
-         
-        //Enough space in queue available
-        if(currentLevelInTasks + jobs <= maxLength) {
+
+        // Enough space in queue available
+        if (currentLevelInTasks + jobs <= maxLength) {
             enqueuedJobs = jobs;
             currentLevelInTasks += jobs;
-            
-        //Need to discard Jobs    
-        }else {
-            
+
+            // Need to discard Jobs
+        } else {
+
             enqueuedJobs = maxLength - currentLevelInTasks;
             currentLevelInTasks = maxLength;
-            
-            int discardedJobs = jobs-enqueuedJobs;
+
+            int discardedJobs = jobs - enqueuedJobs;
             publisher.fireQueueDiscardJobsEvent(clockEvent, discardedJobs);
         }
         return enqueuedJobs;
@@ -126,9 +129,9 @@ public class Queue implements IQueue {
     }
 
     @Override
-    public long currentLevelInPercent() {
+    public double currentLevelInPercent() {
+        return MathUtil.round(((double) currentLevelInTasks / (double) maxLength) * 100.00, 2);
 
-        return (currentLevelInTasks / maxLength)*100;
     }
 
 }
