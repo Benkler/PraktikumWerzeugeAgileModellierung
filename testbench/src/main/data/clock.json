@@ -1,0 +1,9 @@
+
+
+{
+	"monitoringDelay": 20,
+	"intervalDurationInMilliSeconds": 1,
+	"clockTicksTillScalingDecision": 1000,
+	"clockTicksTillWorkloadChange": 200,
+	"experimentDurationInMinutes": 1
+}

@@ -74,19 +74,19 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
         // ReadSetUp of Infrastructure Modell
 
-        String clockPath = "src/test/data/clockTest.json";
+        String clockPath = "src/main/data/clock.json";
         initClock(clockPath);
 
-        String queuePath = "src/test/data/queueTest.json";
+        String queuePath = "src/main/data/queue.json";
         initQueue(queuePath);
 
-        String autoScalerPath = "src/test/data/autoscalerTest.json";
+        String autoScalerPath = "src/main/data/autoscaler.json";
         initAutoScalerAndMetricSource(autoScalerPath);
 
-        String infrastructurePath = "src/test/data/infrastructureTest.json";
+        String infrastructurePath = "src/main/data/infrastructure.json";
         initInfrastructure(infrastructurePath);
 
-        String workFlowPath = "src/test/data/workflowTest.json";
+        String workFlowPath = "src/main/data/workflow.json";
         initWorkloadHandler(workFlowPath);
 
         clock.startClock();

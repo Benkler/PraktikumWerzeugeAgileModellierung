@@ -44,11 +44,12 @@ public class Clock implements IClock {
     @Override
     public void startClock() {
         state = ClockState.RUNNING;
-
+        clockEventPublisher.fireStartSimulationEvent(0, intervalDurationInMilliSeconds);
         while (clockTickCount <= experimentDurationInClockTicks) {
             fireEvents();
             clockTickCount++;
         }
+        clockEventPublisher.fireFinishSimulationEvent(clockTickCount, intervalDurationInMilliSeconds);
 
     }
 

@@ -1,6 +1,8 @@
 package org.com.autoscaler.clock;
 
 import org.com.autoscaler.events.ClockEvent;
+import org.com.autoscaler.events.FinishSimulationEvent;
+import org.com.autoscaler.events.StartSimulationEvent;
 import org.com.autoscaler.events.TriggerAutoScalerEvent;
 import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
 import org.com.autoscaler.events.TriggerWorkloadHandlerEvent;
@@ -29,9 +31,9 @@ public class ClockEventPublisher implements IClockEventPublisher {
      * simulation.
      */
     @Override
-    public void fireClockEvent(int clockTickCount, double intervalDurationInSeconds) {
+    public void fireClockEvent(int clockTickCount, double intervalDurationInMilliSeconds) {
         log.info("Normal clock event fired. Clock Tick Count: " + clockTickCount);
-        ClockEvent clockEvent = new ClockEvent(this, clockTickCount, intervalDurationInSeconds);
+        ClockEvent clockEvent = new ClockEvent(this, clockTickCount, intervalDurationInMilliSeconds);
         applEventPublisher.publishEvent(clockEvent);
 
     }
@@ -43,10 +45,10 @@ public class ClockEventPublisher implements IClockEventPublisher {
      * stays constant for a given amount of clock ticks
      */
     @Override
-    public void fireTriggerWorkloadHandlerEvent(int clockTickCount, double intervalDurationInSeconds) {
+    public void fireTriggerWorkloadHandlerEvent(int clockTickCount, double intervalDurationInMilliSeconds) {
         log.info("Trigger workload handler event fired. Clock Tick Count: " + clockTickCount);
         TriggerWorkloadHandlerEvent wlHandlerEvent = new TriggerWorkloadHandlerEvent(this, clockTickCount,
-                intervalDurationInSeconds);
+                intervalDurationInMilliSeconds);
         applEventPublisher.publishEvent(wlHandlerEvent);
 
     }
@@ -59,10 +61,10 @@ public class ClockEventPublisher implements IClockEventPublisher {
      */
     // TODO is das wirklich so, dass die Clock den scaler triggern soll?
     @Override
-    public void fireTriggerAutoScalerEvent(int clockTickCount, double intervalDurationInSeconds) {
+    public void fireTriggerAutoScalerEvent(int clockTickCount, double intervalDurationInMilliSeconds) {
         log.info("Trigger auto scaler event fired. Clock Tick Count: " + clockTickCount);
         TriggerAutoScalerEvent scalerEvent = new TriggerAutoScalerEvent(this, clockTickCount,
-                intervalDurationInSeconds);
+                intervalDurationInMilliSeconds);
         applEventPublisher.publishEvent(scalerEvent);
     }
 
@@ -73,6 +75,21 @@ public class ClockEventPublisher implements IClockEventPublisher {
                 intervallDurationInMilliSeconds);
         applEventPublisher.publishEvent(event);
 
+    }
+
+    @Override
+    public void fireStartSimulationEvent(int clockTickCount, double intercallDuarationInMilliSeconds) {
+       log.info("----------------------START SIMULATION EVENT-----------------------------------");
+       StartSimulationEvent event = new StartSimulationEvent(this, clockTickCount, intercallDuarationInMilliSeconds);
+       applEventPublisher.publishEvent(event);
+        
+    }
+
+    @Override
+    public void fireFinishSimulationEvent(int clockTickCount, double intercallDuarationInMilliSeconds) {
+        log.info("----------------------------END SIMULATION EVENT--------------------------- at clocktick: " + clockTickCount);
+        FinishSimulationEvent event = new FinishSimulationEvent(this, clockTickCount, intercallDuarationInMilliSeconds);
+        applEventPublisher.publishEvent(event);
     }
 
 }
