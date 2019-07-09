@@ -15,10 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class QueueModel implements IQueueModel {
 
-    /*
-     * Should be 0 in most use cases
-     */
-    private int minLength;
+   
     private int maxLength;
     private int currentLevelInTasks;
 
@@ -28,14 +25,14 @@ public class QueueModel implements IQueueModel {
     IQueueEventPublisher publisher;
 
     @Override
-    public void initQueue(int minLength, int maxLength) {
+    public void initQueue(int maxLength) {
         if (init)
             return;
 
-        if (minLength < 0 || maxLength < 0 || maxLength < minLength) {
+        if ( maxLength < 0 ) {
             throw new IllegalArgumentException("Invalid Queue parameters");
         }
-        this.minLength = minLength;
+        
         this.maxLength = maxLength;
         this.currentLevelInTasks = 0;
 
@@ -87,7 +84,7 @@ public class QueueModel implements IQueueModel {
         /*
          * Enough jobs in queue to dequeue desired amount
          */
-        if (currentLevelInTasks - jobs >= minLength) {
+        if (currentLevelInTasks - jobs >= 0) {
             dequeuedJobs = jobs;
             currentLevelInTasks -= jobs;
 
@@ -97,8 +94,8 @@ public class QueueModel implements IQueueModel {
              * previously available jobs and min value
              */
         } else {
-            dequeuedJobs = currentLevelInTasks - minLength;
-            currentLevelInTasks = minLength;
+            dequeuedJobs = currentLevelInTasks;
+            currentLevelInTasks = 0;
         }
 
         return dequeuedJobs;
@@ -117,11 +114,11 @@ public class QueueModel implements IQueueModel {
 
     @Override
     public boolean isEmpty() {
-        if (currentLevelInTasks < minLength) {
+        if (currentLevelInTasks < 0 ) {
             throw new IllegalStateException("Queue underflow");
         }
 
-        return currentLevelInTasks == minLength;
+        return currentLevelInTasks == 0;
     }
 
     @Override

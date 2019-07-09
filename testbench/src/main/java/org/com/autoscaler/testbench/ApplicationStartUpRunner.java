@@ -129,7 +129,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
     private void initQueue(String path) {
         QueuePOJO queuePOJO = jsonLoader.loadQueueInformation(path);
 
-        queue.initQueue(queuePOJO.getQueueLengthMin(), queuePOJO.getQueueLengthMax());
+        queue.initQueue(queuePOJO.getQueueLengthMax());
     }
 
     private void initAutoScalerAndMetricSource(String path) {

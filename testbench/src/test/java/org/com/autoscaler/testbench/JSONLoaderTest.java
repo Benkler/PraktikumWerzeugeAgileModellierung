@@ -23,7 +23,7 @@ public class JSONLoaderTest {
 
         QueuePOJO queue = loader.loadQueueInformation("src/test/data/queueTest.json");
         assertEquals(queue.getQueueLengthMax(), 2000);
-        assertEquals(queue.getQueueLengthMin(), 0);
+        
 
     }
 
