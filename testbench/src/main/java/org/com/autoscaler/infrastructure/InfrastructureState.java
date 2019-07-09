@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class to bundle Infrastructure Information. Not used for publishing state. 
+ * Class to bundle Infrastructure Information. Not used for publishing state.
  * 
  * @author Niko
  *
@@ -45,10 +45,13 @@ public class InfrastructureState {
      * Represents the currentArrivalRate
      */
     private int currentArrivalRateInTasksPerSecond;
+
     /*
      * Holds currentInformation about virtual Machines
      */
     private HashMap<Integer, VirtualMachine> virtualMachines;
+    
+    
 
     public InfrastructureState(int minAmountVM, int maxAmountVM, HashMap<Integer, VirtualMachine> virtualMachines,
             double intervallDurationInMilliSeconds) {
@@ -64,6 +67,7 @@ public class InfrastructureState {
         this.virtualMachines = virtualMachines;
         this.currentArrivalRateInTasksPerIntervall = 0;
         this.currentArrivalRateInTasksPerSecond = 0;
+        
         calculateCurrentCapacity();
     }
 
@@ -79,8 +83,6 @@ public class InfrastructureState {
         return currentArrivalRateInTasksPerIntervall;
     }
 
-  
-
     /**
      * Remove set of virtual machines from infrastructure. In case the given vms are
      * not present no action is taken but an error message is displayed in the log
@@ -94,15 +96,14 @@ public class InfrastructureState {
 
             if (this.virtualMachines.remove(vm.getId()) == null) {
                 log.error("Error while scaling down vm with id " + vm.getId() + ". Vm not present!");
-            }else {
-                log.info("Successfully scaled down vm with id " + vm.getId()); 
+            } else {
+                log.info("Successfully scaled down vm with id " + vm.getId());
             }
 
-           
         }
 
         calculateCurrentCapacity();
-    } 
+    }
 
     /**
      * Add new virtual machines to infrastructure. In case a vm is already present,
@@ -116,12 +117,10 @@ public class InfrastructureState {
 
             if (this.virtualMachines.containsKey(vm.getId())) {
                 log.error("Error while scale up vm with id " + vm.getId() + ". Duplicated Id!");
-            }else {
+            } else {
                 this.virtualMachines.put(vm.getId(), vm);
                 log.info("Successfully scaled up vm with id " + vm.getId());
             }
-
-            
 
         }
 
@@ -184,6 +183,7 @@ public class InfrastructureState {
         sb.append("virtualMachines: " + virtualMachines.toString() + "\n");
         sb.append("currentArrivalRateInTasksPerIntervall: " + currentArrivalRateInTasksPerIntervall + "\n");
         sb.append("currentArrivalRateInTasksPerSecond: " + currentArrivalRateInTasksPerSecond + "\n");
+       
 
         return sb.toString();
     }

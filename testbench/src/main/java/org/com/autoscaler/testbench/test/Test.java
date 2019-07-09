@@ -13,7 +13,9 @@ public class Test {
         List<Integer> list = new LinkedList<Integer>();
         for (int i=0; i<10000;i++) {
             
-            list.add(rand.nextInt(3000)+600);
+            int toBeadded =  Math.min(rand.nextInt(1000)+800, 1600);
+            
+            list.add(toBeadded);
         }
         
         System.out.println(list);

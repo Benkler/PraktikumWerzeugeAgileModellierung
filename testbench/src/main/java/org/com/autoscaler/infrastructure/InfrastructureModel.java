@@ -66,16 +66,16 @@ public class InfrastructureModel implements IInfrastructureModel {
      */
     @Override
     public void handleClockTick(ClockEvent clockEvent) {
-        
-        //Check if new vms are ready
+
+        // Check if new vms are ready
         checkForBootedVirtualMachines();
-        
-        //Calculate Capacity
+
+        // Calculate Capacity
         int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
         int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
         int discrepancy = currentCapacity - currentArrivalRate;
 
-        //Execute (de-)queueing
+        // Execute (de-)queueing
         if (discrepancy <= 0) { // arrival rate higher than capacity --> Enqueue
             log.info("Process Jobs: Arrival Rate at " + currentArrivalRate
                     + " tasks per Intervall. Current capacity at " + currentCapacity
@@ -87,8 +87,8 @@ public class InfrastructureModel implements IInfrastructureModel {
                             + currentCapacity + " tasks per Intervall. --> Dequeue " + discrepancy + " elements");
             queue.dequeue(discrepancy);
         }
-        
-        //Reduce boot time
+
+        // Reduce boot time
         vmBootingQueue.reduceWaitingAmount();
 
     }
@@ -122,8 +122,18 @@ public class InfrastructureModel implements IInfrastructureModel {
         state.setCurrentArrivalRateInTasksPerSecond(infrastructureState.getCurrentArrivalRateInTasksPerSecond());
         state.setCurrentCapacityInTasksPerIntervall(infrastructureState.getCurrentCapacityInTasksPerInterval());
         state.setCurrentCapacityInTasksPerSecond(infrastructureState.getCurrentCapacityInTasksPerSecond());
-    
         state.setVirtualMachines(new LinkedList<VirtualMachine>(infrastructureState.getVirtualMachines().values()));
+
+        // current capacity vs. arrival rate + queue level
+        double capacityDiscrepancy = (double) (infrastructureState.getCurrentArrivalRateInTasksPerIntervall()
+                + queue.currentLevelInTasks()) / infrastructureState.getCurrentCapacityInTasksPerInterval();
+
+        /*
+         * CPU utilization includes queue Level!!!
+         */
+        double cpuUtilization = Math.min(capacityDiscrepancy, 1.0);
+
+        state.setCurrentCPUUtilization(cpuUtilization);
 
         return state;
     }
@@ -153,16 +163,12 @@ public class InfrastructureModel implements IInfrastructureModel {
         if (event.getMode() == ScalingMode.SCALE_DOWN) {
             infrastructureState.scaleDownVirtualMachines(event.getVirtualMachines());
 
-            
-        //scale up by enqueueing in booting queue    
+            // scale up by enqueueing in booting queue
         } else if (event.getMode() == ScalingMode.SCALE_UP) {
             log.info("Execute scaling UP decision. Previous amount of virtual machines: "
                     + infrastructureState.getVirtualMachines().size() + "  ");
 
-           
             enqueueVirtualMachinesInBootingQueue(event.getVirtualMachines());
-
-            
 
         } else {
             throw new IllegalArgumentException(
@@ -181,25 +187,26 @@ public class InfrastructureModel implements IInfrastructureModel {
         log.info("Enqueue " + vms.size() + " virtual machines into booting queue");
         vmBootingQueue.addVirtualMachinesToQueue(vms);
     }
-   
+
     /*
      * Check if vms are booted
      */
     private void checkForBootedVirtualMachines() {
-     List<VirtualMachine> booted = vmBootingQueue.selectAndRemoveBootedVmsFromQueue();
-     if(booted.size() > 0) {
-         addVmsToInfrastructure(booted); 
-     }
+        List<VirtualMachine> booted = vmBootingQueue.selectAndRemoveBootedVmsFromQueue();
+        if (booted.size() > 0) {
+            addVmsToInfrastructure(booted);
+        }
     }
-    
+
     /*
      * Add booted vms to infrastructure
      */
     private void addVmsToInfrastructure(List<VirtualMachine> vms) {
         infrastructureState.scaleUpVirtualMachines(vms);
-        
-        log.info("Vms successfully booted: New amount of virtual machines: " + infrastructureState.getVirtualMachines().size() + "  ");
-        
+
+        log.info("Vms successfully booted: New amount of virtual machines: "
+                + infrastructureState.getVirtualMachines().size() + "  ");
+
     }
 
 }

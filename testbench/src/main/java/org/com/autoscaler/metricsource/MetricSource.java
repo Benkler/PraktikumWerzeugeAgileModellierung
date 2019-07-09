@@ -78,13 +78,9 @@ public class MetricSource implements IMetricSource {
 
     @Override
     public void handleInfrastructureStateEvent(InfrastructureStateEvent event) {
-
-        // Update CPU utilization
-        double capacityDiscrepancy = (double) event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall()
-                / event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall();
+  
         
-        
-        cpuUtilizationAverage.add(capacityDiscrepancy);
+        cpuUtilizationAverage.add(event.getInfrastructureState().getCurrentCPUUtilization());
         log.info("CurrentArrivalRate: " + event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall()
                 + " currentCapacity: " + event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall()
                 + "  moving average discrepancy : " + cpuUtilizationAverage.average());

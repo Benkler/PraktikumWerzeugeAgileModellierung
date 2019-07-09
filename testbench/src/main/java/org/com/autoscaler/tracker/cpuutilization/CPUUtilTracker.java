@@ -88,7 +88,7 @@ public class CPUUtilTracker implements ICPUUtilTracker {
         int curCapInTasksPerSecond = event.getInfrastructureState().getCurrentCapacityInTasksPerSecond();
 
         double cpuutilization = MathUtil
-                .round(((double) arrRateInTasksPerInterval / (double) curCapInTasksPerIntervall) * 100.00, 2);
+                .round(event.getInfrastructureState().getCurrentCPUUtilization() * 100.00, 2);
         int amountOfVms = event.getInfrastructureState().getVirtualMachines().size();
 
         /*

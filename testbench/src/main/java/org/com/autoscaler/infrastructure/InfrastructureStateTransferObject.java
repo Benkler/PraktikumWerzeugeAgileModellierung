@@ -14,18 +14,23 @@ import java.util.List;
 public class InfrastructureStateTransferObject {
 
     /*
-     * amount of tasks the all vms are able to process per interval
+     * amount of tasks all vms are able to process per interval
      */
     private int currentCapacityInTasksPerIntervall;
 
     /*
-     * amount of tasks the all vms are able to process per second
+     * amount of tasks all vms are able to process per second
      */
     private int currentCapacityInTasksPerSecond;
 
     private int currentArrivalRateInTasksPerIntervall;
 
     private int currentArrivalRateInTasksPerSecond;
+    
+    /*
+     * Capacity vs. incoming arrival rate + queue fill 
+     */
+    private double currentCPUUtilization;
 
   
 
@@ -74,5 +79,15 @@ public class InfrastructureStateTransferObject {
     public void setCurrentCapacityInTasksPerSecond(int currentCapacityInTasksPerSecond) {
         this.currentCapacityInTasksPerSecond = currentCapacityInTasksPerSecond;
     }
+
+    public double getCurrentCPUUtilization() {
+        return currentCPUUtilization;
+    }
+
+    public void setCurrentCPUUtilization(double currentCPUUtilization) {
+        this.currentCPUUtilization = currentCPUUtilization;
+    }
+    
+    
 
 }
