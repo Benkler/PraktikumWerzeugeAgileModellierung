@@ -3,6 +3,9 @@ package org.com.autoscaler.queue;
 import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.TriggerPublishQueueStateEvent;
 import org.com.autoscaler.util.MathUtil;
+import org.com.autoscaler.util.MovingAverage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,14 +21,19 @@ public class QueueModel implements IQueueModel {
    
     private int maxLength;
     private int currentLevelInTasks;
-
+    private MovingAverage<Integer> queueArrivalRateInTasksPerInterval;
+    private MovingAverage<Integer> queueProcessingRateInTasksPerInterval;
+    private int windowSize ;
+    
     private boolean init = false;
+    
+    Logger log = LoggerFactory.getLogger(QueueModel.class);
 
     @Autowired
     IQueueEventPublisher publisher;
 
     @Override
-    public void initQueue(int maxLength) {
+    public void initQueue(int maxLength, int windowSize) {
         if (init)
             return;
 
@@ -35,6 +43,11 @@ public class QueueModel implements IQueueModel {
         
         this.maxLength = maxLength;
         this.currentLevelInTasks = 0;
+        this.queueArrivalRateInTasksPerInterval = new MovingAverage<Integer>(windowSize);
+        this.queueProcessingRateInTasksPerInterval = new MovingAverage<Integer>(windowSize);
+        this.windowSize = windowSize;
+        
+        log.info("Queue initialized: " + toString());
 
     }
 
@@ -49,7 +62,14 @@ public class QueueModel implements IQueueModel {
      */
     @Override
     public int enqueue(int jobs, ClockEvent clockEvent) {
-
+        
+        /*
+         * Arrival Rate includes discarded Jobs
+         */
+       this.queueArrivalRateInTasksPerInterval.add(jobs);
+       //Update processing rate
+       this.queueProcessingRateInTasksPerInterval.add(0);
+        
         /*
          * Jobs that will be enqueued
          */
@@ -79,6 +99,8 @@ public class QueueModel implements IQueueModel {
      */
     @Override
     public int dequeue(int jobs) {
+        
+        
         int dequeuedJobs = 0;
 
         /*
@@ -97,7 +119,13 @@ public class QueueModel implements IQueueModel {
             dequeuedJobs = currentLevelInTasks;
             currentLevelInTasks = 0;
         }
-
+        
+        /*
+         * Processing rate only includes actually dequeued jobs
+         */
+        this.queueProcessingRateInTasksPerInterval.add(dequeuedJobs);
+        //update moving average for arrival rate
+        this.queueArrivalRateInTasksPerInterval.add(0);
         return dequeuedJobs;
 
     }
@@ -137,6 +165,8 @@ public class QueueModel implements IQueueModel {
         QueueStateTransferObject state = new QueueStateTransferObject();
         state.setQueueFillInPercent(currentLevelInPercent());
         state.setTasksInQueue(currentLevelInTasks());
+        state.setQueueProcessingRateInTasksPerInterval(queueProcessingRateInTasksPerInterval.average());
+        state.setQueueArrivalRateInTasksPerInterval(queueArrivalRateInTasksPerInterval.average());
         
         
         return state;
@@ -146,6 +176,19 @@ public class QueueModel implements IQueueModel {
     public void publishQueueState(TriggerPublishQueueStateEvent event) {
         publisher.fireQueueStateEvent(event.getClockTickCount(), event.getIntervallDuratioInMilliSeconds(), getQueueState());
         
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("maxLegth: ");
+        sb.append(maxLength);
+        sb.append("\ncurrentLevelInTasks:");
+        sb.append(currentLevelInTasks);
+        sb.append("\nwindowSize: ");
+        sb.append(windowSize);
+        
+        return sb.toString();
     }
 
 }

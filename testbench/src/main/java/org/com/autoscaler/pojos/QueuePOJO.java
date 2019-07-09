@@ -10,8 +10,14 @@ public class QueuePOJO {
    
 
     private int queueLengthMax;
+    
+   private int windowSize;
 
   
+
+    public QueuePOJO() {
+    super();
+}
 
     public int getQueueLengthMax() {
         return queueLengthMax;
@@ -21,14 +27,18 @@ public class QueuePOJO {
         this.queueLengthMax = queueLengthMax;
     }
 
-    public QueuePOJO() {
-        super();
-    }
-    
     @Override
     public String toString() {
-        String output = " queueLengthMax: " + queueLengthMax ;
+        String output = " queueLengthMax: " + queueLengthMax + "windowSize for average arrival and processing rate: " + windowSize;
         return output;
+    }
+
+    public int getWindowSize() {
+        return windowSize;
+    }
+
+    public void setWindowSize(int windowSize) {
+        this.windowSize = windowSize;
     }
 
 }

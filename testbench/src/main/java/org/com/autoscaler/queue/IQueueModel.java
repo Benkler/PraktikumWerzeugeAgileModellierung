@@ -5,7 +5,7 @@ import org.com.autoscaler.events.TriggerPublishQueueStateEvent;
 
 public interface IQueueModel {
 
-    void initQueue(int queueLength);
+    void initQueue(int queueLength, int windowSize);
 
     /**
      * Return the amount of jobs that were enqueued <br>

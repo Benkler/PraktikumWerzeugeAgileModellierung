@@ -15,13 +15,8 @@ public class QueueUtilizationListener implements IQueueUtilizationListener {
     IQueueDiscardJobsTracker discardJobsTracker;
     
     @Autowired
-    IQueueLengthTracker lengthTracker;
+    IQueueUtilizationTracker lengthTracker;
     
-    @Override
-    public void listenDiscardJobsEvent(DiscardJobsEvent event) {
-        discardJobsTracker.trackDiscardJobsEvent(event);
-    }
-
     @Override
     public void listenStartSimulationEvent(StartSimulationEvent event) {
         discardJobsTracker.startSimulation(event);
@@ -40,6 +35,11 @@ public class QueueUtilizationListener implements IQueueUtilizationListener {
     public void listenQueueStateEvent(QueueStateEvent event) {
         lengthTracker.trackQueueStateEvent(event);
         
+    }
+
+    @Override
+    public void listenDiscardJobsEvent(DiscardJobsEvent event) {
+        discardJobsTracker.trackDiscardJobsEvent(event);
     }
 
 }

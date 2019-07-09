@@ -3,7 +3,8 @@
 {
  
  
-  "queueLengthMax": 80000
+  "queueLengthMax": 80000,
+  "windowSize" : 35
   
  
 } 

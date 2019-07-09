@@ -38,6 +38,10 @@ public class MovingAverage <T extends Number>{
     }
     
     public double average() {
+        if(counter ==0) {
+            return 0;
+        }
+        
         double sum =0;
         
         for(int i=0; i<counter;i++) {

@@ -29,8 +29,9 @@ public class QueueEventPublisher implements IQueueEventPublisher{
     @Override
     public void fireQueueStateEvent(int clockTickCount, double intervalDurationInMilliSeconds,
             QueueStateTransferObject queueState) {
-        log.info("Fire Queue State Event at clockTick: " + clockTickCount);
+        
         QueueStateEvent event = new QueueStateEvent(this, clockTickCount, intervalDurationInMilliSeconds, queueState);
+        log.info("Fire Queue State Event at clockTick: " + clockTickCount + "\nqueueState: " + queueState.toString());
         applEventPublisher.publishEvent(event);
         
     }

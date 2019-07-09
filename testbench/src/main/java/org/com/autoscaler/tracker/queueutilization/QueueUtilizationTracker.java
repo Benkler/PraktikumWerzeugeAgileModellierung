@@ -12,6 +12,7 @@ import org.com.autoscaler.events.FinishSimulationEvent;
 import org.com.autoscaler.events.InfrastructureStateEvent;
 import org.com.autoscaler.events.QueueStateEvent;
 import org.com.autoscaler.events.StartSimulationEvent;
+import org.com.autoscaler.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +24,29 @@ import org.springframework.stereotype.Component;
 import com.opencsv.CSVWriter;
 
 @Component
-public class QueueLengthTracker implements IQueueLengthTracker {
+public class QueueUtilizationTracker implements IQueueUtilizationTracker {
 
     @Autowired
     private ApplicationContext context;
 
     private final Logger log = LoggerFactory.getLogger(QueueDiscardJobsTracker.class);
 
-    private final String[] header = { "Clock Tick", "Amount of waiting tasks in queue", "Queue fill in %" };
+    private final String[] header = { "Clock Tick", "Amount of waiting tasks in queue", "Queue fill in %",
+            "Arrival Rate (Tasks Per Intervall)", "Processing Rate (TasksPerIntervall)" };
 
     File file;
     FileWriter outputFile;
     CSVWriter writer;
 
     int previousAmountOfTasks;
+    double previousArrivalRate;
+    double previousProcessingRate;
 
     @Override
     public void startSimulation(StartSimulationEvent event) {
         previousAmountOfTasks = 0;
+        previousArrivalRate = 0;
+        previousProcessingRate = 0;
         try {
             Path path = Paths.get(System.getProperty("user.home") + "\\Testbench");
             if (!Files.exists(path)) {
@@ -75,16 +81,22 @@ public class QueueLengthTracker implements IQueueLengthTracker {
     public void trackQueueStateEvent(QueueStateEvent event) {
         int clockTIckCount = event.getClockTickCount();
         int amountOfTasks = event.getState().getTasksInQueue();
-
-        // No duplicate information
-        if (previousAmountOfTasks == amountOfTasks)
-            return;
-
+        double arrivalRate = MathUtil.round(event.getState().getQueueArrivalRateInTasksPerInterval(), 2);
+        double processingRate = MathUtil.round(event.getState().getQueueProcessingRateInTasksPerInterval(), 2);
         double queueFillInPercent = event.getState().getQueueFillInPercent();
 
+//        // No duplicate information
+//        if (previousAmountOfTasks == amountOfTasks && previousArrivalRate == arrivalRate
+//                && previousProcessingRate == processingRate)
+//            return;
+
         String[] newLine = { String.valueOf(clockTIckCount), String.valueOf(amountOfTasks),
-                String.valueOf(queueFillInPercent) };
+                String.valueOf(queueFillInPercent), String.valueOf(arrivalRate), String.valueOf(processingRate) };
         writer.writeNext(newLine);
+
+        previousAmountOfTasks = amountOfTasks;
+        previousArrivalRate = arrivalRate;
+        previousProcessingRate = processingRate;
 
     }
 

@@ -6,7 +6,7 @@ import org.com.autoscaler.events.InfrastructureStateEvent;
 import org.com.autoscaler.events.QueueStateEvent;
 import org.com.autoscaler.events.StartSimulationEvent;
 
-public interface IQueueLengthTracker {
+public interface IQueueUtilizationTracker {
     
 public void startSimulation(StartSimulationEvent event);
     
