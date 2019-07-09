@@ -1,5 +1,6 @@
 package org.com.autoscaler.scaler;
 
+import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.TriggerAutoScalerEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,12 @@ public class AutoScalerEventListener implements IAutoScalerEventListener{
     public void handleTriggerAutoScalerEvent(TriggerAutoScalerEvent event) {
         log.info("Autoscaler triggered at clockTick: " +event.getClockTickCount());
         autoScaler.update(event); 
+        
+    }
+
+    @Override
+    public void handleClockEvent(ClockEvent event) {
+       autoScaler.handleClockTick(event);
         
     }
 

@@ -136,7 +136,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         AutoscalerPOJO autoscalerPOJO = jsonLoader.loadAutoScalerInformation(path);
         autoScaler.initAutoScaler(autoscalerPOJO.getLowerThreshold(), autoscalerPOJO.getUpperThreshold(),
                 autoscalerPOJO.getVmTasksPerIntervall(), autoscalerPOJO.getVmMin(), autoscalerPOJO.getVmMax(),
-                autoscalerPOJO.getVmStartUpTime());
+                autoscalerPOJO.getVmStartUpTime(), autoscalerPOJO.getCoolDownTime());
         metricSource.initMetricSource(autoscalerPOJO.getCpuUtilWindow(), autoscalerPOJO.getQueueLengthWindow());
 
     }

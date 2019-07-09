@@ -8,5 +8,6 @@
 	"vmMax": 20,
 	"vmMin": 2,
 	"cpuUtilWindow" : 8,
-	"queueLengthWindow": 8
+	"queueLengthWindow": 8,
+	"coolDownTime": 1000
 }

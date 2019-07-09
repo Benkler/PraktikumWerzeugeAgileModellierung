@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.TriggerAutoScalerEvent;
 import org.com.autoscaler.infrastructure.VirtualMachine;
 import org.com.autoscaler.metricsource.IMetricSource;
@@ -31,14 +32,24 @@ public class AutoScaler implements IAutoScaler {
     private int vmMax;
 
     /*
+     * In case of an auto scaling decision, auto scaler shall not be triggered for
+     * certain amount of ticks
+     */
+    private int coolDownTime;
+
+    private int coolDownCounter;
+
+    private boolean isCoolDown;
+
+    /*
      * Only temporary, Vm's can be different
      */
-    private int vmTasksPerIntervall; 
+    private int vmTasksPerIntervall;
     private int vmStartUpTime;
 
     @Override
     public void initAutoScaler(double lowerThreshold, double upperThreshold, int vmTasksPerIntervall, int vmMin,
-            int vmMax, int startUpTime) {
+            int vmMax, int startUpTime, int coolDownTimeInIntervallTicks) {
         if (!init) {
             log.info("Init Autoscaler with \n lowerThreshold: " + lowerThreshold + "\n upperThreshold: "
                     + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMin: " + vmMin
@@ -49,19 +60,23 @@ public class AutoScaler implements IAutoScaler {
             this.vmStartUpTime = startUpTime;
             this.vmMax = vmMax;
             this.vmMin = vmMin;
+            this.coolDownTime = coolDownTimeInIntervallTicks;
+            this.coolDownCounter = 0;
+            this.isCoolDown = false;
         }
 
     }
 
-    // public void setBinding(IScalingController scalingController, IMetricSource
-    // metricSource) {
-    // this.scalingController = scalingController;
-    // this.metricSource = metricSource;
-    // }
-
-    // TODO do not scale under VM Min
     @Override
     public void update(TriggerAutoScalerEvent event) {
+
+        /*
+         * Still in cooldown phase
+         */
+        if (isCoolDown) {
+            log.info("No Autoscaler decision! Still in cooldown phase!");
+            return;
+        }
 
         double currentVal = metricSource.getCPUUtilization();
         List<VirtualMachine> updatedInstances;
@@ -81,11 +96,12 @@ public class AutoScaler implements IAutoScaler {
                     + updatedInstances.size() + " virtual machines added");
             scalingController.setInstances(updatedInstances, event.getClockTickCount(),
                     event.getIntervallDuratioInMilliSeconds(), ScalingMode.SCALE_DOWN);
+            setCoolDown(true);
 
             // Scale Up
         } else if (currentVal > upperThreshold) {
             updatedInstances = scaleUp();
-            
+
             if (updatedInstances.size() == 0) {
                 log.info("Autoscaler decision: Scale up at clocktick: " + event.getClockTickCount()
                         + " not possible. Maximum Amount of Virtual Machines reached ");
@@ -95,12 +111,41 @@ public class AutoScaler implements IAutoScaler {
             log.info("Autoscaler decision: Scale up at clocktick " + event.getClockTickCount());
             scalingController.setInstances(updatedInstances, event.getClockTickCount(),
                     event.getIntervallDuratioInMilliSeconds(), ScalingMode.SCALE_UP);
+            setCoolDown(true);
 
         } else {
-            log.info("No Autoscaler decision neede: current capacity and desired capacity close enough together");
+            log.info("No Autoscaler decision needed: current capacity and desired capacity close enough together");
         }
 
-        
+    }
+
+    private void setCoolDown(boolean isCoolDown) {
+        this.isCoolDown = isCoolDown;
+    }
+
+    /*
+     * 
+     */
+    private void resetCoolDownCounter() {
+        coolDownCounter = 0;
+    }
+
+    /**
+     * Each clock tick increases coolDownCounter in case the auto scaler is in cool
+     * down phase <\br> As soon as cooldown phase is finished, the autoscaler is
+     * able to do scaling decisions again
+     */
+    @Override
+    public void handleClockTick(ClockEvent event) {
+        if (isCoolDown) {
+            coolDownCounter++;
+
+            if (coolDownCounter > coolDownTime) {
+                resetCoolDownCounter();
+                setCoolDown(false);
+            }
+        }
+
     }
 
     /*
@@ -140,15 +185,16 @@ public class AutoScaler implements IAutoScaler {
         List<VirtualMachine> vmsToBoot = new LinkedList<VirtualMachine>();
 
         /*
-         * Generate random id 
+         * Generate random id
          */
         Random rand = new Random();
-        //zero out the sign bits
+        // zero out the sign bits
         int id = rand.nextInt() & Integer.MAX_VALUE;
 
         if (currentInstances.size() < vmMax) {
 
-            //VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall, vmStartUpTime);
+            // VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall,
+            // vmStartUpTime);
             VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall, vmStartUpTime);
             vmsToBoot.add(tobeAdded);
             log.info("Successfully added  virtual machine with id  " + tobeAdded.getId());
