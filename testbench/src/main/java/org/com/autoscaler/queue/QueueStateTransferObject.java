@@ -9,6 +9,7 @@ public class QueueStateTransferObject {
     private double queueFillInPercent;
     private double queueArrivalRateInTasksPerInterval;
     private double queueProcessingRateInTasksPerInterval;
+    private double queueingDelayInIntervals;
     
     
     
@@ -47,19 +48,29 @@ public class QueueStateTransferObject {
         this.queueArrivalRateInTasksPerInterval = queueArrivalRateInTasksPerInterval;
     }
     
+    public double getQueueingDelayInIntervals() {
+        return queueingDelayInIntervals;
+    }
+
+    public void setQueueingDelayInIntervals(double queueingDelayInIntervals) {
+        this.queueingDelayInIntervals = queueingDelayInIntervals;
+    }
+
     @Override
     public String toString() {
-      
+    
         
         StringBuilder sb = new StringBuilder();
         sb.append("tasksInQueue: ");
         sb.append(tasksInQueue);
-        sb.append("\nqueueFillInPercent: ");
+        sb.append("\n queueFillInPercent: ");
         sb.append(queueFillInPercent);
-        sb.append("\nqueueArrivalRateInTasksPerInterval: ");
+        sb.append("\n queueArrivalRateInTasksPerInterval: ");
         sb.append(queueArrivalRateInTasksPerInterval);
-        sb.append("\nqueueProcessingRateInTasksPerInterval: ");
+        sb.append("\n queueProcessingRateInTasksPerInterval: ");
         sb.append(queueProcessingRateInTasksPerInterval);
+        sb.append("\n QueueingDelayInIntervals: ");
+        sb.append(queueingDelayInIntervals);
         return sb.toString();
         
     }

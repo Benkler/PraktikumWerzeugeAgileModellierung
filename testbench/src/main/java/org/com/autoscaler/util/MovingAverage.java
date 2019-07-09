@@ -25,7 +25,7 @@ public class MovingAverage <T extends Number>{
         
         
         if(counter < windowSize) {
-            window.add(number);
+            window.addLast(number);
             counter ++;
         }else {
             window.removeFirst();

@@ -4,7 +4,7 @@
  
  
   "queueLengthMax": 80000,
-  "windowSize" : 35
+  "windowSize" : 20
   
  
 } 

@@ -23,7 +23,7 @@ public interface IQueueModel {
      * currentLevel - jobs > minLength: Return jobs jobs < minLength: Return
      * currentLevel - minLength
      */
-    int dequeue(int jobs);
+    int dequeue(int jobs, ClockEvent event);
     
     public QueueStateTransferObject getQueueState();
 
