@@ -4,6 +4,7 @@ import java.util.IntSummaryStatistics;
 import java.util.List;
 
 import org.com.autoscaler.events.InfrastructureStateEvent;
+import org.com.autoscaler.events.QueueStateEvent;
 import org.com.autoscaler.infrastructure.IInfrastructureModel;
 import org.com.autoscaler.infrastructure.InfrastructureStateTransferObject;
 import org.com.autoscaler.infrastructure.VirtualMachine;
@@ -81,15 +82,23 @@ public class MetricSource implements IMetricSource {
         // Update CPU utilization
         double capacityDiscrepancy = (double) event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall()
                 / event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall();
+        
+        
         cpuUtilizationAverage.add(capacityDiscrepancy);
         log.info("CurrentArrivalRate: " + event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall()
                 + " currentCapacity: " + event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall()
                 + "  moving average discrepancy : " + cpuUtilizationAverage.average());
 
-        // Update queue Length
-        queueLengthAverage.add(event.getInfrastructureState().getTasksInQueue());
-        log.info("Moving average queue length: " + queueLengthAverage.average());
+       
 
+    }
+
+    @Override
+    public void handleQueueStateEvent(QueueStateEvent event) {
+        // Update queue Length
+        queueLengthAverage.add(event.getState().getTasksInQueue());
+        log.info("Moving average queue length: " + queueLengthAverage.average());
+        
     }
 
 }

@@ -5,6 +5,7 @@ import org.com.autoscaler.events.FinishSimulationEvent;
 import org.com.autoscaler.events.StartSimulationEvent;
 import org.com.autoscaler.events.TriggerAutoScalerEvent;
 import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
+import org.com.autoscaler.events.TriggerPublishQueueStateEvent;
 import org.com.autoscaler.events.TriggerWorkloadHandlerEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +71,7 @@ public class ClockEventPublisher implements IClockEventPublisher {
 
     @Override
     public void fireTriggerPublishInfrastructureStateEvent(int clockTickCount, double intervallDurationInMilliSeconds) {
-        log.info("Trigger publish infrastructure event fired at clock tick count: " + clockTickCount);
+        log.info("Trigger publish infrastructure state event fired at clock tick count: " + clockTickCount);
         TriggerPublishInfrastructureStateEvent event = new TriggerPublishInfrastructureStateEvent(this, clockTickCount,
                 intervallDurationInMilliSeconds);
         applEventPublisher.publishEvent(event);
@@ -90,6 +91,14 @@ public class ClockEventPublisher implements IClockEventPublisher {
         log.info("----------------------------END SIMULATION EVENT--------------------------- at clocktick: " + clockTickCount);
         FinishSimulationEvent event = new FinishSimulationEvent(this, clockTickCount, intercallDuarationInMilliSeconds);
         applEventPublisher.publishEvent(event);
+    }
+
+    @Override
+    public void fireTriggerPublishQueueStateEvent(int clockTickCount, double intervallDuarationInMilliSeconds) {
+        log.info("Trigger publish queue state event fired at clock tick count: " + clockTickCount);
+        TriggerPublishQueueStateEvent event = new TriggerPublishQueueStateEvent(this, clockTickCount, intervallDuarationInMilliSeconds);
+        applEventPublisher.publishEvent(event);
+        
     }
 
 }

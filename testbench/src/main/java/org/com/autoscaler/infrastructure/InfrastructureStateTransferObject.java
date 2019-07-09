@@ -27,8 +27,7 @@ public class InfrastructureStateTransferObject {
 
     private int currentArrivalRateInTasksPerSecond;
 
-    private int tasksInQueue;
-    private double queueFillInPercent;
+  
 
     private List<VirtualMachine> virtualMachines;
 
@@ -48,13 +47,7 @@ public class InfrastructureStateTransferObject {
         this.currentCapacityInTasksPerIntervall = currentCapacityInTasksPerIntervall;
     }
 
-    public double getQueueFillInPercent() {
-        return queueFillInPercent;
-    }
-
-    public void setQueueFillInPercent(double queueFillInPercent) {
-        this.queueFillInPercent = queueFillInPercent;
-    }
+  
 
     public int getCurrentArrivalRateInTasksPerIntervall() {
         return currentArrivalRateInTasksPerIntervall;
@@ -64,13 +57,7 @@ public class InfrastructureStateTransferObject {
         this.currentArrivalRateInTasksPerIntervall = currentArrivalRateInTasksPerIntervall;
     }
 
-    public int getTasksInQueue() {
-        return tasksInQueue;
-    }
-
-    public void setTasksInQueue(int tasksInQueue) {
-        this.tasksInQueue = tasksInQueue;
-    }
+   
 
     public int getCurrentArrivalRateInTasksPerSecond() {
         return currentArrivalRateInTasksPerSecond;

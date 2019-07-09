@@ -22,7 +22,8 @@ public class Clock implements IClock {
     private double intervalDurationInMilliSeconds;
     private int clockTicksTillWorkloadChange;
     private int clockTicksTillScalingDecision;
-    private int monitoringDelay;
+    private int clockTicksTillPublishInfrastructureState;
+    private int clockTicksTillPublishQueueState;
     private boolean initialized = false;
     private ClockState state;
     private int experimentDurationInClockTicks;
@@ -59,9 +60,9 @@ public class Clock implements IClock {
     @Override
     public void stopClock() {
         state = ClockState.STOPPED;
-        //TODO 
+        // TODO
 
-    } 
+    }
 
     /**
      * Pause the clock to pause simulation
@@ -85,9 +86,10 @@ public class Clock implements IClock {
         this.clockTickCount = 0;
         this.clockTicksTillScalingDecision = clockInfo.getClockTicksTillScalingDecision();
         this.clockTicksTillWorkloadChange = clockInfo.getClockTicksTillWorkloadChange();
-        this.monitoringDelay = clockInfo.getMonitoringDelay();
+        this.clockTicksTillPublishInfrastructureState = clockInfo.getClockTicksTillPublishInfrastructureState();
+        this.clockTicksTillPublishQueueState = clockInfo.getClockTicksTillPublishQueueState();
 
-        /* 
+        /*
          * Calculate the clock ticks by duration in minutes and interval duration in
          * milli seconds
          */
@@ -105,7 +107,7 @@ public class Clock implements IClock {
      */
     private void fireEvents() {
         clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInMilliSeconds);
- 
+
         if (clockTickCount % clockTicksTillWorkloadChange == 0) {
             clockEventPublisher.fireTriggerWorkloadHandlerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
@@ -114,8 +116,15 @@ public class Clock implements IClock {
             clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
 
-        if(clockTickCount % monitoringDelay == 0) {
-           clockEventPublisher.fireTriggerPublishInfrastructureStateEvent(clockTickCount, intervalDurationInMilliSeconds);
+        if (clockTickCount % clockTicksTillPublishInfrastructureState == 0) {
+            clockEventPublisher.fireTriggerPublishInfrastructureStateEvent(clockTickCount,
+                    intervalDurationInMilliSeconds);
+
+        }
+
+        if (clockTickCount % clockTicksTillPublishQueueState == 0) {
+
+            clockEventPublisher.fireTriggerPublishQueueStateEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
 
     }

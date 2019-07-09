@@ -1,9 +1,10 @@
 
 
 {
-	"monitoringDelay": 20,
+	"clockTicksTillPublishInfrastructureState": 20,
+	"clockTicksTillPublishQueueState": 20,
 	"intervalDurationInMilliSeconds": 1,
-	"clockTicksTillScalingDecision": 4999,
+	"clockTicksTillScalingDecision": 2000,
 	"clockTicksTillWorkloadChange": 200,
-	"experimentDurationInMinutes": 1
+	"experimentDurationInMinutes": 60
 }

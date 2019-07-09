@@ -7,7 +7,7 @@ import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.ScalingEvent;
 import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
 import org.com.autoscaler.events.WorkloadChangedEvent;
-import org.com.autoscaler.queue.IQueue;
+import org.com.autoscaler.queue.IQueueModel;
 import org.com.autoscaler.scaler.ScalingMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class InfrastructureModel implements IInfrastructureModel {
      * Represents the queue of the infrastructure
      */
     @Autowired
-    private IQueue queue;
+    private IQueueModel queue;
 
     @Autowired
     private IInfrastructureModelEventPublisher publisher;
@@ -122,8 +122,7 @@ public class InfrastructureModel implements IInfrastructureModel {
         state.setCurrentArrivalRateInTasksPerSecond(infrastructureState.getCurrentArrivalRateInTasksPerSecond());
         state.setCurrentCapacityInTasksPerIntervall(infrastructureState.getCurrentCapacityInTasksPerInterval());
         state.setCurrentCapacityInTasksPerSecond(infrastructureState.getCurrentCapacityInTasksPerSecond());
-        state.setQueueFillInPercent(queue.currentLevelInPercent());
-        state.setTasksInQueue(queue.currentLevelInTasks());
+    
         state.setVirtualMachines(new LinkedList<VirtualMachine>(infrastructureState.getVirtualMachines().values()));
 
         return state;

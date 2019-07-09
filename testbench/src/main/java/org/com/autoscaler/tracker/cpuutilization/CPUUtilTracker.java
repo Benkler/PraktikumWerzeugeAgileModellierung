@@ -37,7 +37,7 @@ public class CPUUtilTracker implements ICPUUtilTracker {
 
     private final String[] header = { "Clock Tick", "Current Arrival Rate in Tasks per Interval",
             "Current Capacity in Tasks per Interval", "Current Arrival Rate in Tasks per Second",
-            "Current Capacity in Tasks per Second", "CPU Utilization in %" };
+            "Current Capacity in Tasks per Second", "CPU Utilization in %", "Amount of Vms" };
 
     File file;
     FileWriter outputFile;
@@ -89,6 +89,7 @@ public class CPUUtilTracker implements ICPUUtilTracker {
 
         double cpuutilization = MathUtil
                 .round(((double) arrRateInTasksPerInterval / (double) curCapInTasksPerIntervall) * 100.00, 2);
+        int amountOfVms = event.getInfrastructureState().getVirtualMachines().size();
 
         /*
          * Discard event if nothing new happened
@@ -102,7 +103,7 @@ public class CPUUtilTracker implements ICPUUtilTracker {
 
         String[] newLine = { String.valueOf(clockTickCount), String.valueOf(arrRateInTasksPerInterval),
                 String.valueOf(curCapInTasksPerIntervall), String.valueOf(arrRateInTasksPerSecond),
-                String.valueOf(curCapInTasksPerSecond), String.valueOf(cpuutilization) };
+                String.valueOf(curCapInTasksPerSecond), String.valueOf(cpuutilization), String.valueOf(amountOfVms) };
 
         writer.writeNext(newLine);
 

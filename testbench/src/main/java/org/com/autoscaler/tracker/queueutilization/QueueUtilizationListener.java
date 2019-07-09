@@ -3,6 +3,7 @@ package org.com.autoscaler.tracker.queueutilization;
 import org.com.autoscaler.events.DiscardJobsEvent;
 import org.com.autoscaler.events.FinishSimulationEvent;
 import org.com.autoscaler.events.InfrastructureStateEvent;
+import org.com.autoscaler.events.QueueStateEvent;
 import org.com.autoscaler.events.StartSimulationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +37,7 @@ public class QueueUtilizationListener implements IQueueUtilizationListener {
     }
 
     @Override
-    public void listenQueueStateEvent(InfrastructureStateEvent event) {
+    public void listenQueueStateEvent(QueueStateEvent event) {
         lengthTracker.trackQueueStateEvent(event);
         
     }

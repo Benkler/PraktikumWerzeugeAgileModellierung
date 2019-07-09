@@ -18,7 +18,7 @@ import org.com.autoscaler.pojos.InfrastructurePOJO;
 import org.com.autoscaler.pojos.QueuePOJO;
 import org.com.autoscaler.pojos.VirtualMachinePOJO;
 import org.com.autoscaler.pojos.WorkflowPOJO;
-import org.com.autoscaler.queue.IQueue;
+import org.com.autoscaler.queue.IQueueModel;
 import org.com.autoscaler.scaler.IAutoScaler;
 import org.com.autoscaler.workloadhandler.IWorkloadHandler;
 import org.com.autoscaler.workloadhandler.WorkloadTransferObject;
@@ -43,7 +43,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
     private final IClock clock;
 
-    private final IQueue queue;
+    private final IQueueModel queue;
     private final IInfrastructureModel infrastructure;
     private final IAutoScaler autoScaler;
     private final IWorkloadHandler workloadHandler;
@@ -53,11 +53,12 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
     private final int INFRASTRUCTUREINDEX = 1;
     private final int QUEUEINDEX = 2;
     private final int WORKFLOWINDEX = 3;
-    private final int CLOCKINDEX = 4; 
+    private final int CLOCKINDEX = 4;
 
     @Autowired
-    public ApplicationStartUpRunner(IClock clock, IQueue queue, IInfrastructureModel infrastructureModel,
-            IAutoScaler autoscaler, IWorkloadHandler workloadHandler, IJSONLoader jsonLoader, IMetricSource metricSOurce) {
+    public ApplicationStartUpRunner(IClock clock, IQueueModel queue, IInfrastructureModel infrastructureModel,
+            IAutoScaler autoscaler, IWorkloadHandler workloadHandler, IJSONLoader jsonLoader,
+            IMetricSource metricSOurce) {
         this.clock = clock;
         this.queue = queue;
         this.infrastructure = infrastructureModel;
@@ -119,7 +120,8 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         ClockPOJO clockPOJO = jsonLoader.loadClockInformation(path);
         ClockInformation info = new ClockInformation(clockPOJO.getIntervalDurationInMilliSeconds(),
                 clockPOJO.getClockTicksTillWorkloadChange(), clockPOJO.getClockTicksTillScalingDecision(),
-                clockPOJO.getMonitoringDelay(), clockPOJO.getExperimentDurationInMinutes());
+                clockPOJO.getClockTicksTillPublishInfrastructureState(), clockPOJO.getClockTicksTillPublishQueueState(),
+                clockPOJO.getExperimentDurationInMinutes());
         clock.initClock(info);
 
     }
@@ -136,17 +138,17 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
                 autoscalerPOJO.getVmTasksPerIntervall(), autoscalerPOJO.getVmMin(), autoscalerPOJO.getVmMax(),
                 autoscalerPOJO.getVmStartUpTime());
         metricSource.initMetricSource(autoscalerPOJO.getCpuUtilWindow(), autoscalerPOJO.getQueueLengthWindow());
-       
+
     }
 
     private void initInfrastructure(String path) {
         InfrastructurePOJO infrastructurePOJO = jsonLoader.loadInfrastructureInformation(path);
 
-        HashMap<Integer,VirtualMachine> vms = new HashMap<Integer, VirtualMachine>();
+        HashMap<Integer, VirtualMachine> vms = new HashMap<Integer, VirtualMachine>();
         for (VirtualMachinePOJO virtualMachine : infrastructurePOJO.getVirtualMachines()) {
-            vms.put(virtualMachine.getId(), new VirtualMachine(virtualMachine.getId(), virtualMachine.getTasksPerIntervall(),
-                    virtualMachine.getVmStartUpTime()));
-        } 
+            vms.put(virtualMachine.getId(), new VirtualMachine(virtualMachine.getId(),
+                    virtualMachine.getTasksPerIntervall(), virtualMachine.getVmStartUpTime()));
+        }
 
         InfrastructureState state = new InfrastructureState(infrastructurePOJO.getVmMin(),
                 infrastructurePOJO.getVmMax(), vms, infrastructurePOJO.getIntervalDurationInMilliSeconds());

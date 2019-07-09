@@ -10,7 +10,8 @@ public class ClockPOJO {
     private double intervalDurationInMilliSeconds;
     private int clockTicksTillWorkloadChange;
     private int clockTicksTillScalingDecision;
-    private int monitoringDelay;
+    private int clockTicksTillPublishInfrastructureState;
+    private int clockTicksTillPublishQueueState;
     private int experimentDurationInMinutes;
 
     public ClockPOJO() {
@@ -48,13 +49,26 @@ public class ClockPOJO {
     }
 
 
-    public int getMonitoringDelay() {
-        return monitoringDelay;
+  
+
+
+    public int getClockTicksTillPublishInfrastructureState() {
+        return clockTicksTillPublishInfrastructureState;
     }
 
 
-    public void setMonitoringDelay(int monitoringDelay) {
-        this.monitoringDelay = monitoringDelay;
+    public void setClockTicksTillPublishInfrastructureState(int clockTicksTillPublishInfrastructureState) {
+        this.clockTicksTillPublishInfrastructureState = clockTicksTillPublishInfrastructureState;
+    }
+
+
+    public int getClockTicksTillPublishQueueState() {
+        return clockTicksTillPublishQueueState;
+    }
+
+
+    public void setClockTicksTillPublishQueueState(int clockTicksTillPublishQueueState) {
+        this.clockTicksTillPublishQueueState = clockTicksTillPublishQueueState;
     }
 
 
@@ -72,8 +86,8 @@ public class ClockPOJO {
     public String toString() {
         return " Clock Information: \n intervalDurationInMilliSeconds: " + intervalDurationInMilliSeconds
                 + "\n clockTicksTillWorkloadChange: " + clockTicksTillWorkloadChange
-                + "\n clockTicksTillScalingDecision: " + clockTicksTillScalingDecision + "\n monitoringDelay: "
-                + monitoringDelay + "\n experimentDurationInMinutes:" + experimentDurationInMinutes;
+                + "\n clockTicksTillScalingDecision: " + clockTicksTillScalingDecision + "\n clockTicksTillPublishInfrastructureState;: "
+                + clockTicksTillPublishInfrastructureState + "\n clockTickTillPublishQueueState: " + clockTicksTillPublishQueueState+ "\n experimentDurationInMinutes:" + experimentDurationInMinutes;
     }
 
 }

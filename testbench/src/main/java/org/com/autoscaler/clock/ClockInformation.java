@@ -13,22 +13,35 @@ public class ClockInformation {
     private final double intervalDurationInMilliSeconds;
     private final int clockTicksTillWorkloadChange;
     private final int clockTicksTillScalingDecision;
-    private final int monitoringDelay;
+    private final int clockTicksTillPublishInfrastructureState;
+    private final int clockTicksTillPublishQueueState;
+    
     private final int experimentDurationInMinutes;
 
     public ClockInformation(double intervalDurationInMilliSeconds, int clockTickTillWorkloadChange,
-            int clockTicksTillScalingDecision, int monitoringDelay, int experimentDurationInMinutes) {
+            int clockTicksTillScalingDecision, int clockTicksTillPublishInfrastructureState,    int clockTicksTillPublishQueueState, int experimentDurationInMinutes) {
 
         this.intervalDurationInMilliSeconds = intervalDurationInMilliSeconds;
         this.clockTicksTillWorkloadChange = clockTickTillWorkloadChange;
         this.clockTicksTillScalingDecision = clockTicksTillScalingDecision;
-        this.monitoringDelay = monitoringDelay;
+        this.clockTicksTillPublishInfrastructureState = clockTicksTillPublishInfrastructureState;
+        this.clockTicksTillPublishQueueState = clockTicksTillPublishQueueState;
         this.experimentDurationInMinutes = experimentDurationInMinutes;
     }
 
-    public int getMonitoringDelay() {
-        return monitoringDelay;
+    
+
+    public int getClockTicksTillPublishInfrastructureState() {
+        return clockTicksTillPublishInfrastructureState;
     }
+
+
+
+    public int getClockTicksTillPublishQueueState() {
+        return clockTicksTillPublishQueueState;
+    }
+
+
 
     public double getIntervalDurationInMilliSeconds() {
         return intervalDurationInMilliSeconds;

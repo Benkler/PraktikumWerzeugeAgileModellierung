@@ -22,7 +22,7 @@ public class JSONLoaderTest {
         IJSONLoader loader = new JSONLoader();
 
         QueuePOJO queue = loader.loadQueueInformation("src/test/data/queueTest.json");
-        assertEquals(queue.getQueueLengthMax(), 99999999);
+        assertEquals(queue.getQueueLengthMax(), 2000);
         assertEquals(queue.getQueueLengthMin(), 0);
 
     }
@@ -34,8 +34,8 @@ public class JSONLoaderTest {
         AutoscalerPOJO autoscaler = loader.loadAutoScalerInformation("src/test/data/autoscalerTest.json");
         assertEquals(autoscaler.getVmStartUpTime(), 100);
         assertEquals(autoscaler.getLowerThreshold(), 0.97, 0.001);
-        assertEquals(autoscaler.getUpperThreshold(), 1.02, 0.001);
-        assertEquals(autoscaler.getCpuUtilWindow(), 10);
+        assertEquals(autoscaler.getUpperThreshold(), 1.08, 0.001);
+        assertEquals(autoscaler.getCpuUtilWindow(), 8);
         assertEquals(autoscaler.getQueueLengthWindow(), 10);
  
 
@@ -87,10 +87,11 @@ public class JSONLoaderTest {
         
         
         assertEquals(clock.getIntervalDurationInMilliSeconds()  , 1,  0.001);
-       // assertEquals(clock.getClockTicksTillScalingDecision()  , 2000);
+       assertEquals(clock.getClockTicksTillScalingDecision()  , 2000);
         assertEquals(clock.getClockTicksTillWorkloadChange(), 200);
-    //    assertEquals(clock.getExperimentDurationInMinutes(), 60);
-        assertEquals(clock.getMonitoringDelay() , 20); 
+        assertEquals(clock.getExperimentDurationInMinutes(), 60);
+        assertEquals(clock.getClockTicksTillPublishInfrastructureState() , 20); 
+        assertEquals(clock.getClockTicksTillPublishQueueState() , 20);
         
     }
 

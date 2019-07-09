@@ -17,5 +17,7 @@ public interface IClockEventPublisher {
     
     public void fireFinishSimulationEvent(int clockTickCount,double intervallDuarationInMilliSeconds);
     
+    public void fireTriggerPublishQueueStateEvent(int clockTickCount,double intervallDuarationInMilliSeconds);
+    
     
 }

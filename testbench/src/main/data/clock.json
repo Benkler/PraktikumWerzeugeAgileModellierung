@@ -1,7 +1,8 @@
 
 
 {
-	"monitoringDelay": 20,
+	"clockTicksTillPublishInfrastructureState": 20,
+    "clockTicksTillPublishQueueState": 20,
 	"intervalDurationInMilliSeconds": 1,
 	"clockTicksTillScalingDecision": 1000,
 	"clockTicksTillWorkloadChange": 200,

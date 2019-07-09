@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import org.com.autoscaler.events.DiscardJobsEvent;
 import org.com.autoscaler.events.FinishSimulationEvent;
 import org.com.autoscaler.events.InfrastructureStateEvent;
+import org.com.autoscaler.events.QueueStateEvent;
 import org.com.autoscaler.events.StartSimulationEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,15 +72,15 @@ public class QueueLengthTracker implements IQueueLengthTracker {
     }
 
     @Override
-    public void trackQueueStateEvent(InfrastructureStateEvent event) {
+    public void trackQueueStateEvent(QueueStateEvent event) {
         int clockTIckCount = event.getClockTickCount();
-        int amountOfTasks = event.getInfrastructureState().getTasksInQueue();
+        int amountOfTasks = event.getState().getTasksInQueue();
 
         // No duplicate information
         if (previousAmountOfTasks == amountOfTasks)
             return;
 
-        double queueFillInPercent = event.getInfrastructureState().getQueueFillInPercent();
+        double queueFillInPercent = event.getState().getQueueFillInPercent();
 
         String[] newLine = { String.valueOf(clockTIckCount), String.valueOf(amountOfTasks),
                 String.valueOf(queueFillInPercent) };
