@@ -49,6 +49,7 @@ public class Clock implements IClock {
         while (clockTickCount <= experimentDurationInClockTicks) {
             fireEvents();
             clockTickCount++;
+            
         }
         clockEventPublisher.fireFinishSimulationEvent(clockTickCount, intervalDurationInMilliSeconds);
 
@@ -106,7 +107,8 @@ public class Clock implements IClock {
      * change in workload etc. are executed according to predefined granularity
      */
     private void fireEvents() {
-        clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInMilliSeconds);
+        
+        
 
         if (clockTickCount % clockTicksTillWorkloadChange == 0) {
             clockEventPublisher.fireTriggerWorkloadHandlerEvent(clockTickCount, intervalDurationInMilliSeconds);
@@ -115,6 +117,8 @@ public class Clock implements IClock {
         if (clockTickCount % clockTicksTillScalingDecision == 0) {
             clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
+        
+        clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInMilliSeconds);
 
         if (clockTickCount % clockTicksTillPublishInfrastructureState == 0) {
             clockEventPublisher.fireTriggerPublishInfrastructureStateEvent(clockTickCount,
@@ -126,6 +130,9 @@ public class Clock implements IClock {
 
             clockEventPublisher.fireTriggerPublishQueueStateEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
+        
+        
+       
 
     }
 

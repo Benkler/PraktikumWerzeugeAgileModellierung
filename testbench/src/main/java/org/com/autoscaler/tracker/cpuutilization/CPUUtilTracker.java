@@ -91,15 +91,15 @@ public class CPUUtilTracker implements ICPUUtilTracker {
                 .round(event.getInfrastructureState().getCurrentCPUUtilization() * 100.00, 2);
         int amountOfVms = event.getInfrastructureState().getVirtualMachines().size();
 
-        /*
-         * Discard event if nothing new happened
-         */
-        if (curCapInTasksPerIntervall == oldCapacityInTasksPerInterval
-                && arrRateInTasksPerInterval == oldArrivalRateInTasksPerInterval) {
-            return;
-        }
-        oldCapacityInTasksPerInterval = curCapInTasksPerIntervall;
-        oldArrivalRateInTasksPerInterval = arrRateInTasksPerInterval;
+//        /*
+//         * Discard event if nothing new happened
+//         */
+//        if (curCapInTasksPerIntervall == oldCapacityInTasksPerInterval
+//                && arrRateInTasksPerInterval == oldArrivalRateInTasksPerInterval) {
+//            return;
+//        }
+//        oldCapacityInTasksPerInterval = curCapInTasksPerIntervall;
+//        oldArrivalRateInTasksPerInterval = arrRateInTasksPerInterval;
 
         String[] newLine = { String.valueOf(clockTickCount), String.valueOf(arrRateInTasksPerInterval),
                 String.valueOf(curCapInTasksPerIntervall), String.valueOf(arrRateInTasksPerSecond),

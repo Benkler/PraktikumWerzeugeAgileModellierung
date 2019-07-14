@@ -69,31 +69,55 @@ public class InfrastructureModel implements IInfrastructureModel {
 
         // Check if new vms are ready
         checkForBootedVirtualMachines();
+        
+        handleArrivingTasks(clockEvent);
+        processTasks(clockEvent);
 
-        // Calculate Capacity
-        int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
-        int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
-        int discrepancy = currentCapacity - currentArrivalRate;
+//        // Calculate Capacity
+//        int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
+//        int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
+//        int discrepancy = currentCapacity - currentArrivalRate;
+//
+//        // Execute (de-)queueing
+//        if (discrepancy <= 0) { // arrival rate higher than capacity --> Enqueue
+//
+//            int enqueuedElements = queue.enqueue(Math.abs(discrepancy), clockEvent);
+//
+//            log.info("Process arriving Jobs: Arrival Rate at " + currentArrivalRate
+//                    + " tasks per Intervall. Current capacity at " + currentCapacity
+//                    + " tasks per Intervall. --> Enqueue " + enqueuedElements + " elements");
+//        } else { // arrival rate lower than capacity --> Dequeue
+//
+//            int dequeuedJobs = queue.dequeue(discrepancy, clockEvent);
+//
+//            log.info("Process leaving Jobs: Arrival Rate at " + currentArrivalRate
+//                    + " tasks per Intervall. Current capacity at " + currentCapacity
+//                    + " tasks per Intervall. --> Dequeue " + dequeuedJobs + " elements");
+//        }
 
-        // Execute (de-)queueing
-        if (discrepancy <= 0) { // arrival rate higher than capacity --> Enqueue
-           
-            int enqueuedElements = queue.enqueue(Math.abs(discrepancy), clockEvent);
-            
-            log.info("Process Jobs: Arrival Rate at " + currentArrivalRate
-                    + " tasks per Intervall. Current capacity at " + currentCapacity
-                    + " tasks per Intervall. --> Enqueue " + enqueuedElements + " elements");
-        } else { // arrival rate lower than capacity --> Dequeue
-            
-            int dequeuedJobs = queue.dequeue(discrepancy, clockEvent);
-            
-            log.info(
-                    "Process Jobs: Arrival Rate at " + currentArrivalRate + " tasks per Intervall. Current capacity at "
-                            + currentCapacity + " tasks per Intervall. --> Dequeue " + dequeuedJobs + " elements");
-        }
-
+        
+        
+        
         // Reduce boot time
         vmBootingQueue.reduceWaitingAmount();
+
+    }
+
+    private void handleArrivingTasks(ClockEvent event) {
+        int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
+        int enqueuedElements = queue.enqueue(currentArrivalRate, event);
+
+        log.info("Process arriving Jobs: Arrival Rate at " + currentArrivalRate + " --> Enqueued Elements: " + enqueuedElements
+                + " elements");
+    }
+
+    private void processTasks(ClockEvent event) {
+
+        int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
+        int dequeuedJobs = queue.dequeue(currentCapacity, event);
+
+        log.info("Process leaving Jobs: Current capacity at " + currentCapacity + " tasks per Intervall. --> Dequeue "
+                + dequeuedJobs + " elements");
 
     }
 
