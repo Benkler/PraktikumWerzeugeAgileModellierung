@@ -14,6 +14,8 @@ public class InfrastructurePOJO {
     private int vmMax;
 
     private int vmMin;
+    
+    private int cpuUitilizationWindow;
 
    
    
@@ -69,7 +71,17 @@ public class InfrastructurePOJO {
         for (VirtualMachinePOJO vm : virtualMachines) {
             sb.append(vm.toString());
         }
+        
+        sb.append("\nCpu utilization window Size:" + cpuUitilizationWindow);
         return sb.toString();
+    }
+
+    public int getCpuUitilizationWindow() {
+        return cpuUitilizationWindow;
+    }
+
+    public void setCpuUitilizationWindow(int cpuUitilizationWindow) {
+        this.cpuUitilizationWindow = cpuUitilizationWindow;
     }
 
 }

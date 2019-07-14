@@ -54,6 +54,7 @@ public class JSONLoaderTest {
         assertEquals(infrastructure.getVmMin(), 2);
         
         assertEquals(infrastructure.getIntervalDurationInMilliSeconds(), 1, 0.001);
+        assertEquals(infrastructure.getCpuUitilizationWindow(), 20);
      
 
         

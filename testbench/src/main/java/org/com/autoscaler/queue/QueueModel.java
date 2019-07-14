@@ -347,8 +347,8 @@ public class QueueModel implements IQueueModel {
 
     }
 
-    @Override
-    public QueueStateTransferObject getQueueState() {
+   
+    private QueueStateTransferObject getQueueState() {
         QueueStateTransferObject state = new QueueStateTransferObject();
         state.setQueueFillInPercent(currentLevelInPercent());
         state.setTasksInQueue(currentLevelInTasks());

@@ -153,7 +153,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         InfrastructureState state = new InfrastructureState(infrastructurePOJO.getVmMin(),
                 infrastructurePOJO.getVmMax(), vms, infrastructurePOJO.getIntervalDurationInMilliSeconds());
 
-        infrastructure.initInfrastructureModel(state);
+        infrastructure.initInfrastructureModel(state, infrastructurePOJO.getCpuUitilizationWindow());
     }
 
     private void initWorkloadHandler(String path) {

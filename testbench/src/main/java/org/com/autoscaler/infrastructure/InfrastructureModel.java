@@ -51,14 +51,14 @@ public class InfrastructureModel implements IInfrastructureModel {
      * Initialize infrastructure with given state. This is only allowed once!
      */
     @Override
-    public void initInfrastructureModel(InfrastructureState infrastructure) {
+    public void initInfrastructureModel(InfrastructureState infrastructure, int cpuUitilizationWindow) {
         if (initialized)
             return;
 
         this.infrastructureState = infrastructure;
         initialized = true;
         vmBootingQueue = new VmBootingQueue();
-        cpuUtilization = new MovingAverage<Double>(20);
+        cpuUtilization = new MovingAverage<Double>(cpuUitilizationWindow);
         log.info("Infrastructure initialized: \n" + infrastructure.toString());
 
     }
@@ -229,7 +229,8 @@ public class InfrastructureModel implements IInfrastructureModel {
             addVmsToInfrastructure(booted);
         }
     }
-
+     
+    
     /*
      * Add booted vms to infrastructure
      */

@@ -33,7 +33,8 @@
   
 
   
-   "intervalDurationInMilliSeconds": 1
+   "intervalDurationInMilliSeconds": 1,
+   "cpuUitilizationWindow" : 20
   
  
   

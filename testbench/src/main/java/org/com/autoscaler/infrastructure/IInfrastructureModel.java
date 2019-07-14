@@ -11,7 +11,7 @@ public interface IInfrastructureModel {
     
     public void changeWorkload(WorkloadChangedEvent wlChangedEvent);
     
-    public void initInfrastructureModel(InfrastructureState infrastructure);
+    public void initInfrastructureModel(InfrastructureState infrastructure, int cpuUitilizationWindow);
     
     public InfrastructureStateTransferObject getInfrastructureState();
     

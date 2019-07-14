@@ -25,7 +25,7 @@ public interface IQueueModel {
      */
     int dequeue(int jobs, ClockEvent event);
     
-    public QueueStateTransferObject getQueueState();
+   
 
     boolean isFull();
 
