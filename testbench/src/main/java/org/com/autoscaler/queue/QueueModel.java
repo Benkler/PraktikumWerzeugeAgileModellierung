@@ -113,7 +113,18 @@ public class QueueModel implements IQueueModel {
 
         updateProcessingRate(dequeuedJobs);
         
+         
+      
 
+        log.info("Actually amount of dequeued Tasks: " + dequeuedJobs);
+        return dequeuedJobs;
+
+    }
+    
+    /*
+     * For testing purposes.
+     */
+    private void testqueue() {
         int tempSize = 0;
         for (int i = 0; i < taskBatches.size(); i++) {
             tempSize += taskBatches.get(i).getR();
@@ -122,10 +133,6 @@ public class QueueModel implements IQueueModel {
         if (tempSize != currentQueueLevelInTasks) {
             throw new AssertionError("In batch: " + tempSize + " Desired: " + currentQueueLevelInTasks);
         }
-
-        log.info("Actually amount of dequeued Tasks: " + dequeuedJobs);
-        return dequeuedJobs;
-
     }
 
     /*
@@ -274,7 +281,7 @@ public class QueueModel implements IQueueModel {
         log.info("Enqeue batch at clocktTick " + event.getClockTickCount() + " with " + amountOfJobs
                 + " tasks. Current Level of tasks is: " + currentQueueLevelInTasks);
 
-        taskBatches.addLast(new Pair<Integer, Integer>(event.getClockTickCount(), amountOfJobs));
+        taskBatches.addLast(new Pair<Integer, Integer>(event.getClockTickCount(), enqueuedJobs));
         return enqueuedJobs;
     }
 

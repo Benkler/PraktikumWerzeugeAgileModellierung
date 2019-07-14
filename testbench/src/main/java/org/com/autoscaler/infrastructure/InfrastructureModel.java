@@ -9,6 +9,7 @@ import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
 import org.com.autoscaler.events.WorkloadChangedEvent;
 import org.com.autoscaler.queue.IQueueModel;
 import org.com.autoscaler.scaler.ScalingMode;
+import org.com.autoscaler.util.MovingAverage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class InfrastructureModel implements IInfrastructureModel {
 
     private final Logger log = LoggerFactory.getLogger(InfrastructureModel.class);
     private boolean initialized = false;
+    
+    private MovingAverage<Double> cpuUtilization;
 
     private VmBootingQueue vmBootingQueue;
 
@@ -55,6 +58,7 @@ public class InfrastructureModel implements IInfrastructureModel {
         this.infrastructureState = infrastructure;
         initialized = true;
         vmBootingQueue = new VmBootingQueue();
+        cpuUtilization = new MovingAverage<Double>(20);
         log.info("Infrastructure initialized: \n" + infrastructure.toString());
 
     }
@@ -71,29 +75,8 @@ public class InfrastructureModel implements IInfrastructureModel {
         checkForBootedVirtualMachines();
         
         handleArrivingTasks(clockEvent);
-        processTasks(clockEvent);
-
-//        // Calculate Capacity
-//        int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
-//        int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
-//        int discrepancy = currentCapacity - currentArrivalRate;
-//
-//        // Execute (de-)queueing
-//        if (discrepancy <= 0) { // arrival rate higher than capacity --> Enqueue
-//
-//            int enqueuedElements = queue.enqueue(Math.abs(discrepancy), clockEvent);
-//
-//            log.info("Process arriving Jobs: Arrival Rate at " + currentArrivalRate
-//                    + " tasks per Intervall. Current capacity at " + currentCapacity
-//                    + " tasks per Intervall. --> Enqueue " + enqueuedElements + " elements");
-//        } else { // arrival rate lower than capacity --> Dequeue
-//
-//            int dequeuedJobs = queue.dequeue(discrepancy, clockEvent);
-//
-//            log.info("Process leaving Jobs: Arrival Rate at " + currentArrivalRate
-//                    + " tasks per Intervall. Current capacity at " + currentCapacity
-//                    + " tasks per Intervall. --> Dequeue " + dequeuedJobs + " elements");
-//        }
+        int tasksLeavingTheSystem = processTasks(clockEvent);
+        updateCPUUtilization(tasksLeavingTheSystem);
 
         
         
@@ -102,22 +85,43 @@ public class InfrastructureModel implements IInfrastructureModel {
         vmBootingQueue.reduceWaitingAmount();
 
     }
+    
+    private void updateCPUUtilization(int processedTasks) {
+        
+        /*
+         * Amount of tasks the system is able to process
+         */
+        int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
+        
+        double currentCpuUtilization = (double) processedTasks / (double) currentCapacity;
+        
+        cpuUtilization.add(currentCpuUtilization);
+        
+    
+        
+    }
+    
+    
 
-    private void handleArrivingTasks(ClockEvent event) {
+    private int handleArrivingTasks(ClockEvent event) {
         int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
         int enqueuedElements = queue.enqueue(currentArrivalRate, event);
 
         log.info("Process arriving Jobs: Arrival Rate at " + currentArrivalRate + " --> Enqueued Elements: " + enqueuedElements
                 + " elements");
+        
+        return enqueuedElements;
     }
 
-    private void processTasks(ClockEvent event) {
+    private int processTasks(ClockEvent event) {
 
         int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
         int dequeuedJobs = queue.dequeue(currentCapacity, event);
 
         log.info("Process leaving Jobs: Current capacity at " + currentCapacity + " tasks per Intervall. --> Dequeue "
                 + dequeuedJobs + " elements");
+        
+        return dequeuedJobs;
 
     }
 
@@ -159,9 +163,9 @@ public class InfrastructureModel implements IInfrastructureModel {
         /*
          * CPU utilization includes queue Level!!!
          */
-        double cpuUtilization = Math.min(capacityDiscrepancy, 1.0);
+        //double cpuUtilization = Math.min(capacityDiscrepancy, 1.0);
 
-        state.setCurrentCPUUtilization(cpuUtilization);
+        state.setCurrentCPUUtilization(cpuUtilization.average());
 
         return state;
     }
