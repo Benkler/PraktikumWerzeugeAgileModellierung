@@ -1,0 +1,18 @@
+% LaTeX2e class for student theses
+%% sections/abstract_de.tex
+%% 
+%% Karlsruhe Institute of Technology
+%% Institute for Program Structures and Data Organization
+%% Chair for Software Design and Quality (SDQ)
+%%
+%% Dr.-Ing. Erik Burger
+%% burger@kit.edu
+%%
+%% Version 1.3.3, 2018-04-17
+
+\Abstract
+Angetrieben durch den Aufstieg von Cloud Computing, agilen Entwicklungsmethoden, DevOps und Continuous Deployment Strategien etablierte sich die Microservice Architektur als Alternative zum monolithischen Software Design. Microservices sind eine Sammlung unabhängiger, in sich zusammenhängender, aber lose gekoppelter Services, die die Defizite zentralisierter, monolithischer Software überwinden. Einige bekannte Unternehmen haben bereits ihre (bestands-)Software als microservice-basiertes System (um-)gestaltet.
+Eine Schlüsselaufgabe dabei ist es, die richtige Aufteilung der (Bestands-)Software zu finden. Dieser Prozess wird Microserviceidentifikation genannt. Bis jetzt wurde er weitestgehend intuitiv und auf Basis von Expertenwissen durchgeführt. Der Hauptgrund dafür liegt vor allem in fehlenden formalen Ansätzen und automatisierter Unterstützung durch Software.\\
+Jedoch wachsen Applikation mit der Zeit und werden zunehmend komplexer, sodass die Aufteilung von Systemen zunehmend herausfordernder ist. Diese Thesis stellt daher einen graph-basierten Ansatz vor, der mittels Clustering-Techniken Microservice-Kandidaten extrahiert. Der Ansatz basiert auf der Prozesssicht und stellt Kontrollfluss- und Datenflussabhängigkeiten als zwei separate gewichtete Graphen dar. Diese werden benutzt, um mittels Clustering-Techniken stark zusammenhängende Aktivitätscluster einerseits und stark zusammenhängende Datencluster andererseits zu identifizieren. Anschließend werden diese zwei getrennten Cluster-Mengen abgeglichen, um zusammenhängende Cluster aus Aktivitäten und zugehörigen Datenobjekten zu erstellen. Jedes Cluster entspricht dann einem Microservice. \\
+Die Evaluierung zeigt, dass der (semi-)automatische Ansatz plausible Microservice-Kandidaten identifiziert, die einer manuellen Aufteilung ähnlich sind. Im Vergleich zu dieser, können die Microservices jedoch mit sehr wenig Fachkenntnis identifiziert werden.
+

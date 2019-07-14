@@ -1,0 +1,11 @@
+
+
+\Abstract
+Powered by the rise of cloud computing, agile development, DevOps and continuous deployment strategies, the microservice architectural pattern emerged as an alternative to monolithic software design. Microservices, as a suite of independent, highly cohesive and loosely coupled services, overcome the shortcoming of centralized monolithic architectures. Therefore, prominent companies recently (re-)designed their applications using the microservice architecture.
+The key challenge is to find an appropriate partition of the (legacy) application - namely \textit{microservice identification}. 
+So far, the identification process is done intuitively based on the experience of system architects and software engineers, mainly by virtue of missing formal approaches and a lack of automated tool support. \\
+However, when applications grow in size and become progressively complex, it is quite demanding to decompose the system in appropriate microservices.
+To tackle this challenge, the thesis provides a graph-based identification approach using clustering techniques. Starting with business processes, the approach uses control flow and data flow dependencies to build two weighted graphs. From that, clustering techniques identify high cohesive sets of activity clusters on the one hand and data object clusters on the other.
+Finally, those sets are matched to generate compound clusters of activities and corresponding data objects. Each compound cluster corresponds to a microservice candidate. \\
+An evaluation demonstrates that the (semi-)automated approach identifies adequate microservice candidates which are similar to a manual decomposition but identified with less expertise.
+

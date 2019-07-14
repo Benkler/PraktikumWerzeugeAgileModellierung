@@ -1,0 +1,36 @@
+\chapter{Preparation of Approach}
+\label{ch:PrepApproach}
+
+
+
+
+
+
+
+
+
+%TODO Nochmal drüber lesen kommt das in die DIscoussion?!
+
+
+\section{Control Flow and Data Flow in BPMN Processes}
+\label{ch:PrepApproach:ControlDataFlowBPMNProcess}
+ 
+
+
+\subsection{Extract Data Flow of BPMN Processes}
+
+As previously described, BPMN is only capable to express the data needs and the data results of single activities, whereas the data flow describes the flow of data in a process. By way of Fig.\ref{fig:restoreDataFlow}, \textit{Step 1} reads \textit{Data Object 1} and writes \textit{Data Object 2}. Despite the information about the data reads and writes of \textit{Step 1}, it is not possible to determine without further knowledge, if any information of \textit{Data Object 1} is used to write into \textit{Data Object 2}. Usually, this information has to be provided by system experts. \\
+However, the approach presented in this thesis aims to reduce the required expertise or at least the additional information that is necessary when applying the approach. 
+As a consequence, it is fundamental to approximate the data flow based on the data needs and writes of each activity. The approximation of the data flow works similar to the previous process. First of all, control flow related parts like sequence flows arcs, gateways, events and triggers are deleted. The remaining parts are tasks, data objects and data associations. Now, the tasks are not connected to their previous neighbours, with which they might exchange data, where the data exchange is synonymous with the flow of data.
+To re-establish the possible data flow, follow the previously deleted control flow and reconnect the tasks with data association arcs by applying the following rules:
+
+
+
+
+
+
+
+
+
+
+
