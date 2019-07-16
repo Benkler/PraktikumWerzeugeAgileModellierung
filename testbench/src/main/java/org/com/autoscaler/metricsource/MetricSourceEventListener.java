@@ -28,7 +28,8 @@ public class MetricSourceEventListener implements IMetricSourceEventListener{
 
     @Override
     public void handleQueueStateEvent(QueueStateEvent event) {
-        // TODO Auto-generated method stub
+        log.info("Handle queue state event at clock tick " + event.getClockTickCount());
+        metricSource.handleQueueStateEvent(event);
         
     }
 

@@ -21,7 +21,7 @@ public class Clock implements IClock {
     private int clockTickCount;
     private double intervalDurationInMilliSeconds;
     private int clockTicksTillWorkloadChange;
-    private int clockTicksTillScalingDecision;
+
     private int clockTicksTillPublishInfrastructureState;
     private int clockTicksTillPublishQueueState;
     private boolean initialized = false;
@@ -85,7 +85,7 @@ public class Clock implements IClock {
 
         this.intervalDurationInMilliSeconds = clockInfo.getIntervalDurationInMilliSeconds();
         this.clockTickCount = 0;
-        this.clockTicksTillScalingDecision = clockInfo.getClockTicksTillScalingDecision();
+
         this.clockTicksTillWorkloadChange = clockInfo.getClockTicksTillWorkloadChange();
         this.clockTicksTillPublishInfrastructureState = clockInfo.getClockTicksTillPublishInfrastructureState();
         this.clockTicksTillPublishQueueState = clockInfo.getClockTicksTillPublishQueueState();
@@ -114,9 +114,9 @@ public class Clock implements IClock {
             clockEventPublisher.fireTriggerWorkloadHandlerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
 
-        if (clockTickCount % clockTicksTillScalingDecision == 0) {
-            clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount, intervalDurationInMilliSeconds);
-        }
+//        if (clockTickCount % clockTicksTillScalingDecision == 0) {
+//            clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount, intervalDurationInMilliSeconds);
+//        }
         
         clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInMilliSeconds);
 

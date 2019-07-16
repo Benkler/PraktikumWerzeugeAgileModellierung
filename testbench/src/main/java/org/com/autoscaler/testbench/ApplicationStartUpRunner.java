@@ -119,9 +119,8 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
         ClockPOJO clockPOJO = jsonLoader.loadClockInformation(path);
         ClockInformation info = new ClockInformation(clockPOJO.getIntervalDurationInMilliSeconds(),
-                clockPOJO.getClockTicksTillWorkloadChange(), clockPOJO.getClockTicksTillScalingDecision(),
-                clockPOJO.getClockTicksTillPublishInfrastructureState(), clockPOJO.getClockTicksTillPublishQueueState(),
-                clockPOJO.getExperimentDurationInMinutes());
+                clockPOJO.getClockTicksTillWorkloadChange(), clockPOJO.getClockTicksTillPublishInfrastructureState(),
+                clockPOJO.getClockTicksTillPublishQueueState(), clockPOJO.getExperimentDurationInMinutes());
         clock.initClock(info);
 
     }
@@ -136,7 +135,8 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         AutoscalerPOJO autoscalerPOJO = jsonLoader.loadAutoScalerInformation(path);
         autoScaler.initAutoScaler(autoscalerPOJO.getLowerThreshold(), autoscalerPOJO.getUpperThreshold(),
                 autoscalerPOJO.getVmTasksPerIntervall(), autoscalerPOJO.getVmMin(), autoscalerPOJO.getVmMax(),
-                autoscalerPOJO.getVmStartUpTime(), autoscalerPOJO.getCoolDownTime());
+                autoscalerPOJO.getVmStartUpTime(), autoscalerPOJO.getCoolDownTime(),
+                autoscalerPOJO.getClockTicksTillScalingDecision());
         metricSource.initMetricSource(autoscalerPOJO.getCpuUtilWindow(), autoscalerPOJO.getQueueLengthWindow());
 
     }
@@ -146,7 +146,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
          * We need interval duration for capacity calculation
          */
         ClockPOJO clockPOJO = jsonLoader.loadClockInformation(pathToClock);
-        
+
         InfrastructurePOJO infrastructurePOJO = jsonLoader.loadInfrastructureInformation(pathToInfrastructure);
 
         HashMap<Integer, VirtualMachine> vms = new HashMap<Integer, VirtualMachine>();

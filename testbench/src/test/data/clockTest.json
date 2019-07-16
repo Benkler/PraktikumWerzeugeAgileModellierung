@@ -4,7 +4,7 @@
 	"clockTicksTillPublishInfrastructureState": 20,
 	"clockTicksTillPublishQueueState": 20,
 	"intervalDurationInMilliSeconds": 1,
-	"clockTicksTillScalingDecision": 2000,
+
 	"clockTicksTillWorkloadChange": 200,
 	"experimentDurationInMinutes": 60
 }

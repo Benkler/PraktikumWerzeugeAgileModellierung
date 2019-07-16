@@ -83,9 +83,9 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
     public void trackInfrastructureState(InfrastructureStateEvent event) {
         int clockTickCount = event.getClockTickCount();
         int arrRateInTasksPerInterval = event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall();
-        int arrRateInTasksPerSecond = event.getInfrastructureState().getCurrentArrivalRateInTasksPerSecond();
+        double arrRateInTasksPerSecond = event.getInfrastructureState().getCurrentArrivalRateInTasksPerSecond();
         int curCapInTasksPerIntervall = event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall();
-        int curCapInTasksPerSecond = event.getInfrastructureState().getCurrentCapacityInTasksPerSecond();
+        double curCapInTasksPerSecond = event.getInfrastructureState().getCurrentCapacityInTasksPerSecond();
 
         double cpuutilization = MathUtil
                 .round(event.getInfrastructureState().getCurrentCPUUtilization() * 100.00, 2);

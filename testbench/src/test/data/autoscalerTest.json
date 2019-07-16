@@ -2,6 +2,7 @@
 
 {
 	"lowerThreshold": 0.97,
+	   "clockTicksTillScalingDecision": 2000,
 	"upperThreshold": 1.08,
 	"vmTasksPerIntervall": 200, 
 	"vmStartUpTime": 100,

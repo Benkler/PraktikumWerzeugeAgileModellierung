@@ -58,7 +58,7 @@ public class MetricSource implements IMetricSource {
 
     @Override
     public List<VirtualMachine> getServiceInstances() {
-        InfrastructureStateTransferObject state = infrastructure.getInfrastructureState();
+        InfrastructureStateTransferObject state = getInfrastructureState();
         return state.getVirtualMachines();
     }
 

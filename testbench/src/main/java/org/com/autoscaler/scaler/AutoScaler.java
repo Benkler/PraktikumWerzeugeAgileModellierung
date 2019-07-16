@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.com.autoscaler.events.ClockEvent;
-import org.com.autoscaler.events.TriggerAutoScalerEvent;
+
 import org.com.autoscaler.infrastructure.VirtualMachine;
 import org.com.autoscaler.metricsource.IMetricSource;
 import org.slf4j.Logger;
@@ -26,6 +26,7 @@ public class AutoScaler implements IAutoScaler {
 
     private boolean init = false;
 
+    private int clockTicksTillScalingDecision;
     private double lowerThreshold;
     private double upperThreshold;
     private int vmMin;
@@ -49,7 +50,7 @@ public class AutoScaler implements IAutoScaler {
 
     @Override
     public void initAutoScaler(double lowerThreshold, double upperThreshold, int vmTasksPerIntervall, int vmMin,
-            int vmMax, int startUpTime, int coolDownTimeInIntervallTicks) {
+            int vmMax, int startUpTime, int coolDownTimeInIntervallTicks, int clockTicksTillScalingDecision) {
         if (!init) {
             log.info("Init Autoscaler with \n lowerThreshold: " + lowerThreshold + "\n upperThreshold: "
                     + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMin: " + vmMin
@@ -63,12 +64,18 @@ public class AutoScaler implements IAutoScaler {
             this.coolDownTime = coolDownTimeInIntervallTicks;
             this.coolDownCounter = 0;
             this.isCoolDown = false;
+            this.clockTicksTillScalingDecision = clockTicksTillScalingDecision;
         }
 
     }
 
-    @Override
-    public void update(TriggerAutoScalerEvent event) {
+    /*
+     * After a provided amount of discrete clock intervals the auto scaler has to be
+     * triggered in order to evaluate the given state and re-calculate the required
+     * amount of resources. This is due to the fact, that an auto scaling decision
+     * should not happen on every clock tick or even on every worklaod change
+     */
+    private void update(ClockEvent event) {
 
         /*
          * Still in cooldown phase
@@ -137,6 +144,12 @@ public class AutoScaler implements IAutoScaler {
      */
     @Override
     public void handleClockTick(ClockEvent event) {
+
+        if (event.getClockTickCount() % clockTicksTillScalingDecision == 0) {
+            log.info("Autoscaler triggered at clockTick: " + event.getClockTickCount());
+            update(event);
+        }
+
         if (isCoolDown) {
             coolDownCounter++;
 

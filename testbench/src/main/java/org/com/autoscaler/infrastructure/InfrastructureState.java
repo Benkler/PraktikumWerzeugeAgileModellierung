@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.com.autoscaler.util.MathUtil;
 import org.com.autoscaler.workloadhandler.WorkloadInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class InfrastructureState {
     /*
      * Represents the amount of tasks ALL VMs are able to process per second
      */
-    private int currentCapacityInTasksPerSecond;
+    private double currentCapacityInTasksPerSecond;
 
     /*
      * Represents the currentArrivalRate
@@ -44,14 +45,12 @@ public class InfrastructureState {
     /*
      * Represents the currentArrivalRate
      */
-    private int currentArrivalRateInTasksPerSecond;
+    private double currentArrivalRateInTasksPerSecond;
 
     /*
      * Holds currentInformation about virtual Machines
      */
     private HashMap<Integer, VirtualMachine> virtualMachines;
-    
-    
 
     public InfrastructureState(int minAmountVM, int maxAmountVM, HashMap<Integer, VirtualMachine> virtualMachines,
             double intervallDurationInMilliSeconds) {
@@ -67,7 +66,7 @@ public class InfrastructureState {
         this.virtualMachines = virtualMachines;
         this.currentArrivalRateInTasksPerIntervall = 0;
         this.currentArrivalRateInTasksPerSecond = 0;
-        
+
         calculateCurrentCapacity();
     }
 
@@ -75,7 +74,7 @@ public class InfrastructureState {
         return intervallDurationInMilliSeconds;
     }
 
-    public int getCurrentArrivalRateInTasksPerSecond() {
+    public double getCurrentArrivalRateInTasksPerSecond() {
         return currentArrivalRateInTasksPerSecond;
     }
 
@@ -142,7 +141,7 @@ public class InfrastructureState {
         return maxAmountVM;
     }
 
-    public int getCurrentCapacityInTasksPerSecond() {
+    public double getCurrentCapacityInTasksPerSecond() {
         return currentCapacityInTasksPerSecond;
     }
 
@@ -167,8 +166,8 @@ public class InfrastructureState {
             currentCapacityInTasksPerInterval += vm.getTasksPerClockInterval();
         }
 
-        currentCapacityInTasksPerSecond = Math
-                .round((float) (currentCapacityInTasksPerInterval * MILLIS / intervallDurationInMilliSeconds));
+        currentCapacityInTasksPerSecond = MathUtil
+                .round(((double) currentCapacityInTasksPerInterval * MILLIS / intervallDurationInMilliSeconds), 2);
 
     }
 
@@ -183,7 +182,6 @@ public class InfrastructureState {
         sb.append("virtualMachines: " + virtualMachines.toString() + "\n");
         sb.append("currentArrivalRateInTasksPerIntervall: " + currentArrivalRateInTasksPerIntervall + "\n");
         sb.append("currentArrivalRateInTasksPerSecond: " + currentArrivalRateInTasksPerSecond + "\n");
-       
 
         return sb.toString();
     }

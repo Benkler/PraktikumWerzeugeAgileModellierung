@@ -17,6 +17,7 @@ public class AutoscalerPOJO {
     private int cpuUtilWindow;
     private int queueLengthWindow;
     private int coolDownTime;
+    private int clockTicksTillScalingDecision;
 
     public AutoscalerPOJO() {
         super();
@@ -28,7 +29,7 @@ public class AutoscalerPOJO {
         String output = "Autoscaler Information: \n lower Threshold: " + lowerThreshold + "\n upper Treshhold: "
                 + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMax: " + vmMax
                 + "\n vmMin: " + vmMin + "\n vm Startuptime: " + vmStartUpTime + "\n cpuUtilWindow: " + cpuUtilWindow
-                + "\n queueLengthWindow: " + queueLengthWindow + "\n coolDownTime: " + coolDownTime;
+                + "\n queueLengthWindow: " + queueLengthWindow + "\n coolDownTime: " + coolDownTime + "\n clockTickTillScalingDecision: " + clockTicksTillScalingDecision;
         return output;
     }
 
@@ -48,6 +49,16 @@ public class AutoscalerPOJO {
         this.lowerThreshold = lowerThreshold;
     }
 
+    public int getClockTicksTillScalingDecision() {
+        return clockTicksTillScalingDecision;
+    }
+
+
+    public void setClockTicksTillScalingDecision(int clockTicksTillScalingDecision) {
+        this.clockTicksTillScalingDecision = clockTicksTillScalingDecision;
+    }
+
+    
     public double getUpperThreshold() {
         return upperThreshold;
     }

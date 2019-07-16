@@ -9,7 +9,7 @@ public class ClockPOJO {
 
     private double intervalDurationInMilliSeconds;
     private int clockTicksTillWorkloadChange;
-    private int clockTicksTillScalingDecision;
+
     private int clockTicksTillPublishInfrastructureState;
     private int clockTicksTillPublishQueueState;
     private int experimentDurationInMinutes;
@@ -39,14 +39,6 @@ public class ClockPOJO {
     }
 
 
-    public int getClockTicksTillScalingDecision() {
-        return clockTicksTillScalingDecision;
-    }
-
-
-    public void setClockTicksTillScalingDecision(int clockTicksTillScalingDecision) {
-        this.clockTicksTillScalingDecision = clockTicksTillScalingDecision;
-    }
 
 
   
@@ -86,7 +78,7 @@ public class ClockPOJO {
     public String toString() {
         return " Clock Information: \n intervalDurationInMilliSeconds: " + intervalDurationInMilliSeconds
                 + "\n clockTicksTillWorkloadChange: " + clockTicksTillWorkloadChange
-                + "\n clockTicksTillScalingDecision: " + clockTicksTillScalingDecision + "\n clockTicksTillPublishInfrastructureState;: "
+                +  "\n clockTicksTillPublishInfrastructureState;: "
                 + clockTicksTillPublishInfrastructureState + "\n clockTickTillPublishQueueState: " + clockTicksTillPublishQueueState+ "\n experimentDurationInMinutes:" + experimentDurationInMinutes;
     }
 

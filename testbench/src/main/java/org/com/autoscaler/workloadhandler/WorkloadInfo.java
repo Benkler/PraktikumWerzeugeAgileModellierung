@@ -1,5 +1,7 @@
 package org.com.autoscaler.workloadhandler;
 
+import org.com.autoscaler.util.MathUtil;
+
 /**
  * Class to encapsulate any specific Information about a current workload
  * @author Niko
@@ -11,7 +13,7 @@ public class WorkloadInfo {
     /*
      * Arrival Rate in requests per second!
      */
-    private int arrivalRateInTasksPerSecond; 
+    private double arrivalRateInTasksPerSecond; 
     
     /*
      *Amount of requests per time interval used by the clock 
@@ -28,12 +30,12 @@ public class WorkloadInfo {
     public WorkloadInfo(int requestsPerIntervall, double intervallDurationInMilliSeconds) {
        this.arrivalRateInTasksPerIntervall = requestsPerIntervall;
        this.intervallDurationInMilliSeconds = intervallDurationInMilliSeconds;
-      this.arrivalRateInTasksPerSecond = Math.round((float)(requestsPerIntervall/intervallDurationInMilliSeconds * MILLIS));
+      this.arrivalRateInTasksPerSecond = MathUtil.round(((double)requestsPerIntervall / intervallDurationInMilliSeconds * MILLIS), 2);
                
     }
 
 
-    public int getArrivalRateInTasksPerSecond() {
+    public double getArrivalRateInTasksPerSecond() {
         return arrivalRateInTasksPerSecond;
     }
 

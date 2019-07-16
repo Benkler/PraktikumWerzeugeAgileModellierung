@@ -9,7 +9,7 @@ public interface IClockEventPublisher {
 
     public void fireTriggerWorkloadHandlerEvent(int clockTickCount, double intervalDurationInMilliSeconds) ;
     
-    public void fireTriggerAutoScalerEvent(int clockTickCount, double intervalDurationInMilliSeconds) ;
+
     
     public void fireTriggerPublishInfrastructureStateEvent(int clockTickCount, double intervallDurationInMilliSeconds);
     

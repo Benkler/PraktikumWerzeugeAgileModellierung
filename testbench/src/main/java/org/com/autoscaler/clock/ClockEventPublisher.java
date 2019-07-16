@@ -3,7 +3,7 @@ package org.com.autoscaler.clock;
 import org.com.autoscaler.events.ClockEvent;
 import org.com.autoscaler.events.FinishSimulationEvent;
 import org.com.autoscaler.events.StartSimulationEvent;
-import org.com.autoscaler.events.TriggerAutoScalerEvent;
+
 import org.com.autoscaler.events.TriggerPublishInfrastructureStateEvent;
 import org.com.autoscaler.events.TriggerPublishQueueStateEvent;
 import org.com.autoscaler.events.TriggerWorkloadHandlerEvent;
@@ -54,20 +54,6 @@ public class ClockEventPublisher implements IClockEventPublisher {
 
     }
 
-    /**
-     * After a provided amount of discrete clock intervals the auto scaler has to be
-     * triggered in order to evaluate the given state and re-calculate the required
-     * amount of resources. This is due to the fact, that an auto scaling decision
-     * should not happen on every clock tick or even on every worklaod change
-     */
-    // TODO is das wirklich so, dass die Clock den scaler triggern soll?
-    @Override
-    public void fireTriggerAutoScalerEvent(int clockTickCount, double intervalDurationInMilliSeconds) {
-        log.info("Trigger auto scaler event fired. Clock Tick Count: " + clockTickCount);
-        TriggerAutoScalerEvent scalerEvent = new TriggerAutoScalerEvent(this, clockTickCount,
-                intervalDurationInMilliSeconds);
-        applEventPublisher.publishEvent(scalerEvent);
-    }
 
     @Override
     public void fireTriggerPublishInfrastructureStateEvent(int clockTickCount, double intervallDurationInMilliSeconds) {
