@@ -8,10 +8,10 @@ package org.com.autoscaler.pojos;
 public class ClockPOJO {
 
     private double intervalDurationInMilliSeconds;
-    private int clockTicksTillWorkloadChange;
+    private int millisecondsTillWorkloadChange;
 
-    private int clockTicksTillPublishInfrastructureState;
-    private int clockTicksTillPublishQueueState;
+    private int millisecondsTillPublishInfrastructureState;
+    private int millisecondsTillPublishQueueState;
     private int experimentDurationInMinutes;
 
     public ClockPOJO() {
@@ -29,38 +29,35 @@ public class ClockPOJO {
     }
 
 
-    public int getClockTicksTillWorkloadChange() {
-        return clockTicksTillWorkloadChange;
+
+
+    public int getMillisecondsTillWorkloadChange() {
+        return millisecondsTillWorkloadChange;
     }
 
 
-    public void setClockTicksTillWorkloadChange(int clockTicksTillWorkloadChange) {
-        this.clockTicksTillWorkloadChange = clockTicksTillWorkloadChange;
+    public void setMillisecondsTillWorkloadChange(int millisecondsTillWorkloadChange) {
+        this.millisecondsTillWorkloadChange = millisecondsTillWorkloadChange;
     }
 
 
-
-
-  
-
-
-    public int getClockTicksTillPublishInfrastructureState() {
-        return clockTicksTillPublishInfrastructureState;
+    public int getMillisecondsTillPublishInfrastructureState() {
+        return millisecondsTillPublishInfrastructureState;
     }
 
 
-    public void setClockTicksTillPublishInfrastructureState(int clockTicksTillPublishInfrastructureState) {
-        this.clockTicksTillPublishInfrastructureState = clockTicksTillPublishInfrastructureState;
+    public void setMillisecondsTillPublishInfrastructureState(int millisecondsTillPublishInfrastructureState) {
+        this.millisecondsTillPublishInfrastructureState = millisecondsTillPublishInfrastructureState;
     }
 
 
-    public int getClockTicksTillPublishQueueState() {
-        return clockTicksTillPublishQueueState;
+    public int getMillisecondsTillPublishQueueState() {
+        return millisecondsTillPublishQueueState;
     }
 
 
-    public void setClockTicksTillPublishQueueState(int clockTicksTillPublishQueueState) {
-        this.clockTicksTillPublishQueueState = clockTicksTillPublishQueueState;
+    public void setMillisecondsTillPublishQueueState(int millisecondsTillPublishQueueState) {
+        this.millisecondsTillPublishQueueState = millisecondsTillPublishQueueState;
     }
 
 
@@ -77,9 +74,9 @@ public class ClockPOJO {
     @Override
     public String toString() {
         return " Clock Information: \n intervalDurationInMilliSeconds: " + intervalDurationInMilliSeconds
-                + "\n clockTicksTillWorkloadChange: " + clockTicksTillWorkloadChange
+                + "\n clockTicksTillWorkloadChange: " + millisecondsTillWorkloadChange
                 +  "\n clockTicksTillPublishInfrastructureState;: "
-                + clockTicksTillPublishInfrastructureState + "\n clockTickTillPublishQueueState: " + clockTicksTillPublishQueueState+ "\n experimentDurationInMinutes:" + experimentDurationInMinutes;
+                + millisecondsTillPublishInfrastructureState + "\n clockTickTillPublishQueueState: " + millisecondsTillPublishQueueState+ "\n experimentDurationInMinutes:" + experimentDurationInMinutes;
     }
 
 }

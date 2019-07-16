@@ -93,10 +93,10 @@ public class JSONLoaderTest {
         
         assertEquals(clock.getIntervalDurationInMilliSeconds()  , 1,  0.001);
     
-        assertEquals(clock.getClockTicksTillWorkloadChange(), 200);
+        assertEquals(clock.getMillisecondsTillWorkloadChange(), 200);
         assertEquals(clock.getExperimentDurationInMinutes(), 60);
-        assertEquals(clock.getClockTicksTillPublishInfrastructureState() , 20); 
-        assertEquals(clock.getClockTicksTillPublishQueueState() , 20);
+        assertEquals(clock.getMillisecondsTillPublishInfrastructureState() , 20); 
+        assertEquals(clock.getMillisecondsTillPublishQueueState() , 20);
         
     }
 

@@ -119,9 +119,20 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
     private void initClock(String path) {
 
         ClockPOJO clockPOJO = jsonLoader.loadClockInformation(path);
+
+        int clockTicksTillWorkloadChange = MathUtil.millisecondsInClockTicks(
+                clockPOJO.getMillisecondsTillWorkloadChange(), clockPOJO.getIntervalDurationInMilliSeconds());
+
+        int clockTicksTillPublishInfrastructureState = MathUtil.millisecondsInClockTicks(
+                clockPOJO.getMillisecondsTillPublishInfrastructureState(),
+                clockPOJO.getIntervalDurationInMilliSeconds());
+
+        int clockTicksTillPublishQueueState = MathUtil.millisecondsInClockTicks(
+                clockPOJO.getMillisecondsTillPublishQueueState(), clockPOJO.getIntervalDurationInMilliSeconds());
+
         ClockInformation info = new ClockInformation(clockPOJO.getIntervalDurationInMilliSeconds(),
-                clockPOJO.getClockTicksTillWorkloadChange(), clockPOJO.getClockTicksTillPublishInfrastructureState(),
-                clockPOJO.getClockTicksTillPublishQueueState(), clockPOJO.getExperimentDurationInMinutes());
+               clockTicksTillWorkloadChange, clockTicksTillPublishInfrastructureState,
+                clockTicksTillPublishQueueState, clockPOJO.getExperimentDurationInMinutes());
         clock.initClock(info);
 
     }
