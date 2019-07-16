@@ -131,8 +131,8 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
                 clockPOJO.getMillisecondsTillPublishQueueState(), clockPOJO.getIntervalDurationInMilliSeconds());
 
         ClockInformation info = new ClockInformation(clockPOJO.getIntervalDurationInMilliSeconds(),
-               clockTicksTillWorkloadChange, clockTicksTillPublishInfrastructureState,
-                clockTicksTillPublishQueueState, clockPOJO.getExperimentDurationInMinutes());
+                clockTicksTillWorkloadChange, clockTicksTillPublishInfrastructureState, clockTicksTillPublishQueueState,
+                clockPOJO.getExperimentDurationInMinutes());
         clock.initClock(info);
 
     }
@@ -145,15 +145,23 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
         QueuePOJO queuePOJO = jsonLoader.loadQueueInformation(path);
 
-        int queuingDelayInClockTicks = MathUtil.millisecondsInClockTicks(queuePOJO.getQueuingDelayInMilliSeconds(),
+        /**
+         * ############################################IMPORTANT: <br>
+         * We use floor here. In case queuing delay is smaller than a multiple of
+         * interval duration, the queuing delay will be the lower interval border as the
+         * tasks leave the system within the this interval. <br>
+         * Example: interval duration = 100, <br>
+         * # Queuing delay = 220 ==> result = 2
+         * Intervals as task needs to stay in queue for 2 intervals and will be
+         * processed in third; <br>
+         * # Queuing delay = 280 ==> result also 2 intervals for same reason
+         * # Queuing delay = 80 ==> result = 0 as tasks can be processed within same interval
+         * 
+         */
+        int queuingDelayInClockTicks = MathUtil.millisecondsInClockTicksFloor(queuePOJO.getQueuingDelayInMilliSeconds(),
                 clockPOJO.getIntervalDurationInMilliSeconds());
 
-        /*
-         * We want to have at least one interval of queueing Delay
-         *
-         */
-        // TODO stimmt das?
-        queuingDelayInClockTicks = queuingDelayInClockTicks == 0 ? 1 : queuingDelayInClockTicks;
+     
 
         queue.initQueue(queuePOJO.getQueueLengthMax(), queuePOJO.getWindowSize(), queuingDelayInClockTicks);
     }

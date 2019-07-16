@@ -18,8 +18,8 @@ public class FooTest {
       //  System.out.println(Math.round((float) (milliSeconds / intervallDurationInMilliseconds)));
         
         
-        System.out.println(MathUtil.tasksPerIntervallInTasksPerMillisecond(915, 100));
-
+        //System.out.println(MathUtil.tasksPerIntervallInTasksPerMillisecond(915, 100));
+System.out.println(MathUtil.millisecondsInClockTicksFloor(280, 100));
     }
 
 }

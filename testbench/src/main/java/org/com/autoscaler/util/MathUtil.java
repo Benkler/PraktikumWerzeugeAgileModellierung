@@ -28,6 +28,13 @@ public final class MathUtil {
         
     }
     
+   public static int millisecondsInClockTicksFloor(double milliSeconds, double intervallDurationInMilliseconds) {
+        
+        
+        return (int) Math.floor(milliSeconds / intervallDurationInMilliseconds);
+        
+    }
+    
     public static double tasksPerIntervallInTasksPerMillisecond(int tasksPerIntervall, double intervallDurationInMilliseconds) {
         
         
