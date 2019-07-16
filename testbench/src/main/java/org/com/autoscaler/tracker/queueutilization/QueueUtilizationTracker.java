@@ -52,9 +52,9 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }
-            file = new File(System.getProperty("user.home") + "\\Testbench\\queueFill.csv\\");
+            file = new File(System.getProperty("user.home") + "\\Testbench\\queueUtilization.csv\\");
             outputFile = new FileWriter(file);
-            writer = new CSVWriter(outputFile);
+            writer = new CSVWriter(outputFile, ';', '"', '\'',System.getProperty("line.separator")  );
             writer.writeNext(header);
         } catch (IOException e) {
 

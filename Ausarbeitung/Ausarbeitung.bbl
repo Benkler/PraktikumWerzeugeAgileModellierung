@@ -1,0 +1,150 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{ASurveyOn}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=4c1676eb90e18933d545931c43b55854}{%
+           family={{Jelassi}},
+           familyi={J\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=36fb9164bfcd25d4c3fdefa3a0d35f01}{%
+           family={{Ghazel}},
+           familyi={G\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=77ffb125e7985778e1c853242ce31616}{%
+           family={{Saïdane}},
+           familyi={S\bibinitperiod},
+           given={L.\bibnamedelimi A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{d601e58094bbf2508b792bcb37456926}
+      \strng{fullhash}{d601e58094bbf2508b792bcb37456926}
+      \strng{bibnamehash}{d601e58094bbf2508b792bcb37456926}
+      \strng{authorbibnamehash}{d601e58094bbf2508b792bcb37456926}
+      \strng{authornamehash}{d601e58094bbf2508b792bcb37456926}
+      \strng{authorfullhash}{d601e58094bbf2508b792bcb37456926}
+      \field{sortinit}{J}
+      \field{sortinithash}{fce5f8d0bd05e8d93f3dbe21c78897ca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2017 3rd International Conference on Frontiers of Signal Processing (ICFSP)}
+      \field{month}{9}
+      \field{title}{A survey on quality of service in cloud computing}
+      \field{year}{2017}
+      \field{pages}{63\bibrangedash 67}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1109/ICFSP.2017.8097142
+      \endverb
+      \keyw{cloud computing;quality of service;cloud computing services;quality-of-service;QoS;Cloud computing;Computational modeling;Processor scheduling;Admission control;Monitoring;Resource management;cloud computing;quality of service;SLA;scheduling;admission control;resource allocation;monitoring;queuing system}
+    \endentry
+    \entry{ReviewOfAtuoScaling}{article}{}
+      \name{author}{3}{}{%
+        {{hash=179117ab726205a04ba674aa11dc4a35}{%
+           family={Lorido-Botrán},
+           familyi={L\bibinithyphendelim B\bibinitperiod},
+           given={Tania},
+           giveni={T\bibinitperiod}}}%
+        {{hash=8bd3b0d69a0435b32f1abcd8fa59f1a7}{%
+           family={Miguel-Alonso},
+           familyi={M\bibinithyphendelim A\bibinitperiod},
+           given={Jose},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3e0ef4ff6734b1dcc5593e39ab287035}{%
+           family={Antonio\bibnamedelima Lozano},
+           familyi={A\bibinitperiod\bibinitdelim L\bibinitperiod},
+           given={Jose},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{746c43cb60b52e5f3012e803186bf4cf}
+      \strng{fullhash}{746c43cb60b52e5f3012e803186bf4cf}
+      \strng{bibnamehash}{746c43cb60b52e5f3012e803186bf4cf}
+      \strng{authorbibnamehash}{746c43cb60b52e5f3012e803186bf4cf}
+      \strng{authornamehash}{746c43cb60b52e5f3012e803186bf4cf}
+      \strng{authorfullhash}{746c43cb60b52e5f3012e803186bf4cf}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Grid Computing}
+      \field{month}{12}
+      \field{title}{A Review of Auto-scaling Techniques for Elastic Applications in Cloud Environments}
+      \field{volume}{12}
+      \field{year}{2014}
+      \verb{doi}
+      \verb 10.1007/s10723-014-9314-7
+      \endverb
+    \endentry
+    \entry{PEAS}{article}{}
+      \name{author}{5}{}{%
+        {{hash=f77614ae1fefea4e69a0448594acca02}{%
+           family={Papadopoulos},
+           familyi={P\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4378400b8fbf0e76c39df9aecf670c94}{%
+           family={Ali-Eldin},
+           familyi={A\bibinithyphendelim E\bibinitperiod},
+           given={Ahmed},
+           giveni={A\bibinitperiod}}}%
+        {{hash=eb211b1884c756676f8e7178b07a9d8c}{%
+           family={Årzén},
+           familyi={Å\bibinitperiod},
+           given={Karl-Erik},
+           giveni={K\bibinithyphendelim E\bibinitperiod}}}%
+        {{hash=25e055864ad0a48ec6a8a7e0c33e4dfd}{%
+           family={Tordsson},
+           familyi={T\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=6f8a9f4cd117ddfcad2a7b97d25415f5}{%
+           family={Elmroth},
+           familyi={E\bibinitperiod},
+           given={Erik},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{c6deb629119de265f33c1fd18d3501d5}
+      \strng{fullhash}{038ffd2aa0ebbb11ade9886f8d840daa}
+      \strng{bibnamehash}{c6deb629119de265f33c1fd18d3501d5}
+      \strng{authorbibnamehash}{c6deb629119de265f33c1fd18d3501d5}
+      \strng{authornamehash}{c6deb629119de265f33c1fd18d3501d5}
+      \strng{authorfullhash}{038ffd2aa0ebbb11ade9886f8d840daa}
+      \field{sortinit}{P}
+      \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Transactions on Modeling and Performance Evaluation of Computing Systems}
+      \field{month}{08}
+      \field{title}{PEAS: A Performance Evaluation Framework for Auto-Scaling Strategies in Cloud Applications}
+      \field{volume}{1}
+      \field{year}{2016}
+      \field{pages}{1\bibrangedash 31}
+      \range{pages}{31}
+      \verb{doi}
+      \verb 10.1145/2930659
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

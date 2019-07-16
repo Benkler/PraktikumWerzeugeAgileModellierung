@@ -45,7 +45,7 @@ public class QueueDiscardJobsTracker implements IQueueDiscardJobsTracker {
             }
             file = new File(System.getProperty("user.home") + "\\Testbench\\discardedJobs.csv\\");
             outputFile = new FileWriter(file);
-            writer = new CSVWriter(outputFile);
+            writer = new CSVWriter(outputFile, ';', '"', '\'',System.getProperty("line.separator")  );
             writer.writeNext(header);
         } catch (IOException e) {
 

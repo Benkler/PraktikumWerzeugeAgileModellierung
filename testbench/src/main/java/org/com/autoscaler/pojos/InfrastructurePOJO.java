@@ -19,16 +19,7 @@ public class InfrastructurePOJO {
 
    
    
-    
-    private double intervalDurationInMilliSeconds;
-
-    public double getIntervalDurationInMilliSeconds() {
-        return intervalDurationInMilliSeconds;
-    }
-
-    public void setIntervalDurationInMilliSeconds(double intervalDurationInMilliSeconds) {
-        this.intervalDurationInMilliSeconds = intervalDurationInMilliSeconds;
-    }
+   
 
     public List<VirtualMachinePOJO> getVirtualMachines() {
         return virtualMachines;

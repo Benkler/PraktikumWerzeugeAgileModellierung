@@ -85,7 +85,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         initAutoScalerAndMetricSource(autoScalerPath);
 
         String infrastructurePath = "src/main/data/infrastructure.json";
-        initInfrastructure(infrastructurePath);
+        initInfrastructure(infrastructurePath, clockPath);
 
         String workFlowPath = "src/main/data/workflow.json";
         initWorkloadHandler(workFlowPath);
@@ -141,8 +141,13 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
     }
 
-    private void initInfrastructure(String path) {
-        InfrastructurePOJO infrastructurePOJO = jsonLoader.loadInfrastructureInformation(path);
+    private void initInfrastructure(String pathToInfrastructure, String pathToClock) {
+        /*
+         * We need interval duration for capacity calculation
+         */
+        ClockPOJO clockPOJO = jsonLoader.loadClockInformation(pathToClock);
+        
+        InfrastructurePOJO infrastructurePOJO = jsonLoader.loadInfrastructureInformation(pathToInfrastructure);
 
         HashMap<Integer, VirtualMachine> vms = new HashMap<Integer, VirtualMachine>();
         for (VirtualMachinePOJO virtualMachine : infrastructurePOJO.getVirtualMachines()) {
@@ -151,7 +156,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         }
 
         InfrastructureState state = new InfrastructureState(infrastructurePOJO.getVmMin(),
-                infrastructurePOJO.getVmMax(), vms, infrastructurePOJO.getIntervalDurationInMilliSeconds());
+                infrastructurePOJO.getVmMax(), vms, clockPOJO.getIntervalDurationInMilliSeconds());
 
         infrastructure.initInfrastructureModel(state, infrastructurePOJO.getCpuUitilizationWindow());
     }

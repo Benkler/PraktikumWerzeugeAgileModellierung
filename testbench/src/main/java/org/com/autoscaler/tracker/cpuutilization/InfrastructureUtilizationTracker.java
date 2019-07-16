@@ -54,9 +54,9 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }
-            file = new File(System.getProperty("user.home") + "\\Testbench\\cpuUtilization.csv\\");
+            file = new File(System.getProperty("user.home") + "\\Testbench\\infrastructureUtilization.csv\\");
             outputFile = new FileWriter(file);
-            writer = new CSVWriter(outputFile);
+            writer = new CSVWriter(outputFile, ';', '"', '\'',System.getProperty("line.separator")  );
             writer.writeNext(header);
         } catch (IOException e) {
 
