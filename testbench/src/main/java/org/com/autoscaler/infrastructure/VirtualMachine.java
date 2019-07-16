@@ -41,7 +41,7 @@ public class VirtualMachine {
         return id;
     }
 
-    public int getVmStartUpTime() {
+    public int getVmStartUpTimeInClockIntervals() {
         return vmStartUpTime;
     }
 

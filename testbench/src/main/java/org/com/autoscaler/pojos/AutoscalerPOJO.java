@@ -10,10 +10,10 @@ public class AutoscalerPOJO {
 
     private double lowerThreshold;
     private double upperThreshold;
-    private int vmTasksPerIntervall;
+    
     private int vmMax;
     private int vmMin;
-    private int vmStartUpTime;
+   
     private int cpuUtilWindow;
     private int queueLengthWindow;
     private int coolDownTimeInMilliSeconds;
@@ -36,20 +36,13 @@ public class AutoscalerPOJO {
     public String toString() {
 
         String output = "Autoscaler Information: \n lower Threshold: " + lowerThreshold + "\n upper Treshhold: "
-                + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMax: " + vmMax
-                + "\n vmMin: " + vmMin + "\n vm Startuptime: " + vmStartUpTime + "\n cpuUtilWindow: " + cpuUtilWindow
+                + upperThreshold +  "\n vmMax: " + vmMax
+                + "\n vmMin: " + vmMin + "\n cpuUtilWindow: " + cpuUtilWindow
                 + "\n queueLengthWindow: " + queueLengthWindow + "\n coolDownTime in ms: " + coolDownTimeInMilliSeconds + "\n clockTickTillScalingDecision: " + timeInMsTillNextScalingDecision;
         return output;
     }
 
-    public int getVmTasksPerIntervall() {
-        return vmTasksPerIntervall;
-    }
-
-    public void setVmTasksPerIntervall(int vmTasksPerIntervall) {
-        this.vmTasksPerIntervall = vmTasksPerIntervall;
-    }
-
+   
     public double getLowerThreshold() {
         return lowerThreshold;
     }
@@ -77,13 +70,7 @@ public class AutoscalerPOJO {
         this.upperThreshold = upperThreshold;
     }
 
-    public int getVmStartUpTime() {
-        return vmStartUpTime;
-    }
-
-    public void setVmStartUpTime(int vmStartUpTime) {
-        this.vmStartUpTime = vmStartUpTime;
-    }
+   
 
     public int getVmMax() {
         return vmMax;

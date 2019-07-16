@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.com.autoscaler.clock.ClockInformation;
@@ -11,13 +12,14 @@ import org.com.autoscaler.clock.IClock;
 import org.com.autoscaler.infrastructure.IInfrastructureModel;
 import org.com.autoscaler.infrastructure.InfrastructureState;
 import org.com.autoscaler.infrastructure.VirtualMachine;
+import org.com.autoscaler.infrastructure.VirtualMachineType;
 import org.com.autoscaler.metricsource.IMetricSource;
 import org.com.autoscaler.parser.IJSONLoader;
 import org.com.autoscaler.pojos.AutoscalerPOJO;
 import org.com.autoscaler.pojos.ClockPOJO;
 import org.com.autoscaler.pojos.InfrastructurePOJO;
 import org.com.autoscaler.pojos.QueuePOJO;
-import org.com.autoscaler.pojos.VirtualMachinePOJO;
+import org.com.autoscaler.pojos.VirtualMachineTypePOJO;
 import org.com.autoscaler.pojos.WorkflowPOJO;
 import org.com.autoscaler.queue.IQueueModel;
 import org.com.autoscaler.scaler.IAutoScaler;
@@ -175,8 +177,8 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
                 clockPOJO.getIntervalDurationInMilliSeconds());
 
         autoScaler.initAutoScaler(autoscalerPOJO.getLowerThreshold(), autoscalerPOJO.getUpperThreshold(),
-                autoscalerPOJO.getVmTasksPerIntervall(), autoscalerPOJO.getVmMin(), autoscalerPOJO.getVmMax(),
-                autoscalerPOJO.getVmStartUpTime(), coolDownInClockTicks, timeToScalingDecisionInCLockTicks);
+                autoscalerPOJO.getVmMin(), autoscalerPOJO.getVmMax(), coolDownInClockTicks,
+                timeToScalingDecisionInCLockTicks);
         metricSource.initMetricSource(autoscalerPOJO.getCpuUtilWindow(), autoscalerPOJO.getQueueLengthWindow());
 
     }
@@ -186,25 +188,43 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
          * We need interval duration for capacity calculation
          */
         ClockPOJO clockPOJO = jsonLoader.loadClockInformation(pathToClock);
-
         InfrastructurePOJO infrastructurePOJO = jsonLoader.loadInfrastructureInformation(pathToInfrastructure);
 
-        HashMap<Integer, VirtualMachine> vms = new HashMap<Integer, VirtualMachine>();
-        for (VirtualMachinePOJO virtualMachine : infrastructurePOJO.getVirtualMachines()) {
-            int tasksPerClockTick = MathUtil.tasksPerMillisecondInTasksPerIntervall(
-                    virtualMachine.getTasksPerMillisecond(), clockPOJO.getIntervalDurationInMilliSeconds());
+        /*
+         * Get Type with information in milliseconds
+         */
+        VirtualMachineTypePOJO vmTypePOJO = infrastructurePOJO.getVirtualMachineType();
 
-            int startUpTimeInClockTicks = MathUtil.tasksPerMillisecondInTasksPerIntervall(
-                    virtualMachine.getVmStartUpTimeInMilliSeconds(), clockPOJO.getIntervalDurationInMilliSeconds());
+        /*
+         * Create type with information in clock ticks
+         */
+        VirtualMachineType vmType = new VirtualMachineType(vmTypePOJO, clockPOJO.getIntervalDurationInMilliSeconds());
 
-            vms.put(virtualMachine.getId(),
-                    new VirtualMachine(virtualMachine.getId(), tasksPerClockTick, startUpTimeInClockTicks));
-        }
+        HashMap<Integer, VirtualMachine> vms = instantiateVirtualMachines(vmType,
+                infrastructurePOJO.getAmountOfVmsAtSimulationStart());
 
         InfrastructureState state = new InfrastructureState(infrastructurePOJO.getVmMin(),
                 infrastructurePOJO.getVmMax(), vms, clockPOJO.getIntervalDurationInMilliSeconds());
 
-        infrastructure.initInfrastructureModel(state, infrastructurePOJO.getCpuUitilizationWindow());
+        infrastructure.initInfrastructureModel(state, infrastructurePOJO.getCpuUitilizationWindow(), vmType);
+    }
+
+    /*
+     * Instantiate given amount of virtual machines
+     */
+    private HashMap<Integer, VirtualMachine> instantiateVirtualMachines(VirtualMachineType type, int amount) {
+        HashMap<Integer, VirtualMachine> vms = new HashMap<Integer, VirtualMachine>();
+
+        for (int i = 0; i < amount; i++) {
+            int id = MathUtil.generateRandomInteger();
+            vms.put(id, new VirtualMachine(id, type.getTasksPerInterval(), type.getVmStartUpTimeInIntervals()));
+
+        }
+        
+    
+
+        return vms;
+
     }
 
     private void initWorkloadHandler(String path, String pathToClock) {
@@ -225,10 +245,10 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
     private int processWorkload(int milliSecondsTillWorkloadChange, double intervalDurationInMillisecond,
             int amountOfTasksToBeProcessed) {
-        
-        double tasksPerMillisecond = (double)amountOfTasksToBeProcessed / (double)milliSecondsTillWorkloadChange;
-        
-        double  tasksPerIntervall = tasksPerMillisecond * intervalDurationInMillisecond;
+
+        double tasksPerMillisecond = (double) amountOfTasksToBeProcessed / (double) milliSecondsTillWorkloadChange;
+
+        double tasksPerIntervall = tasksPerMillisecond * intervalDurationInMillisecond;
 
         return Math.round((float) tasksPerIntervall);
     }

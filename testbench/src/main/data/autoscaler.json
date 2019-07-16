@@ -3,8 +3,7 @@
 {
 	"lowerThreshold": 0.70,
 	"upperThreshold": 0.90,
-	"vmTasksPerIntervall": 300, 
-	"vmStartUpTime": 50,
+	
 	"vmMax": 20,
 	"vmMin": 2,
 	"timeInMsTillNextScalingDecision": 10000,

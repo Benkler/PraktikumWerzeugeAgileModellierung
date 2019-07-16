@@ -34,7 +34,7 @@ public class VmBootingQueue {
     public void addVirtualMachinesToQueue(List<VirtualMachine> vms) {
 
         for (VirtualMachine vm : vms) {
-            bootingQueue.add(new Pair<Integer, VirtualMachine>(vm.getVmStartUpTime(), vm));
+            bootingQueue.add(new Pair<Integer, VirtualMachine>(vm.getVmStartUpTimeInClockIntervals(), vm));
         }
 
     }

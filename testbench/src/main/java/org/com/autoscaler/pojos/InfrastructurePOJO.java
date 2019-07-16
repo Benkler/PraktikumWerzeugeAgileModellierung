@@ -9,27 +9,21 @@ import java.util.List;
  */
 public class InfrastructurePOJO {
 
-    private List<VirtualMachinePOJO> virtualMachines;
+    private VirtualMachineTypePOJO virtualMachineType;
 
     private int vmMax;
 
     private int vmMin;
     
     private int cpuUitilizationWindow;
+    
+    private int amountOfVmsAtSimulationStart;
 
    
    
    
 
-    public List<VirtualMachinePOJO> getVirtualMachines() {
-        return virtualMachines;
-    }
-
-
-
-    public void setVirtualMachines(List<VirtualMachinePOJO> virtualMachines) {
-        this.virtualMachines = virtualMachines;
-    }
+   
 
     public int getVmMax() {
         return vmMax;
@@ -59,10 +53,8 @@ public class InfrastructurePOJO {
         String output = "Infrastructure: \n vmMax: " + vmMax + " \n vmMin: " + vmMin
                  + "\n Virtual Machines: \n";
         sb.append(output);
-        for (VirtualMachinePOJO vm : virtualMachines) {
-            sb.append(vm.toString());
-        }
-        
+        sb.append(virtualMachineType.toString());
+        sb.append("\nAmount of virtual machines at start: " + amountOfVmsAtSimulationStart);
         sb.append("\nCpu utilization window Size:" + cpuUitilizationWindow);
         return sb.toString();
     }
@@ -73,6 +65,22 @@ public class InfrastructurePOJO {
 
     public void setCpuUitilizationWindow(int cpuUitilizationWindow) {
         this.cpuUitilizationWindow = cpuUitilizationWindow;
+    }
+
+    public VirtualMachineTypePOJO getVirtualMachineType() {
+        return virtualMachineType;
+    }
+
+    public void setVirtualMachineType(VirtualMachineTypePOJO virtualMachineType) {
+        this.virtualMachineType = virtualMachineType;
+    }
+
+    public int getAmountOfVmsAtSimulationStart() {
+        return amountOfVmsAtSimulationStart;
+    }
+
+    public void setAmountOfVmsAtSimulationStart(int amountOfVmsAtSimulationStart) {
+        this.amountOfVmsAtSimulationStart = amountOfVmsAtSimulationStart;
     }
 
 }

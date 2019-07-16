@@ -2,6 +2,7 @@ package org.com.autoscaler.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Random;
 
 public final class MathUtil {
     
@@ -40,5 +41,15 @@ public final class MathUtil {
         
         return round((tasksPerIntervall / intervallDurationInMilliseconds), 2);
         
+    }
+    
+    public static int generateRandomInteger() {
+        /*
+         * Generate random id
+         */
+        Random rand = new Random();
+        // zero out the sign bits
+        int id = rand.nextInt() & Integer.MAX_VALUE;
+        return id;
     }
 }

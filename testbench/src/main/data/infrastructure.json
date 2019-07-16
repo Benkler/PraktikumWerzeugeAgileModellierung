@@ -1,56 +1,13 @@
 
 
 {
-  "virtualMachines": [
-    {"id": 12,
+  "virtualMachineType": 
+    {
     "tasksPerMillisecond": 1,
      "vmStartUpTimeInMilliSeconds": 5
     },
-   {"id": 11,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    },
-    {"id": 10,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    },
-    {"id": 9,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    },
-    {"id": 8,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    },
-    {"id": 7,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    },
-     {"id": 6,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    },
-     {"id": 5,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    }
-    ,
-     {"id": 4,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    }
-    ,
-     {"id": 3,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    }
-    ,
-     {"id": 2,
-    "tasksPerMillisecond": 1,
-     "vmStartUpTimeInMilliSeconds": 5
-    }
-    
-  ],
+    "amountOfVmsAtSimulationStart": 12,
+   
   "vmMax": 20,
   "vmMin": 2,
   

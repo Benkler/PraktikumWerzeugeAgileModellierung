@@ -28,10 +28,12 @@ public class InfrastructureModel implements IInfrastructureModel {
 
     private final Logger log = LoggerFactory.getLogger(InfrastructureModel.class);
     private boolean initialized = false;
-    
+
     private MovingAverage<Double> cpuUtilization;
 
     private VmBootingQueue vmBootingQueue;
+
+    private VirtualMachineType virtualMachineType;
 
     /*
      * Holds Information about current Infrastructure without queue
@@ -51,10 +53,12 @@ public class InfrastructureModel implements IInfrastructureModel {
      * Initialize infrastructure with given state. This is only allowed once!
      */
     @Override
-    public void initInfrastructureModel(InfrastructureState infrastructure, int cpuUitilizationWindow) {
+    public void initInfrastructureModel(InfrastructureState infrastructure, int cpuUitilizationWindow,
+            VirtualMachineType vmType) {
         if (initialized)
             return;
 
+        this.virtualMachineType = vmType;
         this.infrastructureState = infrastructure;
         initialized = true;
         vmBootingQueue = new VmBootingQueue();
@@ -73,43 +77,36 @@ public class InfrastructureModel implements IInfrastructureModel {
 
         // Check if new vms are ready
         checkForBootedVirtualMachines();
-        
+
         handleArrivingTasks(clockEvent);
         int tasksLeavingTheSystem = processTasks(clockEvent);
         updateCPUUtilization(tasksLeavingTheSystem);
 
-        
-        
-        
         // Reduce boot time
         vmBootingQueue.reduceWaitingAmount();
 
     }
-    
+
     private void updateCPUUtilization(int processedTasks) {
-        
+
         /*
          * Amount of tasks the system is able to process
          */
         int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
-        
+
         double currentCpuUtilization = (double) processedTasks / (double) currentCapacity;
-        
+
         cpuUtilization.add(currentCpuUtilization);
-        
-    
-        
+
     }
-    
-    
 
     private int handleArrivingTasks(ClockEvent event) {
         int currentArrivalRate = infrastructureState.getCurrentArrivalRateInTasksPerIntervall();
         int enqueuedElements = queue.enqueue(currentArrivalRate, event);
 
-        log.info("Process arriving Jobs: Arrival Rate at " + currentArrivalRate + " --> Enqueued Elements: " + enqueuedElements
-                + " elements");
-        
+        log.info("Process arriving Jobs: Arrival Rate at " + currentArrivalRate + " --> Enqueued Elements: "
+                + enqueuedElements + " elements");
+
         return enqueuedElements;
     }
 
@@ -120,7 +117,7 @@ public class InfrastructureModel implements IInfrastructureModel {
 
         log.info("Process leaving Jobs: Current capacity at " + currentCapacity + " tasks per Intervall. --> Dequeue "
                 + dequeuedJobs + " elements");
-        
+
         return dequeuedJobs;
 
     }
@@ -138,9 +135,8 @@ public class InfrastructureModel implements IInfrastructureModel {
         infrastructureState.setWorkload(wlChangedEvent.getWorkloadInfo());
 
     }
-  
-    
-     /**
+
+    /**
      * Interface in case another component requires the current state. <br>
      * Important: This is the state at a specific clock interval and does not
      * include any moving average. <br>
@@ -152,7 +148,8 @@ public class InfrastructureModel implements IInfrastructureModel {
         // TODO build state
         InfrastructureStateTransferObject state = new InfrastructureStateTransferObject();
         state.setCurrentArrivalRateInTasksPerIntervall(infrastructureState.getCurrentArrivalRateInTasksPerIntervall());
-        state.setCurrentArrivalRateInTasksPerMilliSecond(infrastructureState.getCurrentArrivalRateInTasksPerMilliSecond());
+        state.setCurrentArrivalRateInTasksPerMilliSecond(
+                infrastructureState.getCurrentArrivalRateInTasksPerMilliSecond());
         state.setCurrentCapacityInTasksPerIntervall(infrastructureState.getCurrentCapacityInTasksPerInterval());
         state.setCurrentCapacityInTasksPerMilliSecond(infrastructureState.getCurrentCapacityInTasksPerMilliSecond());
         state.setVirtualMachines(new LinkedList<VirtualMachine>(infrastructureState.getVirtualMachines().values()));
@@ -160,13 +157,11 @@ public class InfrastructureModel implements IInfrastructureModel {
         // current capacity vs. arrival rate + queue level
         double capacityDiscrepancy = (double) (infrastructureState.getCurrentArrivalRateInTasksPerIntervall()
                 + queue.currentLevelInTasks()) / infrastructureState.getCurrentCapacityInTasksPerInterval();
-       
-       
-        
+
         /*
          * CPU utilization includes queue Level!!!
          */
-        //double cpuUtilization = Math.min(capacityDiscrepancy, 1.0);
+        // double cpuUtilization = Math.min(capacityDiscrepancy, 1.0);
 
         state.setCurrentCPUUtilization(cpuUtilization.average());
 
@@ -192,15 +187,17 @@ public class InfrastructureModel implements IInfrastructureModel {
      */
     @Override
     public void scaleVirtualMachines(ScalingEvent event) {
-        log.info("Sacaling Decision with new amount of virtual machines: " + event.getVirtualMachines().size());
+        log.info("Sacaling Decision with mode " + event.getMode().toString()
+                + ". Amount of virtual machines to be added/deleted: " + event.getVirtualMachines().size());
 
         // Scale Down Immediately
         if (event.getMode() == ScalingMode.SCALE_DOWN) {
+            log.info("Execute scaling Down decision Immediately. ");
             infrastructureState.scaleDownVirtualMachines(event.getVirtualMachines());
 
             // scale up by enqueueing in booting queue
         } else if (event.getMode() == ScalingMode.SCALE_UP) {
-            log.info("Execute scaling UP decision. Previous amount of virtual machines: "
+            log.info("Execute scaling UP decision by enqueuing into booting queue. Previous amount of virtual machines: "
                     + infrastructureState.getVirtualMachines().size() + "  ");
 
             enqueueVirtualMachinesInBootingQueue(event.getVirtualMachines());
@@ -232,8 +229,7 @@ public class InfrastructureModel implements IInfrastructureModel {
             addVmsToInfrastructure(booted);
         }
     }
-     
-    
+
     /*
      * Add booted vms to infrastructure
      */
@@ -243,6 +239,11 @@ public class InfrastructureModel implements IInfrastructureModel {
         log.info("Vms successfully booted: New amount of virtual machines: "
                 + infrastructureState.getVirtualMachines().size() + "  ");
 
+    }
+
+    @Override
+    public VirtualMachineType getVirtualMachineType() {
+        return this.virtualMachineType;
     }
 
 }

@@ -1,20 +1,12 @@
 
 
 {
-  "virtualMachines": [
-    {"id": 12,
-    "tasksPerMillisecond": 200,
-     "vmStartUpTimeInMilliSeconds": 100
+  "virtualMachineType": 
+    {
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
     },
-   {"id": 11,
-    "tasksPerMillisecond": 200,
-     "vmStartUpTimeInMilliSeconds": 100
-    },
-    {"id": 10,
-    "tasksPerMillisecond": 200,
-     "vmStartUpTimeInMilliSeconds": 100
-    }
-  ],
+     "amountOfVmsAtSimulationStart": 10,
   "vmMax": 20,
   "vmMin": 2,
   

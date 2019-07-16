@@ -11,12 +11,14 @@ public interface IInfrastructureModel {
     
     public void changeWorkload(WorkloadChangedEvent wlChangedEvent);
     
-    public void initInfrastructureModel(InfrastructureState infrastructure, int cpuUitilizationWindow);
+    public void initInfrastructureModel(InfrastructureState infrastructure, int cpuUitilizationWindow, VirtualMachineType vmType);
     
     public InfrastructureStateTransferObject getInfrastructureState();
     
     public void publishInfrastructureState(TriggerPublishInfrastructureStateEvent event);
     
     public void scaleVirtualMachines(ScalingEvent event);
+    
+    public VirtualMachineType getVirtualMachineType();
 
 }

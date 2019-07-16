@@ -8,6 +8,7 @@ import org.com.autoscaler.events.QueueStateEvent;
 import org.com.autoscaler.infrastructure.IInfrastructureModel;
 import org.com.autoscaler.infrastructure.InfrastructureStateTransferObject;
 import org.com.autoscaler.infrastructure.VirtualMachine;
+import org.com.autoscaler.infrastructure.VirtualMachineType;
 import org.com.autoscaler.util.MovingAverage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,6 +96,11 @@ public class MetricSource implements IMetricSource {
         queueLengthAverage.add(event.getState().getTasksInQueue());
         log.info("Moving average queue length: " + queueLengthAverage.average());
         
+    }
+
+    @Override
+    public VirtualMachineType getVirtualMachineType() {
+        return infrastructure.getVirtualMachineType();
     }
 
 }

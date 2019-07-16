@@ -7,7 +7,9 @@ import java.util.Random;
 import org.com.autoscaler.events.ClockEvent;
 
 import org.com.autoscaler.infrastructure.VirtualMachine;
+import org.com.autoscaler.infrastructure.VirtualMachineType;
 import org.com.autoscaler.metricsource.IMetricSource;
+import org.com.autoscaler.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,23 +44,15 @@ public class AutoScaler implements IAutoScaler {
 
     private boolean isCoolDown;
 
-    /*
-     * Only temporary, Vm's can be different
-     */
-    private int vmTasksPerIntervall;
-    private int vmStartUpTime;
-
     @Override
-    public void initAutoScaler(double lowerThreshold, double upperThreshold, int vmTasksPerIntervall, int vmMin,
-            int vmMax, int startUpTime, int coolDownTimeInIntervallTicks, int clockTicksTillScalingDecision) {
+    public void initAutoScaler(double lowerThreshold, double upperThreshold, int vmMin, int vmMax,
+            int coolDownTimeInIntervallTicks, int clockTicksTillScalingDecision) {
         if (!init) {
             log.info("Init Autoscaler with \n lowerThreshold: " + lowerThreshold + "\n upperThreshold: "
-                    + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMin: " + vmMin
-                    + "\n vmMax: " + vmMax);
+                    + upperThreshold + "\n vmMin: " + vmMin + "\n vmMax: " + vmMax);
             this.lowerThreshold = lowerThreshold;
             this.upperThreshold = upperThreshold;
-            this.vmTasksPerIntervall = vmTasksPerIntervall;
-            this.vmStartUpTime = startUpTime;
+
             this.vmMax = vmMax;
             this.vmMin = vmMin;
             this.coolDownTime = coolDownTimeInIntervallTicks;
@@ -100,7 +94,7 @@ public class AutoScaler implements IAutoScaler {
             }
 
             log.info("Autoscaler decision: Scale down at clocktick: " + event.getClockTickCount() + ".  "
-                    + updatedInstances.size() + " virtual machines added");
+                    + updatedInstances.size() + " virtual machines removed");
             scalingController.setInstances(updatedInstances, event.getClockTickCount(),
                     event.getIntervallDuratioInMilliSeconds(), ScalingMode.SCALE_DOWN);
             setCoolDown(true);
@@ -146,6 +140,15 @@ public class AutoScaler implements IAutoScaler {
     public void handleClockTick(ClockEvent event) {
 
         if (event.getClockTickCount() % clockTicksTillScalingDecision == 0) {
+
+            /*
+             * Avoid scaling down at first clockTick (hack needed, because arrival rate at
+             * first clockTick = 0!)
+             */
+            if (event.getClockTickCount() == 0) {
+                return;
+            }
+
             log.info("Autoscaler triggered at clockTick: " + event.getClockTickCount());
             update(event);
         }
@@ -197,18 +200,15 @@ public class AutoScaler implements IAutoScaler {
         List<VirtualMachine> currentInstances = metricSource.getServiceInstances();
         List<VirtualMachine> vmsToBoot = new LinkedList<VirtualMachine>();
 
-        /*
-         * Generate random id
-         */
-        Random rand = new Random();
-        // zero out the sign bits
-        int id = rand.nextInt() & Integer.MAX_VALUE;
+        int id = MathUtil.generateRandomInteger();
 
         if (currentInstances.size() < vmMax) {
 
             // VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall,
             // vmStartUpTime);
-            VirtualMachine tobeAdded = new VirtualMachine(id, vmTasksPerIntervall, vmStartUpTime);
+            VirtualMachineType vmType = metricSource.getVirtualMachineType();
+            VirtualMachine tobeAdded = new VirtualMachine(id, vmType.getTasksPerInterval(),
+                    vmType.getVmStartUpTimeInIntervals());
             vmsToBoot.add(tobeAdded);
             log.info("Successfully added  virtual machine with id  " + tobeAdded.getId());
         } else {

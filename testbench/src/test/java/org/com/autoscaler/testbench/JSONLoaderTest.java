@@ -34,14 +34,16 @@ public class JSONLoaderTest {
         IJSONLoader loader = new JSONLoader();
 
         AutoscalerPOJO autoscaler = loader.loadAutoScalerInformation("src/test/data/autoscalerTest.json");
-        assertEquals(autoscaler.getVmStartUpTime(), 100);
+        
         assertEquals(autoscaler.getLowerThreshold(), 0.97, 0.001);
         assertEquals(autoscaler.getUpperThreshold(), 1.08, 0.001);
         assertEquals(autoscaler.getCpuUtilWindow(), 8);
         assertEquals(autoscaler.getQueueLengthWindow(), 10);
         assertEquals(autoscaler.getCoolDownTimeInMilliSeconds(), 1000);
         assertEquals(autoscaler.getTimeInMsTillNextScalingDecision()  , 2000);
+        assertEquals(autoscaler.getVmMax(), 20);
  
+        assertEquals(autoscaler.getVmMin(), 2);
 
     }
     
@@ -59,19 +61,12 @@ public class JSONLoaderTest {
      
 
         
+       assertEquals(infrastructure.getVirtualMachineType().getTasksPerMillisecond(), 1, 0.001); 
+       assertEquals(infrastructure.getVirtualMachineType().getVmStartUpTimeInMilliSeconds(), 5, 0.001); 
+       assertEquals(infrastructure.getAmountOfVmsAtSimulationStart(), 10);
+      
         
-        assertEquals(infrastructure.getVirtualMachines().get(0).getId(), 12);
-        assertEquals(infrastructure.getVirtualMachines().get(0).getTasksPerMillisecond(), 200, 0.001);
-        assertEquals(infrastructure.getVirtualMachines().get(0).getVmStartUpTimeInMilliSeconds(), 100);
         
-        
-        assertEquals(infrastructure.getVirtualMachines().get(1).getId(), 11);
-        assertEquals(infrastructure.getVirtualMachines().get(1).getTasksPerMillisecond(), 200, 0.001);
-        assertEquals(infrastructure.getVirtualMachines().get(1).getVmStartUpTimeInMilliSeconds(), 100);
-        
-        assertEquals(infrastructure.getVirtualMachines().get(2).getId(), 10);
-        assertEquals(infrastructure.getVirtualMachines().get(2).getTasksPerMillisecond(), 200, 0.001);
-        assertEquals(infrastructure.getVirtualMachines().get(2).getVmStartUpTimeInMilliSeconds(), 100); 
         
         
     }
