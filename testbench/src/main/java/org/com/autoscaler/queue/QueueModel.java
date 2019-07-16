@@ -105,22 +105,15 @@ public class QueueModel implements IQueueModel {
 
         log.info("Trying to dequeue " + jobs + " Tasks.");
 
-       
-
         int dequeuedJobs = dequeueBatchAndUpdateQueueingDelay(event, jobs);
 
-        
-
         updateProcessingRate(dequeuedJobs);
-        
-         
-      
 
         log.info("Actually amount of dequeued Tasks: " + dequeuedJobs);
         return dequeuedJobs;
 
     }
-    
+
     /*
      * For testing purposes.
      */
@@ -142,24 +135,25 @@ public class QueueModel implements IQueueModel {
      * remove does not exceed the amount of jobs in the current batch)
      */
     private int dequeueBatchAndUpdateQueueingDelay(ClockEvent event, int amountOfJobsToDequeue) {
-    
+
         /*
          * Jobs that will be dequeued
          */
         int dequeuedJobsTemp = 0;
-    
+
         // Necessary as more that one batch might be removed --> Average necessary
         int amountOfRemovedBatches = 0;
         int sumOfQueueingDelays = 0;
-    
+
         /*
          * Remove as many batches as required. In case a batch is only partly removed,
          * just update first FIFO list element (reduce amount of jobs by removed jobs)
          */
-        while ((dequeuedJobsTemp < amountOfJobsToDequeue) && checkIfFirstBatchCanBeDequeued(event.getClockTickCount())) {
+        while ((dequeuedJobsTemp < amountOfJobsToDequeue)
+                && checkIfFirstBatchCanBeDequeued(event.getClockTickCount())) {
             Pair<Integer, Integer> firstBatchInFIFO = taskBatches.removeFirst();
             amountOfRemovedBatches++;
-    
+
             /*
              * process currently first batch in list entirely an proceed with next list
              * element
@@ -167,8 +161,7 @@ public class QueueModel implements IQueueModel {
             if (dequeuedJobsTemp + firstBatchInFIFO.getR() <= amountOfJobsToDequeue) {
                 dequeuedJobsTemp += firstBatchInFIFO.getR();
                 log.info("Remove entire batch with elements: " + firstBatchInFIFO.getR());
-                
-    
+
                 /*
                  * Remove necessary elements from first batch and update first batch. Now,
                  * enough elements haven been deleted from queue
@@ -179,44 +172,45 @@ public class QueueModel implements IQueueModel {
                  * dequeuedJobs = amountOfJobsToDequeue --> Exit loop during next iteration
                  */
                 dequeuedJobsTemp += remainingElementsToRetrieveFromBatch;
-    
+
                 int newAmountOfElementsInFirstBatch = firstBatchInFIFO.getR() - remainingElementsToRetrieveFromBatch;
                 taskBatches
                         .addFirst(new Pair<Integer, Integer>(firstBatchInFIFO.getL(), newAmountOfElementsInFirstBatch));
-    
+
                 if (newAmountOfElementsInFirstBatch < 0) {
                     throw new AssertionError("New amount of elements is " + newAmountOfElementsInFirstBatch);
                 }
                 log.info("New Amount for the first batch in queue is: " + newAmountOfElementsInFirstBatch);
-    
+
             }
-    
+
             sumOfQueueingDelays += event.getClockTickCount() - firstBatchInFIFO.getL();
-    
+
         }
-    
-        if(amountOfRemovedBatches == 0) {
+
+        if (amountOfRemovedBatches == 0) {
             log.info("No jobs are available to be dequeued at clockTick " + event.getClockTickCount());
             updateQueuingDelay(0.0);
-        }else {
+        } else {
             double queueingDelayToAdd = (double) sumOfQueueingDelays / (double) amountOfRemovedBatches;
             updateQueuingDelay(queueingDelayToAdd);
-            
+
         }
-    
+
         currentQueueLevelInTasks -= dequeuedJobsTemp;
         return dequeuedJobsTemp;
-    
+
     }
-    
+
     /**
      * For testing purposes
      */
     void printQueue() {
-        for(int i = 0; i< taskBatches.size();i++) {
-            log.info("Batch with clockTick " +  taskBatches.get(i).getL() +"  has " + taskBatches.get(i).getR() +  " jobs");
+        for (int i = 0; i < taskBatches.size(); i++) {
+            log.info("Batch with clockTick " + taskBatches.get(i).getL() + "  has " + taskBatches.get(i).getR()
+                    + " jobs");
         }
-        
+
     }
 
     /**
@@ -230,18 +224,18 @@ public class QueueModel implements IQueueModel {
      */
     @Override
     public int enqueue(int jobs, ClockEvent clockEvent) {
-    
+
         // arrival rate is independent from actually enqueued jobs --> Needs to be
         // before enqueing
         updateArrivalRate(jobs);
-    
+
         // Jobs that will be enqueued (Might be less then incoming amount due to full
         // Queue)
         int enqueuedJobs = enqueueBatch(clockEvent, jobs);
-       
-        //for testing purposes
-        //printQueue();
-        
+
+        // for testing purposes
+        // printQueue();
+
         return enqueuedJobs;
     }
 
@@ -347,22 +341,39 @@ public class QueueModel implements IQueueModel {
 
     }
 
-   
-    private QueueStateTransferObject getQueueState() {
+    private QueueStateTransferObject getQueueState(double intervallDurationInMilliSeconds) {
         QueueStateTransferObject state = new QueueStateTransferObject();
+
+        double averageQueueDepartureRateInTasksPerInterval = queueDepartureRateInTasksPerInterval.average();
+        double averageQueueArrivalRateInTasksPerInterval = queueArrivalRateInTasksPerInterval.average();
+        double averageQueueingDelayInIntervals = queueingDelayMeasurementInIntervals.average();
+
+        double averageQueueDepartureRateInTasksPerMilliseconds = MathUtil.tasksPerIntervallInTasksPerMillisecond(
+                averageQueueDepartureRateInTasksPerInterval, intervallDurationInMilliSeconds);
+
+        double averageQueueArrivalRateInTasksPerMilliseconds = MathUtil.tasksPerIntervallInTasksPerMillisecond(
+                averageQueueArrivalRateInTasksPerInterval, intervallDurationInMilliSeconds);
+
+        double averageQueueingDelayInMilliseconds = MathUtil.clockTicksInMillisecond(averageQueueingDelayInIntervals,
+                intervallDurationInMilliSeconds);
+
         state.setQueueFillInPercent(currentLevelInPercent());
         state.setTasksInQueue(currentLevelInTasks());
-        state.setQueueProcessingRateInTasksPerInterval(queueDepartureRateInTasksPerInterval.average());
-        state.setQueueArrivalRateInTasksPerInterval(queueArrivalRateInTasksPerInterval.average());
-        state.setQueueingDelayInIntervals(queueingDelayMeasurementInIntervals.average());
+        
+        state.setQueueProcessingRateInTasksPerInterval(averageQueueDepartureRateInTasksPerInterval);
+        state.setQueueArrivalRateInTasksPerInterval(averageQueueArrivalRateInTasksPerInterval);
+        state.setQueueingDelayInIntervals(averageQueueingDelayInIntervals);
 
+        state.setQueueArrivalRateInTasksPerMilliSecond(averageQueueArrivalRateInTasksPerMilliseconds);
+        state.setQueueProcessingRateInTasksPerMilliSecond(averageQueueDepartureRateInTasksPerMilliseconds);
+        state.setQueuingDelayInMilliseconds(averageQueueingDelayInMilliseconds);
         return state;
     }
 
     @Override
     public void publishQueueState(TriggerPublishQueueStateEvent event) {
         publisher.fireQueueStateEvent(event.getClockTickCount(), event.getIntervallDuratioInMilliSeconds(),
-                getQueueState());
+                getQueueState(event.getIntervallDuratioInMilliSeconds()));
 
     }
 

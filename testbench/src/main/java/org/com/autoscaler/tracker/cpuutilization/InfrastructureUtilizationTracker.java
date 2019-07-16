@@ -36,7 +36,7 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
     DecimalFormat df = new DecimalFormat("#.##");
 
     private final String[] header = { "Clock Tick", "Current Arrival Rate in Tasks per Interval",
-            "Current Capacity in Tasks per Interval", "Current Arrival Rate in Tasks per Millisecond",
+            "Current Arrival Rate in Tasks per Millisecond", "Current Capacity in Tasks per Interval",
             "Current Capacity in Tasks per millisecond", "CPU Utilization in %", "Amount of Vms" };
 
     File file;
@@ -56,7 +56,7 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
             }
             file = new File(System.getProperty("user.home") + "\\Testbench\\infrastructureUtilization.csv\\");
             outputFile = new FileWriter(file);
-            writer = new CSVWriter(outputFile, ';', '"', '\'',System.getProperty("line.separator")  );
+            writer = new CSVWriter(outputFile, ';', '"', '\'', System.getProperty("line.separator"));
             writer.writeNext(header);
         } catch (IOException e) {
 
@@ -83,27 +83,28 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
     public void trackInfrastructureState(InfrastructureStateEvent event) {
         int clockTickCount = event.getClockTickCount();
         int arrRateInTasksPerInterval = event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall();
-        double arrRateInTasksPerMilliSecond = event.getInfrastructureState().getCurrentArrivalRateInTasksPerMilliSecond();
+        double arrRateInTasksPerMilliSecond = event.getInfrastructureState()
+                .getCurrentArrivalRateInTasksPerMilliSecond();
         int curCapInTasksPerIntervall = event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall();
         double curCapInTasksPerMilliSecond = event.getInfrastructureState().getCurrentCapacityInTasksPerMilliSecond();
 
-        double cpuutilization = MathUtil
-                .round(event.getInfrastructureState().getCurrentCPUUtilization() * 100.00, 2);
+        double cpuutilization = MathUtil.round(event.getInfrastructureState().getCurrentCPUUtilization() * 100.00, 2);
         int amountOfVms = event.getInfrastructureState().getVirtualMachines().size();
 
-//        /*
-//         * Discard event if nothing new happened
-//         */
-//        if (curCapInTasksPerIntervall == oldCapacityInTasksPerInterval
-//                && arrRateInTasksPerInterval == oldArrivalRateInTasksPerInterval) {
-//            return;
-//        }
-//        oldCapacityInTasksPerInterval = curCapInTasksPerIntervall;
-//        oldArrivalRateInTasksPerInterval = arrRateInTasksPerInterval;
+        // /*
+        // * Discard event if nothing new happened
+        // */
+        // if (curCapInTasksPerIntervall == oldCapacityInTasksPerInterval
+        // && arrRateInTasksPerInterval == oldArrivalRateInTasksPerInterval) {
+        // return;
+        // }
+        // oldCapacityInTasksPerInterval = curCapInTasksPerIntervall;
+        // oldArrivalRateInTasksPerInterval = arrRateInTasksPerInterval;
 
         String[] newLine = { String.valueOf(clockTickCount), String.valueOf(arrRateInTasksPerInterval),
-                String.valueOf(curCapInTasksPerIntervall), String.valueOf(arrRateInTasksPerMilliSecond),
-                String.valueOf(curCapInTasksPerMilliSecond), String.valueOf(cpuutilization), String.valueOf(amountOfVms) };
+                String.valueOf(arrRateInTasksPerMilliSecond), String.valueOf(curCapInTasksPerIntervall),
+                String.valueOf(curCapInTasksPerMilliSecond), String.valueOf(cpuutilization),
+                String.valueOf(amountOfVms) };
 
         writer.writeNext(newLine);
 

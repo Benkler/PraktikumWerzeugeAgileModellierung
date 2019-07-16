@@ -32,7 +32,9 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
     private final Logger log = LoggerFactory.getLogger(QueueDiscardJobsTracker.class);
 
     private final String[] header = { "Clock Tick", "Amount of waiting tasks in queue", "Queue fill in %",
-            "Arrival Rate (Tasks Per Intervall)", "Processing Rate (TasksPerIntervall)", "Queuin Delay in Intervals" };
+            "Arrival Rate (in Tasks Per Intervall)", "Arrival Rate (in tasks per ms)",
+            "Processing Rate (TasksPerIntervall)", "Processing Rate (tasks per ms)", "Queuin Delay in Intervals",
+            "Queuing Delay in ms" };
 
     File file;
     FileWriter outputFile;
@@ -54,7 +56,7 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
             }
             file = new File(System.getProperty("user.home") + "\\Testbench\\queueUtilization.csv\\");
             outputFile = new FileWriter(file);
-            writer = new CSVWriter(outputFile, ';', '"', '\'',System.getProperty("line.separator")  );
+            writer = new CSVWriter(outputFile, ';', '"', '\'', System.getProperty("line.separator"));
             writer.writeNext(header);
         } catch (IOException e) {
 
@@ -79,12 +81,18 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
 
     @Override
     public void trackQueueStateEvent(QueueStateEvent event) {
+        
+       
         int clockTIckCount = event.getClockTickCount();
         int amountOfTasks = event.getState().getTasksInQueue();
-        double arrivalRate = MathUtil.round(event.getState().getQueueArrivalRateInTasksPerInterval(), 2);
-        double processingRate = MathUtil.round(event.getState().getQueueProcessingRateInTasksPerInterval(), 2);
+        double arrivalRateInTasksPerInterval = MathUtil.round(event.getState().getQueueArrivalRateInTasksPerInterval(), 2);
+        double processingRateInTasksPerInterval = MathUtil.round(event.getState().getQueueProcessingRateInTasksPerInterval(), 2);
         double queueFillInPercent = event.getState().getQueueFillInPercent();
-        double queuingDelayInIntervals = MathUtil.round(event.getState().getQueueingDelayInIntervals(),2);
+        double queuingDelayInIntervals = MathUtil.round(event.getState().getQueueingDelayInIntervals(), 2);
+        
+        double processingRateInTasksPerMillisecond = event.getState().getQueueProcessingRateInTasksPerMilliSecond();
+        double arrivalRateInTasksPerMillisecond = event.getState().getQueueArrivalRateInTasksPerMilliSecond();
+        double queuingDelayInMilliseconds = event.getState().getQueuingDelayInMilliseconds();
 
         // // No duplicate information
         // if (previousAmountOfTasks == amountOfTasks && previousArrivalRate ==
@@ -93,13 +101,13 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
         // return;
 
         String[] newLine = { String.valueOf(clockTIckCount), String.valueOf(amountOfTasks),
-                String.valueOf(queueFillInPercent), String.valueOf(arrivalRate), String.valueOf(processingRate),
-                String.valueOf(queuingDelayInIntervals) };
+                String.valueOf(queueFillInPercent), String.valueOf(arrivalRateInTasksPerInterval), String.valueOf(arrivalRateInTasksPerMillisecond), String.valueOf(processingRateInTasksPerInterval),
+                String.valueOf(processingRateInTasksPerMillisecond),String.valueOf(queuingDelayInIntervals) ,String.valueOf(queuingDelayInMilliseconds)};
         writer.writeNext(newLine);
 
         previousAmountOfTasks = amountOfTasks;
-        previousArrivalRate = arrivalRate;
-        previousProcessingRate = processingRate;
+        previousArrivalRate = arrivalRateInTasksPerInterval;
+        previousProcessingRate = processingRateInTasksPerInterval;
 
     }
 

@@ -9,7 +9,10 @@ public class QueueStateTransferObject {
     private double queueFillInPercent;
     private double queueArrivalRateInTasksPerInterval;
     private double queueProcessingRateInTasksPerInterval;
+    private double queueArrivalRateInTasksPerMilliSecond;
+    private double queueProcessingRateInTasksPerMilliSecond;
     private double queueingDelayInIntervals;
+    private double queuingDelayInMilliseconds;
     
     
     
@@ -73,6 +76,30 @@ public class QueueStateTransferObject {
         sb.append(queueingDelayInIntervals);
         return sb.toString();
         
+    }
+
+    public double getQueueArrivalRateInTasksPerMilliSecond() {
+        return queueArrivalRateInTasksPerMilliSecond;
+    }
+
+    public void setQueueArrivalRateInTasksPerMilliSecond(double queueArrivalRateInTasksPerMilliSecond) {
+        this.queueArrivalRateInTasksPerMilliSecond = queueArrivalRateInTasksPerMilliSecond;
+    }
+
+    public double getQueueProcessingRateInTasksPerMilliSecond() {
+        return queueProcessingRateInTasksPerMilliSecond;
+    }
+
+    public void setQueueProcessingRateInTasksPerMilliSecond(double queueProcessingRateInTasksPerMilliSecond) {
+        this.queueProcessingRateInTasksPerMilliSecond = queueProcessingRateInTasksPerMilliSecond;
+    }
+
+    public double getQueuingDelayInMilliseconds() {
+        return queuingDelayInMilliseconds;
+    }
+
+    public void setQueuingDelayInMilliseconds(double queuingDelayInMilliseconds) {
+        this.queuingDelayInMilliseconds = queuingDelayInMilliseconds;
     }
 
 }
