@@ -7,8 +7,8 @@
 	"vmStartUpTime": 50,
 	"vmMax": 20,
 	"vmMin": 2,
-	"clockTicksTillScalingDecision": 500,
+	"timeInMsTillNextScalingDecision": 50000,
 	"cpuUtilWindow" : 8,
 	"queueLengthWindow": 8,
-	"coolDownTime": 1000
+	"coolDownTimeInMilliSeconds": 100000
 }

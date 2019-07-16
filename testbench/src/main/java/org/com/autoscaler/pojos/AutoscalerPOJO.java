@@ -16,11 +16,20 @@ public class AutoscalerPOJO {
     private int vmStartUpTime;
     private int cpuUtilWindow;
     private int queueLengthWindow;
-    private int coolDownTime;
-    private int clockTicksTillScalingDecision;
-
+    private int coolDownTimeInMilliSeconds;
+    private int timeInMsTillNextScalingDecision;
+    
+    
     public AutoscalerPOJO() {
         super();
+    }
+
+    public int getCoolDownTimeInMilliSeconds() {
+        return coolDownTimeInMilliSeconds;
+    }
+
+    public void setCoolDownTimeInMilliSeconds(int coolDownTimeInMilliSeconds) {
+        this.coolDownTimeInMilliSeconds = coolDownTimeInMilliSeconds;
     }
 
     @Override
@@ -29,7 +38,7 @@ public class AutoscalerPOJO {
         String output = "Autoscaler Information: \n lower Threshold: " + lowerThreshold + "\n upper Treshhold: "
                 + upperThreshold + "\n vmTasksPerIntervall: " + vmTasksPerIntervall + "\n vmMax: " + vmMax
                 + "\n vmMin: " + vmMin + "\n vm Startuptime: " + vmStartUpTime + "\n cpuUtilWindow: " + cpuUtilWindow
-                + "\n queueLengthWindow: " + queueLengthWindow + "\n coolDownTime: " + coolDownTime + "\n clockTickTillScalingDecision: " + clockTicksTillScalingDecision;
+                + "\n queueLengthWindow: " + queueLengthWindow + "\n coolDownTime in ms: " + coolDownTimeInMilliSeconds + "\n clockTickTillScalingDecision: " + timeInMsTillNextScalingDecision;
         return output;
     }
 
@@ -49,16 +58,17 @@ public class AutoscalerPOJO {
         this.lowerThreshold = lowerThreshold;
     }
 
-    public int getClockTicksTillScalingDecision() {
-        return clockTicksTillScalingDecision;
-    }
-
-
-    public void setClockTicksTillScalingDecision(int clockTicksTillScalingDecision) {
-        this.clockTicksTillScalingDecision = clockTicksTillScalingDecision;
-    }
+   
 
     
+    public int getTimeInMsTillNextScalingDecision() {
+        return timeInMsTillNextScalingDecision;
+    }
+
+    public void setTimeInMsTillNextScalingDecision(int timeInMsTillNextScalingDecision) {
+        this.timeInMsTillNextScalingDecision = timeInMsTillNextScalingDecision;
+    }
+
     public double getUpperThreshold() {
         return upperThreshold;
     }
@@ -107,14 +117,7 @@ public class AutoscalerPOJO {
         this.queueLengthWindow = queueLengthWindow;
     }
 
-    public int getCoolDownTime() {
-        return coolDownTime;
-    }
-
-    public void setCoolDownTime(int coolDownTime) {
-        this.coolDownTime = coolDownTime;
-    }
-    
+   
     
 
 }

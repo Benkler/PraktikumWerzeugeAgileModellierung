@@ -83,7 +83,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         initQueue(queuePath, clockPath);
 
         String autoScalerPath = "src/main/data/autoscaler.json";
-        initAutoScalerAndMetricSource(autoScalerPath);
+        initAutoScalerAndMetricSource(autoScalerPath, clockPath);
 
         String infrastructurePath = "src/main/data/infrastructure.json";
         initInfrastructure(infrastructurePath, clockPath);
@@ -136,23 +136,30 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
         int queuingDelayInClockTicks = MathUtil.millisecondsInClockTicks(queuePOJO.getQueuingDelayInMilliSeconds(),
                 clockPOJO.getIntervalDurationInMilliSeconds());
-        
+
         /*
          * We want to have at least one interval of queueing Delay
          *
          */
-        //TODO stimmt das?
+        // TODO stimmt das?
         queuingDelayInClockTicks = queuingDelayInClockTicks == 0 ? 1 : queuingDelayInClockTicks;
 
         queue.initQueue(queuePOJO.getQueueLengthMax(), queuePOJO.getWindowSize(), queuingDelayInClockTicks);
     }
 
-    private void initAutoScalerAndMetricSource(String path) {
+    private void initAutoScalerAndMetricSource(String path, String pathToClock) {
         AutoscalerPOJO autoscalerPOJO = jsonLoader.loadAutoScalerInformation(path);
+        ClockPOJO clockPOJO = jsonLoader.loadClockInformation(pathToClock);
+
+        int timeToScalingDecisionInCLockTicks = MathUtil.millisecondsInClockTicks(
+                autoscalerPOJO.getTimeInMsTillNextScalingDecision(), clockPOJO.getIntervalDurationInMilliSeconds());
+
+        int coolDownInClockTicks = MathUtil.millisecondsInClockTicks(autoscalerPOJO.getCoolDownTimeInMilliSeconds(),
+                clockPOJO.getIntervalDurationInMilliSeconds());
+
         autoScaler.initAutoScaler(autoscalerPOJO.getLowerThreshold(), autoscalerPOJO.getUpperThreshold(),
                 autoscalerPOJO.getVmTasksPerIntervall(), autoscalerPOJO.getVmMin(), autoscalerPOJO.getVmMax(),
-                autoscalerPOJO.getVmStartUpTime(), autoscalerPOJO.getCoolDownTime(),
-                autoscalerPOJO.getClockTicksTillScalingDecision());
+                autoscalerPOJO.getVmStartUpTime(), coolDownInClockTicks, timeToScalingDecisionInCLockTicks);
         metricSource.initMetricSource(autoscalerPOJO.getCpuUtilWindow(), autoscalerPOJO.getQueueLengthWindow());
 
     }

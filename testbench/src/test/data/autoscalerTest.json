@@ -2,7 +2,7 @@
 
 {
 	"lowerThreshold": 0.97,
-	   "clockTicksTillScalingDecision": 2000,
+	   "timeInMsTillNextScalingDecision": 2000,
 	"upperThreshold": 1.08,
 	"vmTasksPerIntervall": 200, 
 	"vmStartUpTime": 100,
@@ -10,5 +10,5 @@
 	"vmMin": 2,
 	"cpuUtilWindow" : 8,
 	"queueLengthWindow": 10,
-	"coolDownTime": 1000
+	"coolDownTimeInMilliSeconds": 1000
 }

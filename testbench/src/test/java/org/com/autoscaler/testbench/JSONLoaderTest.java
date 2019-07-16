@@ -39,8 +39,8 @@ public class JSONLoaderTest {
         assertEquals(autoscaler.getUpperThreshold(), 1.08, 0.001);
         assertEquals(autoscaler.getCpuUtilWindow(), 8);
         assertEquals(autoscaler.getQueueLengthWindow(), 10);
-        assertEquals(autoscaler.getCoolDownTime(), 1000);
-        assertEquals(autoscaler.getClockTicksTillScalingDecision()  , 2000);
+        assertEquals(autoscaler.getCoolDownTimeInMilliSeconds(), 1000);
+        assertEquals(autoscaler.getTimeInMsTillNextScalingDecision()  , 2000);
  
 
     }
