@@ -3,29 +3,53 @@
 {
   "virtualMachines": [
     {"id": 12,
-    "tasksPerMillisecond": 3,
-     "vmStartUpTimeInMilliSeconds": 1
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
     },
    {"id": 11,
-    "tasksPerMillisecond": 3,
-     "vmStartUpTimeInMilliSeconds": 1
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
     },
     {"id": 10,
-    "tasksPerMillisecond": 3,
-     "vmStartUpTimeInMilliSeconds": 1
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
     },
     {"id": 9,
-    "tasksPerMillisecond": 3,
-     "vmStartUpTimeInMilliSeconds": 1
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
     },
     {"id": 8,
-    "tasksPerMillisecond": 3,
-     "vmStartUpTimeInMilliSeconds": 1
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
     },
     {"id": 7,
-    "tasksPerMillisecond": 3,
-     "vmStartUpTimeInMilliSeconds": 1
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
+    },
+     {"id": 6,
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
+    },
+     {"id": 5,
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
     }
+    ,
+     {"id": 4,
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
+    }
+    ,
+     {"id": 3,
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
+    }
+    ,
+     {"id": 2,
+    "tasksPerMillisecond": 1,
+     "vmStartUpTimeInMilliSeconds": 5
+    }
+    
   ],
   "vmMax": 20,
   "vmMin": 2,

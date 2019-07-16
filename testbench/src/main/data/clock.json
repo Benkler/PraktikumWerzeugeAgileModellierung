@@ -5,6 +5,6 @@
     "millisecondsTillPublishQueueState": 2000,
 	"intervalDurationInMilliSeconds": 100,
 	
-	"millisecondsTillWorkloadChange": 20000,
+	"millisecondsTillWorkloadChange": 2000,
 	"experimentDurationInMinutes": 100
 }

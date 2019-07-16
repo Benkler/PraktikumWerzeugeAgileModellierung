@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.com.autoscaler.clock.ClockInformation;
 import org.com.autoscaler.clock.IClock;
@@ -89,7 +90,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         initInfrastructure(infrastructurePath, clockPath);
 
         String workFlowPath = "src/main/data/workflow.json";
-        initWorkloadHandler(workFlowPath);
+        initWorkloadHandler(workFlowPath, clockPath);
 
         clock.startClock();
 
@@ -151,17 +152,14 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
          * interval duration, the queuing delay will be the lower interval border as the
          * tasks leave the system within the this interval. <br>
          * Example: interval duration = 100, <br>
-         * # Queuing delay = 220 ==> result = 2
-         * Intervals as task needs to stay in queue for 2 intervals and will be
-         * processed in third; <br>
-         * # Queuing delay = 280 ==> result also 2 intervals for same reason
-         * # Queuing delay = 80 ==> result = 0 as tasks can be processed within same interval
+         * # Queuing delay = 220 ==> result = 2 Intervals as task needs to stay in queue
+         * for 2 intervals and will be processed in third; <br>
+         * # Queuing delay = 280 ==> result also 2 intervals for same reason # Queuing
+         * delay = 80 ==> result = 0 as tasks can be processed within same interval
          * 
          */
         int queuingDelayInClockTicks = MathUtil.millisecondsInClockTicksFloor(queuePOJO.getQueuingDelayInMilliSeconds(),
                 clockPOJO.getIntervalDurationInMilliSeconds());
-
-     
 
         queue.initQueue(queuePOJO.getQueueLengthMax(), queuePOJO.getWindowSize(), queuingDelayInClockTicks);
     }
@@ -209,11 +207,30 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         infrastructure.initInfrastructureModel(state, infrastructurePOJO.getCpuUitilizationWindow());
     }
 
-    private void initWorkloadHandler(String path) {
+    private void initWorkloadHandler(String path, String pathToClock) {
         WorkflowPOJO workflow = jsonLoader.loadWorkflow(path);
-        WorkloadTransferObject workFlow = new WorkloadTransferObject(workflow.getWorkflow());
+        ClockPOJO clockPojo = jsonLoader.loadClockInformation(pathToClock);
+
+        List<Integer> amountOfTasksBetweenTwoWorkloadChanges = workflow.getWorkflow();
+
+        List<Integer> amountOfTasksProcessedInEachInterval = amountOfTasksBetweenTwoWorkloadChanges.stream()
+                .map(i -> processWorkload(clockPojo.getMillisecondsTillWorkloadChange(),
+                        clockPojo.getIntervalDurationInMilliSeconds(), i))
+                .collect(Collectors.toList());
+
+        WorkloadTransferObject workFlow = new WorkloadTransferObject(amountOfTasksProcessedInEachInterval);
         workloadHandler.initWorkloadHandler(workFlow);
 
+    }
+
+    private int processWorkload(int milliSecondsTillWorkloadChange, double intervalDurationInMillisecond,
+            int amountOfTasksToBeProcessed) {
+        
+        double tasksPerMillisecond = (double)amountOfTasksToBeProcessed / (double)milliSecondsTillWorkloadChange;
+        
+        double  tasksPerIntervall = tasksPerMillisecond * intervalDurationInMillisecond;
+
+        return Math.round((float) tasksPerIntervall);
     }
 
 }

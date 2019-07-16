@@ -19,7 +19,7 @@ public class FooTest {
         
         
         //System.out.println(MathUtil.tasksPerIntervallInTasksPerMillisecond(915, 100));
-System.out.println(MathUtil.millisecondsInClockTicksFloor(280, 100));
+       System.out.println(MathUtil.millisecondsInClockTicks(350, 100));
     }
 
 }

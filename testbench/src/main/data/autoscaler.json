@@ -1,14 +1,14 @@
 
 
 {
-	"lowerThreshold": 0.60,
+	"lowerThreshold": 0.70,
 	"upperThreshold": 0.90,
 	"vmTasksPerIntervall": 300, 
 	"vmStartUpTime": 50,
 	"vmMax": 20,
 	"vmMin": 2,
-	"timeInMsTillNextScalingDecision": 50000,
-	"cpuUtilWindow" : 8,
-	"queueLengthWindow": 8,
-	"coolDownTimeInMilliSeconds": 100000
+	"timeInMsTillNextScalingDecision": 10000,
+	"cpuUtilWindow" : 10,
+	"queueLengthWindow": 10,
+	"coolDownTimeInMilliSeconds": 200000
 }
