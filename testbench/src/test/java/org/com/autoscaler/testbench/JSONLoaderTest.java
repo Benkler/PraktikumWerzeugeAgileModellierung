@@ -24,7 +24,7 @@ public class JSONLoaderTest {
         QueuePOJO queue = loader.loadQueueInformation("src/test/data/queueTest.json");
         assertEquals(queue.getQueueLengthMax(), 2000);
         assertEquals(queue.getWindowSize(), 20);
-        assertEquals(queue.getQueuingDelay(), 2);
+        assertEquals(queue.getQueuingDelayInMilliSeconds(), 200);
         
 
     }
@@ -61,17 +61,17 @@ public class JSONLoaderTest {
         
         
         assertEquals(infrastructure.getVirtualMachines().get(0).getId(), 12);
-        assertEquals(infrastructure.getVirtualMachines().get(0).getTasksPerIntervall(), 200);
-        assertEquals(infrastructure.getVirtualMachines().get(0).getVmStartUpTime(), 100);
+        assertEquals(infrastructure.getVirtualMachines().get(0).getTasksPerMillisecond(), 200, 0.001);
+        assertEquals(infrastructure.getVirtualMachines().get(0).getVmStartUpTimeInMilliSeconds(), 100);
         
         
         assertEquals(infrastructure.getVirtualMachines().get(1).getId(), 11);
-        assertEquals(infrastructure.getVirtualMachines().get(1).getTasksPerIntervall(), 200);
-        assertEquals(infrastructure.getVirtualMachines().get(1).getVmStartUpTime(), 100);
+        assertEquals(infrastructure.getVirtualMachines().get(1).getTasksPerMillisecond(), 200, 0.001);
+        assertEquals(infrastructure.getVirtualMachines().get(1).getVmStartUpTimeInMilliSeconds(), 100);
         
         assertEquals(infrastructure.getVirtualMachines().get(2).getId(), 10);
-        assertEquals(infrastructure.getVirtualMachines().get(2).getTasksPerIntervall(), 200);
-        assertEquals(infrastructure.getVirtualMachines().get(2).getVmStartUpTime(), 100); 
+        assertEquals(infrastructure.getVirtualMachines().get(2).getTasksPerMillisecond(), 200, 0.001);
+        assertEquals(infrastructure.getVirtualMachines().get(2).getVmStartUpTimeInMilliSeconds(), 100); 
         
         
     }

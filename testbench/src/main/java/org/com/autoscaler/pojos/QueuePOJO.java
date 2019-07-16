@@ -12,7 +12,15 @@ public class QueuePOJO {
 
     private int windowSize;
 
-    private int queuingDelay;
+    private int queuingDelayInMilliSeconds;
+
+    public int getQueuingDelayInMilliSeconds() {
+        return queuingDelayInMilliSeconds;
+    }
+
+    public void setQueuingDelayInMilliSeconds(int queuingDelayInMilliSeconds) {
+        this.queuingDelayInMilliSeconds = queuingDelayInMilliSeconds;
+    }
 
     public QueuePOJO() {
         super();
@@ -29,7 +37,7 @@ public class QueuePOJO {
     @Override
     public String toString() {
         String output = " \nqueueLengthMax: " + queueLengthMax
-                + "\nwindowSize for average arrival and processing rate: " + windowSize + "\nQueuingDelay" + queuingDelay;
+                + "\nwindowSize for average arrival and processing rate: " + windowSize + "\nQueuingDelay in MilliSeconds" + queuingDelayInMilliSeconds;
         return output;
     }
 
@@ -41,12 +49,6 @@ public class QueuePOJO {
         this.windowSize = windowSize;
     }
 
-    public int getQueuingDelay() {
-        return queuingDelay;
-    }
-
-    public void setQueuingDelay(int queuingDelay) {
-        this.queuingDelay = queuingDelay;
-    }
+   
 
 }

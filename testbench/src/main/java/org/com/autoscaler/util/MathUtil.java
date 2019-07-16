@@ -12,4 +12,19 @@ public final class MathUtil {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+    
+    public static int tasksPerMillisecondInTasksPerIntervall(double tasksPerMillisecond, double intervallDurationInMilliseconds) {
+        
+       
+        
+        return   Math.round((float) (tasksPerMillisecond * intervallDurationInMilliseconds)); 
+    }
+    
+    
+    public static int millisecondsInClockTicks(double milliSeconds, double intervallDurationInMilliseconds) {
+        
+        return Math.round((float)(milliSeconds / intervallDurationInMilliseconds));
+        
+        
+    }
 }

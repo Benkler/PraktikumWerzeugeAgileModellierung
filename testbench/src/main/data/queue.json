@@ -5,7 +5,7 @@
  
   "queueLengthMax": 80000,
   "windowSize" : 20,
-   "queuingDelay": 2
+   "queuingDelayInMilliSeconds": 200
   
  
 } 

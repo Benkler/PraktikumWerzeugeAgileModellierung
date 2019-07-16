@@ -20,6 +20,7 @@ import org.com.autoscaler.pojos.VirtualMachinePOJO;
 import org.com.autoscaler.pojos.WorkflowPOJO;
 import org.com.autoscaler.queue.IQueueModel;
 import org.com.autoscaler.scaler.IAutoScaler;
+import org.com.autoscaler.util.MathUtil;
 import org.com.autoscaler.workloadhandler.IWorkloadHandler;
 import org.com.autoscaler.workloadhandler.WorkloadTransferObject;
 import org.slf4j.Logger;
@@ -79,7 +80,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         initClock(clockPath);
 
         String queuePath = "src/main/data/queue.json";
-        initQueue(queuePath);
+        initQueue(queuePath, clockPath);
 
         String autoScalerPath = "src/main/data/autoscaler.json";
         initAutoScalerAndMetricSource(autoScalerPath);
@@ -125,10 +126,25 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
     }
 
-    private void initQueue(String path) {
+    private void initQueue(String path, String pathToClock) {
+        /*
+         * We need interval duration for capacity calculation
+         */
+        ClockPOJO clockPOJO = jsonLoader.loadClockInformation(pathToClock);
+
         QueuePOJO queuePOJO = jsonLoader.loadQueueInformation(path);
 
-        queue.initQueue(queuePOJO.getQueueLengthMax(), queuePOJO.getWindowSize(), queuePOJO.getQueuingDelay());
+        int queuingDelayInClockTicks = MathUtil.millisecondsInClockTicks(queuePOJO.getQueuingDelayInMilliSeconds(),
+                clockPOJO.getIntervalDurationInMilliSeconds());
+        
+        /*
+         * We want to have at least one interval of queueing Delay
+         *
+         */
+        //TODO stimmt das?
+        queuingDelayInClockTicks = queuingDelayInClockTicks == 0 ? 1 : queuingDelayInClockTicks;
+
+        queue.initQueue(queuePOJO.getQueueLengthMax(), queuePOJO.getWindowSize(), queuingDelayInClockTicks);
     }
 
     private void initAutoScalerAndMetricSource(String path) {
@@ -151,8 +167,14 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
         HashMap<Integer, VirtualMachine> vms = new HashMap<Integer, VirtualMachine>();
         for (VirtualMachinePOJO virtualMachine : infrastructurePOJO.getVirtualMachines()) {
-            vms.put(virtualMachine.getId(), new VirtualMachine(virtualMachine.getId(),
-                    virtualMachine.getTasksPerIntervall(), virtualMachine.getVmStartUpTime()));
+            int tasksPerClockTick = MathUtil.tasksPerMillisecondInTasksPerIntervall(
+                    virtualMachine.getTasksPerMillisecond(), clockPOJO.getIntervalDurationInMilliSeconds());
+
+            int startUpTimeInClockTicks = MathUtil.tasksPerMillisecondInTasksPerIntervall(
+                    virtualMachine.getVmStartUpTimeInMilliSeconds(), clockPOJO.getIntervalDurationInMilliSeconds());
+
+            vms.put(virtualMachine.getId(),
+                    new VirtualMachine(virtualMachine.getId(), tasksPerClockTick, startUpTimeInClockTicks));
         }
 
         InfrastructureState state = new InfrastructureState(infrastructurePOJO.getVmMin(),

@@ -5,15 +5,17 @@ import org.com.autoscaler.util.MathUtil;
 public class FooTest {
 
     public static void main(String[] args) {
-        final int MILLIS = 1000;
-        int requestsPerIntervall=50;
-        double intervallDurationInMilliSeconds=99999;
-
-        double arrivalRateInTasksPerSecond = ((double)requestsPerIntervall / intervallDurationInMilliSeconds * MILLIS);
-        System.out.println(arrivalRateInTasksPerSecond);
-       arrivalRateInTasksPerSecond = MathUtil.round(((double)requestsPerIntervall / intervallDurationInMilliSeconds * MILLIS), 2);
+        double tasksPerMillisecond = 3.6;
+        double intervallDurationInMilliseconds = 100;
         
-        System.out.println(arrivalRateInTasksPerSecond);
+        
+        double milliSeconds = 200;
+
+        Math.round((float) (tasksPerMillisecond * intervallDurationInMilliseconds));
+
+        //System.out.println(Math.round((float) (tasksPerMillisecond * intervallDurationInMilliseconds)));
+
+        System.out.println(Math.round((float) (milliSeconds / intervallDurationInMilliseconds)));
 
     }
 

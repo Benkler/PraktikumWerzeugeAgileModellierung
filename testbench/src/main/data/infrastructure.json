@@ -3,28 +3,28 @@
 {
   "virtualMachines": [
     {"id": 12,
-    "tasksPerIntervall": 300,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 3,
+     "vmStartUpTimeInMilliSeconds": 1
     },
    {"id": 11,
-    "tasksPerIntervall": 300,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 3,
+     "vmStartUpTimeInMilliSeconds": 1
     },
     {"id": 10,
-    "tasksPerIntervall": 300,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 3,
+     "vmStartUpTimeInMilliSeconds": 1
     },
     {"id": 9,
-    "tasksPerIntervall": 300,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 3,
+     "vmStartUpTimeInMilliSeconds": 1
     },
     {"id": 8,
-    "tasksPerIntervall": 300,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 3,
+     "vmStartUpTimeInMilliSeconds": 1
     },
     {"id": 7,
-    "tasksPerIntervall": 300,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 3,
+     "vmStartUpTimeInMilliSeconds": 1
     }
   ],
   "vmMax": 20,

@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 public class QueueModel implements IQueueModel {
 
     /*
-     * Represents the time a tasks needs to get through the queue
+     * Represents the amount of clocktTicks a tasks needs to get through the queue
      */
     private int queuingDelay;
 

@@ -3,16 +3,16 @@
 {
   "virtualMachines": [
     {"id": 12,
-    "tasksPerIntervall": 200,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 200,
+     "vmStartUpTimeInMilliSeconds": 100
     },
    {"id": 11,
-    "tasksPerIntervall": 200,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 200,
+     "vmStartUpTimeInMilliSeconds": 100
     },
     {"id": 10,
-    "tasksPerIntervall": 200,
-     "vmStartUpTime": 100
+    "tasksPerMillisecond": 200,
+     "vmStartUpTimeInMilliSeconds": 100
     }
   ],
   "vmMax": 20,

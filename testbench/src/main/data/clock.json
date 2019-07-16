@@ -3,8 +3,8 @@
 {
 	"clockTicksTillPublishInfrastructureState": 20,
     "clockTicksTillPublishQueueState": 20,
-	"intervalDurationInMilliSeconds": 1,
+	"intervalDurationInMilliSeconds": 100,
 	
 	"clockTicksTillWorkloadChange": 200,
-	"experimentDurationInMinutes": 1
+	"experimentDurationInMinutes": 100
 }

@@ -8,34 +8,35 @@ package org.com.autoscaler.pojos;
 public class VirtualMachinePOJO {
 
     private int id;
-    private int tasksPerIntervall;
-    private int vmStartUpTime;
+    private double tasksPerMillisecond;
+    private int vmStartUpTimeInMilliSeconds;
+
+    public int getVmStartUpTimeInMilliSeconds() {
+        return vmStartUpTimeInMilliSeconds;
+    }
+
+    public void setVmStartUpTimeInMilliSeconds(int vmStartUpTimeInMilliSeconds) {
+        this.vmStartUpTimeInMilliSeconds = vmStartUpTimeInMilliSeconds;
+    }
 
     public int getId() {
         return id;
     }
 
-    public int getTasksPerIntervall() {
-        return tasksPerIntervall;
+    public double getTasksPerMillisecond() {
+        return tasksPerMillisecond;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setTasksPerIntervall(int tasksPerIntervall) {
-        this.tasksPerIntervall = tasksPerIntervall;
+    public void setTasksPerMillisecond(int tasksPerMillisecond) {
+        this.tasksPerMillisecond = tasksPerMillisecond;
     }
     
    
-    public void setVmStartUpTime(int vmStartUpTime) {
-        this.vmStartUpTime = vmStartUpTime;
-    }
-    
-
-    public int getVmStartUpTime() {
-        return vmStartUpTime;
-    }
+  
 
 
     public VirtualMachinePOJO() {
@@ -44,7 +45,7 @@ public class VirtualMachinePOJO {
 
     @Override
     public String toString() {
-        String output = " Id: " + id +"\n tasks per intervall: " + tasksPerIntervall +"\n cm startuptime: " + vmStartUpTime;
+        String output = " Id: " + id +"\n tasks per Millisecond: " + tasksPerMillisecond +"\n cm startuptime in milliseconds: " + vmStartUpTimeInMilliSeconds;
         return output;
     }
 }
