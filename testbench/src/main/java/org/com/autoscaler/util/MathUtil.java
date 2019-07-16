@@ -27,4 +27,11 @@ public final class MathUtil {
         
         
     }
+    
+    public static double tasksPerIntervallInTasksPerMillisecond(int tasksPerIntervall, double intervallDurationInMilliseconds) {
+        
+        
+        return round((tasksPerIntervall / intervallDurationInMilliseconds), 2);
+        
+    }
 }

@@ -21,14 +21,14 @@ public class InfrastructureStateTransferObject {
     /*
      * amount of tasks all vms are able to process per second
      */
-    private double currentCapacityInTasksPerSecond;
+    private double currentCapacityInTasksPerMilliSecond;
 
     private int currentArrivalRateInTasksPerIntervall;
 
-    private double currentArrivalRateInTasksPerSecond;
+    private double currentArrivalRateInTasksPerMilliSecond;
     
     /*
-     * Capacity vs. incoming arrival rate + queue fill 
+     * Capacity vs. leaving tasks
      */
     private double currentCPUUtilization;
 
@@ -64,20 +64,20 @@ public class InfrastructureStateTransferObject {
 
    
 
-    public double getCurrentArrivalRateInTasksPerSecond() {
-        return currentArrivalRateInTasksPerSecond;
+    public double getCurrentArrivalRateInTasksPerMilliSecond() {
+        return currentArrivalRateInTasksPerMilliSecond;
     }
 
-    public void setCurrentArrivalRateInTasksPerSecond(double currentArrivalRateInTasksPerSecond) {
-        this.currentArrivalRateInTasksPerSecond = currentArrivalRateInTasksPerSecond;
+    public void setCurrentArrivalRateInTasksPerMilliSecond(double currentArrivalRateInTasksPerMilliSecond) {
+        this.currentArrivalRateInTasksPerMilliSecond = currentArrivalRateInTasksPerMilliSecond;
     }
 
-    public double getCurrentCapacityInTasksPerSecond() {
-        return currentCapacityInTasksPerSecond;
+    public double getCurrentCapacityInTasksPerMilliSecond() {
+        return currentCapacityInTasksPerMilliSecond;
     }
 
-    public void setCurrentCapacityInTasksPerSecond(double currentCapacityInTasksPerSecond) {
-        this.currentCapacityInTasksPerSecond = currentCapacityInTasksPerSecond;
+    public void setCurrentCapacityInTasksPerMilliSecond(double currentCapacityInTasksPerMilliSecond) {
+        this.currentCapacityInTasksPerMilliSecond = currentCapacityInTasksPerMilliSecond;
     }
 
     public double getCurrentCPUUtilization() {

@@ -35,7 +35,7 @@ public class InfrastructureState {
     /*
      * Represents the amount of tasks ALL VMs are able to process per second
      */
-    private double currentCapacityInTasksPerSecond;
+    private double currentCapacityInTasksPerMilliSecond;
 
     /*
      * Represents the currentArrivalRate
@@ -45,7 +45,7 @@ public class InfrastructureState {
     /*
      * Represents the currentArrivalRate
      */
-    private double currentArrivalRateInTasksPerSecond;
+    private double currentArrivalRateInTasksPerMilliSecond;
 
     /*
      * Holds currentInformation about virtual Machines
@@ -65,7 +65,7 @@ public class InfrastructureState {
         this.intervallDurationInMilliSeconds = intervallDurationInMilliSeconds;
         this.virtualMachines = virtualMachines;
         this.currentArrivalRateInTasksPerIntervall = 0;
-        this.currentArrivalRateInTasksPerSecond = 0;
+        this.currentArrivalRateInTasksPerMilliSecond = 0;
 
         calculateCurrentCapacity();
     }
@@ -74,8 +74,8 @@ public class InfrastructureState {
         return intervallDurationInMilliSeconds;
     }
 
-    public double getCurrentArrivalRateInTasksPerSecond() {
-        return currentArrivalRateInTasksPerSecond;
+    public double getCurrentArrivalRateInTasksPerMilliSecond() {
+        return currentArrivalRateInTasksPerMilliSecond;
     }
 
     public int getCurrentArrivalRateInTasksPerIntervall() {
@@ -95,6 +95,7 @@ public class InfrastructureState {
 
             if (this.virtualMachines.remove(vm.getId()) == null) {
                 log.error("Error while scaling down vm with id " + vm.getId() + ". Vm not present!");
+                throw new AssertionError("Error while scaling down vm with id " + vm.getId() + ". Vm not present!");
             } else {
                 log.info("Successfully scaled down vm with id " + vm.getId());
             }
@@ -116,6 +117,7 @@ public class InfrastructureState {
 
             if (this.virtualMachines.containsKey(vm.getId())) {
                 log.error("Error while scale up vm with id " + vm.getId() + ". Duplicated Id!");
+                throw new AssertionError("Error while scale up vm with id " + vm.getId() + ". Duplicated Id!");
             } else {
                 this.virtualMachines.put(vm.getId(), vm);
                 log.info("Successfully scaled up vm with id " + vm.getId());
@@ -141,14 +143,14 @@ public class InfrastructureState {
         return maxAmountVM;
     }
 
-    public double getCurrentCapacityInTasksPerSecond() {
-        return currentCapacityInTasksPerSecond;
+    public double getCurrentCapacityInTasksPerMilliSecond() {
+        return currentCapacityInTasksPerMilliSecond;
     }
 
     public void setWorkload(WorkloadInfo info) {
 
         currentArrivalRateInTasksPerIntervall = info.getArrivalRateInTasksPerIntervall();
-        currentArrivalRateInTasksPerSecond = info.getArrivalRateInTasksPerSecond();
+        currentArrivalRateInTasksPerMilliSecond = info.getArrivalRateInTasksPerMilliSecond();
     }
 
     public int getCurrentCapacityInTasksPerInterval() {
@@ -160,14 +162,15 @@ public class InfrastructureState {
      */
     private void calculateCurrentCapacity() {
         currentCapacityInTasksPerInterval = 0;
-        currentCapacityInTasksPerSecond = 0;
+        currentCapacityInTasksPerMilliSecond = 0;
 
         for (VirtualMachine vm : virtualMachines.values()) {
             currentCapacityInTasksPerInterval += vm.getTasksPerClockInterval();
         }
 
-        currentCapacityInTasksPerSecond = MathUtil
-                .round(((double) currentCapacityInTasksPerInterval * MILLIS / intervallDurationInMilliSeconds), 2);
+        
+        currentCapacityInTasksPerMilliSecond = MathUtil.tasksPerIntervallInTasksPerMillisecond(
+                currentCapacityInTasksPerInterval, intervallDurationInMilliSeconds);
 
     }
 
@@ -181,7 +184,7 @@ public class InfrastructureState {
         sb.append("intervallDurationInMilliSeconds: " + intervallDurationInMilliSeconds + "\n");
         sb.append("virtualMachines: " + virtualMachines.toString() + "\n");
         sb.append("currentArrivalRateInTasksPerIntervall: " + currentArrivalRateInTasksPerIntervall + "\n");
-        sb.append("currentArrivalRateInTasksPerSecond: " + currentArrivalRateInTasksPerSecond + "\n");
+        sb.append("currentArrivalRateInTasksPerSecond: " + currentArrivalRateInTasksPerMilliSecond + "\n");
 
         return sb.toString();
     }

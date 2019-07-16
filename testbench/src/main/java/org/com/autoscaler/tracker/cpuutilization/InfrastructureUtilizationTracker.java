@@ -36,8 +36,8 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
     DecimalFormat df = new DecimalFormat("#.##");
 
     private final String[] header = { "Clock Tick", "Current Arrival Rate in Tasks per Interval",
-            "Current Capacity in Tasks per Interval", "Current Arrival Rate in Tasks per Second",
-            "Current Capacity in Tasks per Second", "CPU Utilization in %", "Amount of Vms" };
+            "Current Capacity in Tasks per Interval", "Current Arrival Rate in Tasks per Millisecond",
+            "Current Capacity in Tasks per millisecond", "CPU Utilization in %", "Amount of Vms" };
 
     File file;
     FileWriter outputFile;
@@ -83,9 +83,9 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
     public void trackInfrastructureState(InfrastructureStateEvent event) {
         int clockTickCount = event.getClockTickCount();
         int arrRateInTasksPerInterval = event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall();
-        double arrRateInTasksPerSecond = event.getInfrastructureState().getCurrentArrivalRateInTasksPerSecond();
+        double arrRateInTasksPerMilliSecond = event.getInfrastructureState().getCurrentArrivalRateInTasksPerMilliSecond();
         int curCapInTasksPerIntervall = event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall();
-        double curCapInTasksPerSecond = event.getInfrastructureState().getCurrentCapacityInTasksPerSecond();
+        double curCapInTasksPerMilliSecond = event.getInfrastructureState().getCurrentCapacityInTasksPerMilliSecond();
 
         double cpuutilization = MathUtil
                 .round(event.getInfrastructureState().getCurrentCPUUtilization() * 100.00, 2);
@@ -102,8 +102,8 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
 //        oldArrivalRateInTasksPerInterval = arrRateInTasksPerInterval;
 
         String[] newLine = { String.valueOf(clockTickCount), String.valueOf(arrRateInTasksPerInterval),
-                String.valueOf(curCapInTasksPerIntervall), String.valueOf(arrRateInTasksPerSecond),
-                String.valueOf(curCapInTasksPerSecond), String.valueOf(cpuutilization), String.valueOf(amountOfVms) };
+                String.valueOf(curCapInTasksPerIntervall), String.valueOf(arrRateInTasksPerMilliSecond),
+                String.valueOf(curCapInTasksPerMilliSecond), String.valueOf(cpuutilization), String.valueOf(amountOfVms) };
 
         writer.writeNext(newLine);
 

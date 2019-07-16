@@ -138,8 +138,9 @@ public class InfrastructureModel implements IInfrastructureModel {
         infrastructureState.setWorkload(wlChangedEvent.getWorkloadInfo());
 
     }
-
-    /**
+  
+    
+     /**
      * Interface in case another component requires the current state. <br>
      * Important: This is the state at a specific clock interval and does not
      * include any moving average. <br>
@@ -151,15 +152,17 @@ public class InfrastructureModel implements IInfrastructureModel {
         // TODO build state
         InfrastructureStateTransferObject state = new InfrastructureStateTransferObject();
         state.setCurrentArrivalRateInTasksPerIntervall(infrastructureState.getCurrentArrivalRateInTasksPerIntervall());
-        state.setCurrentArrivalRateInTasksPerSecond(infrastructureState.getCurrentArrivalRateInTasksPerSecond());
+        state.setCurrentArrivalRateInTasksPerMilliSecond(infrastructureState.getCurrentArrivalRateInTasksPerMilliSecond());
         state.setCurrentCapacityInTasksPerIntervall(infrastructureState.getCurrentCapacityInTasksPerInterval());
-        state.setCurrentCapacityInTasksPerSecond(infrastructureState.getCurrentCapacityInTasksPerSecond());
+        state.setCurrentCapacityInTasksPerMilliSecond(infrastructureState.getCurrentCapacityInTasksPerMilliSecond());
         state.setVirtualMachines(new LinkedList<VirtualMachine>(infrastructureState.getVirtualMachines().values()));
 
         // current capacity vs. arrival rate + queue level
         double capacityDiscrepancy = (double) (infrastructureState.getCurrentArrivalRateInTasksPerIntervall()
                 + queue.currentLevelInTasks()) / infrastructureState.getCurrentCapacityInTasksPerInterval();
-
+       
+       
+        
         /*
          * CPU utilization includes queue Level!!!
          */

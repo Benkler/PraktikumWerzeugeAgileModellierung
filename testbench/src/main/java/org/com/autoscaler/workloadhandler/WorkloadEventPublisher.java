@@ -25,7 +25,7 @@ public class WorkloadEventPublisher implements IWorkloadHandlerEventPublisher {
      */
     @Override
     public void fireWorkloadChangedEvent(WorkloadInfo workload, int clockTickCount, double intervalDurationInSeconds) {
-        log.info("Fire workload changed event. Arrival Rate In Tasks Per Second: " + workload.getArrivalRateInTasksPerSecond()
+        log.info("Fire workload changed event. Arrival Rate In Tasks Per MilliSecond: " + workload.getArrivalRateInTasksPerMilliSecond()
                 + " ; Arrival Rate in Tasks per Intervall: " + workload.getArrivalRateInTasksPerIntervall());
 
         WorkloadChangedEvent event = new WorkloadChangedEvent(this, workload, clockTickCount,

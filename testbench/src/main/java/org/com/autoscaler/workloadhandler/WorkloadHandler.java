@@ -63,6 +63,7 @@ public class WorkloadHandler implements IWorkloadHandler {
 
         WorkloadInfo workload = new WorkloadInfo(requestsPerIntervall,
                 triggerEvent.getIntervallDuratioInMilliSeconds());
+        
         publisher.fireWorkloadChangedEvent(workload, triggerEvent.getClockTickCount(),
                 triggerEvent.getIntervallDuratioInMilliSeconds());
 
