@@ -17,8 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InfrastructureState {
 
-    private final int minAmountVM;
-    private final int maxAmountVM;
+ 
 
     private static final int MILLIS = 1000;
 
@@ -52,15 +51,11 @@ public class InfrastructureState {
      */
     private HashMap<Integer, VirtualMachine> virtualMachines;
 
-    public InfrastructureState(int minAmountVM, int maxAmountVM, HashMap<Integer, VirtualMachine> virtualMachines,
+    public InfrastructureState( HashMap<Integer, VirtualMachine> virtualMachines,
             double intervallDurationInMilliSeconds) {
 
-        if (minAmountVM < 0 || maxAmountVM < 0 || maxAmountVM < minAmountVM) {
-            throw new IllegalArgumentException("Invalid parameters for minimum and maximum amount of virtual machines");
-        }
+       
 
-        this.minAmountVM = minAmountVM;
-        this.maxAmountVM = maxAmountVM;
 
         this.intervallDurationInMilliSeconds = intervallDurationInMilliSeconds;
         this.virtualMachines = virtualMachines;
@@ -135,13 +130,7 @@ public class InfrastructureState {
         return virtualMachines;
     }
 
-    public int getMinAmountVM() {
-        return minAmountVM;
-    }
 
-    public int getMaxAmountVM() {
-        return maxAmountVM;
-    }
 
     public double getCurrentCapacityInTasksPerMilliSecond() {
         return currentCapacityInTasksPerMilliSecond;
@@ -179,8 +168,7 @@ public class InfrastructureState {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Current State of the Infrastructure: \n");
-        sb.append("minAmountVM: " + minAmountVM + "\n");
-        sb.append("maxAmountVM: " + maxAmountVM + "\n");
+ 
         sb.append("intervallDurationInMilliSeconds: " + intervallDurationInMilliSeconds + "\n");
         sb.append("virtualMachines: " + virtualMachines.toString() + "\n");
         sb.append("currentArrivalRateInTasksPerIntervall: " + currentArrivalRateInTasksPerIntervall + "\n");

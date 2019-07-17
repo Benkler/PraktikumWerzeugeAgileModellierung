@@ -7,8 +7,7 @@
      "vmStartUpTimeInMilliSeconds": 5
     },
      "amountOfVmsAtSimulationStart": 10,
-  "vmMax": 20,
-  "vmMin": 2,
+
   
   
 

@@ -208,8 +208,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         HashMap<Integer, VirtualMachine> vms = instantiateVirtualMachines(vmType,
                 infrastructurePOJO.getAmountOfVmsAtSimulationStart());
 
-        InfrastructureState state = new InfrastructureState(infrastructurePOJO.getVmMin(),
-                infrastructurePOJO.getVmMax(), vms, clockPOJO.getIntervalDurationInMilliSeconds());
+        InfrastructureState state = new InfrastructureState (vms, clockPOJO.getIntervalDurationInMilliSeconds());
 
         infrastructure.initInfrastructureModel(state, infrastructurePOJO.getCpuUitilizationWindow(), vmType);
     }

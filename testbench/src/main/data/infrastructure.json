@@ -8,9 +8,7 @@
     },
     "amountOfVmsAtSimulationStart": 1,
    
-  "vmMax": 20,
-  "vmMin": 1,
-  
+
    "cpuUitilizationWindow" : 20
   
   

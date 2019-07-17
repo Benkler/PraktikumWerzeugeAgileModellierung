@@ -11,9 +11,7 @@ public class InfrastructurePOJO {
 
     private VirtualMachineTypePOJO virtualMachineType;
 
-    private int vmMax;
-
-    private int vmMin;
+ 
     
     private int cpuUitilizationWindow;
     
@@ -25,21 +23,6 @@ public class InfrastructurePOJO {
 
    
 
-    public int getVmMax() {
-        return vmMax;
-    }
-
-    public void setVmMax(int vmMax) {
-        this.vmMax = vmMax;
-    }
-
-    public int getVmMin() {
-        return vmMin;
-    }
-
-    public void setVmMin(int vmMin) {
-        this.vmMin = vmMin;
-    }
 
    
 
@@ -50,8 +33,7 @@ public class InfrastructurePOJO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String output = "Infrastructure: \n vmMax: " + vmMax + " \n vmMin: " + vmMin
-                 + "\n Virtual Machines: \n";
+        String output = "Infrastructure: \n Virtual Machines: \n";
         sb.append(output);
         sb.append(virtualMachineType.toString());
         sb.append("\nAmount of virtual machines at start: " + amountOfVmsAtSimulationStart);

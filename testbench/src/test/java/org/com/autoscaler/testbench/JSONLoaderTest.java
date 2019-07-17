@@ -53,8 +53,7 @@ public class JSONLoaderTest {
         
         InfrastructurePOJO infrastructure = loader.loadInfrastructureInformation("src/test/data/infrastructureTest.json");
         
-        assertEquals(infrastructure.getVmMax() , 20);
-        assertEquals(infrastructure.getVmMin(), 2);
+   
         
         
         assertEquals(infrastructure.getCpuUitilizationWindow(), 20);
