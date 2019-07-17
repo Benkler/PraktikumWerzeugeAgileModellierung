@@ -116,7 +116,8 @@ Der \textit{JSONLoader} ist eine Klasse zum laden und serialisieren der Konfigur
 
 \section{Events}
 \label{sec:Aufbau:Events}
-Für die Kommunikation zwischen den Komponenten, beziehungsweise um das Auslösen einer Handlung (Methodenaufruf) einer speziellen Komponente anzustoßen, werden Events benutzt. Abbildung \ref{fig:eventsDiagram} zeigt, dass alle Events von einem \textit{AbstractEvent} erben, in dem der aktuelle Clock-Zähler und die feste Intervall-Dauer gegeben ist. Diese Informationen sind somit in jedem Event verfügbar, sodass man das Event einem diskreten Zeitintervall zuordnen kann. Im folgenden wird darauf eingegangen, was ein Event absetzt und für was es bestimmt ist.
+Für die Kommunikation zwischen den Komponenten, beziehungsweise um das Auslösen einer Handlung (Methodenaufruf) einer speziellen Komponente anzustoßen, werden Events benutzt. Abbildung \ref{fig:eventsDiagram} zeigt, dass alle Events von einem \textit{AbstractEvent} erben, in dem der aktuelle Clock-Zähler und die feste Intervall-Dauer gegeben ist. Diese Informationen sind somit in jedem Event verfügbar, sodass man das Event einem diskreten Zeitintervall zuordnen kann. Im folgenden wird darauf eingegangen, was ein Event absetzt und für was es bestimmt ist.\\
+In dieser Applikation wird mit synchronen Events gearbeitet, das heißt, dass nach Erhalt eines Events durch einen Listener zuerst der gesamte Code auszuführen ist, bevor es an der Stelle weitergeht, an der das Event geworfen wurde. Falls mehr als ein Listener auf ein geworfenes Event reagiert, wird der Code aller Listener-Methoden nacheinander abgearbeitet. Jedoch ist nicht spezifiziert, in welcher Reihenfolge das geschieht, da dies vom Spring-Framework verwaltet wird. Falls also eine Ordnung der Ausführung erzwungen werden soll, müssen zwei verschiedene Event-Typen definiert werden. Diese können dann in der gewünschte Reihenfolge auf den Event-Bus gelegt werden. Die synchrone Abarbeitung garantiert, dass der Code des Listeners, der auf das erste Event hört zuerst vollständig bearbeitet wird.
 
 
 
@@ -137,6 +138,8 @@ Für die Kommunikation zwischen den Komponenten, beziehungsweise um das Auslöse
     	\item \textbf{Empfänger:} Alle Tracker
     	\item \textbf{Grund:} Beenden des Schreibens in die jeweiligen Dateien
     \end{itemize} 
+
+\pagebreak
 
 	\item \textit{ClockEvent} 
 \begin{itemize}
@@ -192,6 +195,13 @@ Für die Kommunikation zwischen den Komponenten, beziehungsweise um das Auslöse
 	\item \textbf{Parameter:} Neue Workload
 \end{itemize} 
 
+
+
+\pagebreak
+
+
+
+
 	\item \textit{DiscardedJobsEvent} 
 \begin{itemize}
 	\item \textbf{Absender:} \textit{QueueModel}
@@ -226,9 +236,29 @@ Für die Kommunikation zwischen den Komponenten, beziehungsweise um das Auslöse
 \end{figure}
 
 
-gtrge
+
 
 \section{Ablauf}
+Das Sequenzdiagramm in Abbildung \ref{fig:ablauf} verdeutlicht den Ablauf eines Simulationszyklus. Wie in Sektion \ref{sec:Aufbau:Events} beschrieben, werden die Event synchron empfangen. Falls in der Abbildung ausgehend von einer Komponente zwei mal das Selbe Event direkt hintereinander gesendet wird (bspw. \textit{startSimulation()}), so ist dessen Ausführungsreihenfolge nicht definiert. In der Applikation wird dieses Event nur ein mal auf den Event-Bus gelegt, allerdings von zwei Listener entnommen. \\
+Nachdem die Konfigurationen gelesen und die Komponenten initialisiert wurden, wird die \textit{Clock} gestartet. Zuerst werden die \textit{Tracker} initialisiert, da diese je einen \textit{File-Writer} erstellen, mit denen später die Zustandsinformationen geschrieben werden können. Daraufhin startet die eigentliche Simulation. Die Schleife wird sooft durchlaufen, bis die vorkonfigurierte Simulationszeit verstrichen ist. \\
+Im gesamten Sequenzdiagramm befinden sich mehrere Ausführungen, die nur unter gewissen Bedingung ausgeführt werden. Im folgenden wird der Zyklus ein mal komplett durchlaufen, mit der Prämisse, dass alle Bedingungen erfüllt wären. \\
+Der \textit{WorkloadHandler} wird periodisch, nach einer vorgegebenen Anzahl Zyklen angestoßen. Der neue Workload wird geladen und an das \textit{InfrastructureModel} weitergegeben. Dort wird die alte Workload mit der neuen ersetzt, was bedeutet, dass entweder mehr oder weniger Jobs pro Zeitintervall ankommen (bis sich die Workload wieder ändert). \\
+Auch der \textit{AutoScaler} wird periodisch, nach einer vorgegebenen Anzahl Zyklen angestoßen. Falls er nicht in der CoolDown-Phase ist (Zeit nach einer vergangenen Skalier-Entscheidung, in der er nichts machen soll), holt er sich die benötigten Metriken von der \textit{MetricSource}, wie bspw. CPU-Auslastung. Skalier-Entscheidungen werden dann an die Schnittstelle (\textit{ScalingController}) gegeben, die die Informationen über den Event-Bus an das \textit{InfrastructureModel} sendet. Dort angekommen wird die Skalier-Entscheidung ausgeführt. Im Falle einer Hinzunahme weiterer VMs, werden diese in die \textit{VMBootingQueue} eingereiht. Das Abschalten einer VM funktioniert ohne weiteres Warten. \\
+Sobald das \textit{InfrastructureModel} angestoßen wird, wird überprüft ob neue VMs hochgefahren sind. Ist dies der Fall, so werden diese zur Infrastruktur hinzugefügt und damit die Kapazität erhöht. Anschließend werden, basierend auf der aktuellen Workload, eine Anzahl an Jobs in die Warteschlange eingereiht. Danach werden, basierend auf der gegenwärtigen Kapazität, eine Anzahl an Jobs der Warteschlange entnommen. Sowohl bei dem \textit{QueueModel} als auch bei dem \textit{InfrastructureModel} werden dabei diverse Metriken erhoben und als gleitender Mittelwert gespeichert. Zuletzt wird die Wartezeit noch nicht hochgefahrener VMs dekrementiert, sodass diese ggf. im nächsten Iterationsschritt hinzugefügt werden können. \\
+Im letzten Schritt einer Iterationszyklus, werden \textit{InfrastructureModel} und \textit{QueueModel} aufgefordert, ihren Zustand zu verbreiten. Die Informationen gehen im ersten Fall an den \textit{InfrastructureTracker} und im zweiten Fall an den \textit{QueueTracker}. Beides wird ebenfalls von der \textit{MetricSource} benutzt, um für diverse Metriken, die aus den Zustandsinformationen erhoben werden können, je einen gleitenden Mittelwert zu bilden. \\
+Dieser Zyklus wiederholt sich, bis die Anzahl der durchlaufenen Zyklen der Simulationszeit entspricht. Zuletzt werden noch die \textit{File-Writer} in den \textit{Tracker} geschlossen und die Simulation ist beendet.  
 
-gerger
+ 
+
+%"l, b, r, t"
+\begin{figure}[!h]
+	\centering
+	\begin{sideways}
+	\includegraphics[width=22cm, trim={0cm 0cm 2cm 1cm}]{img/ablauf.pdf}
+	\end{sideways}
+	\caption{Ablauf der zeit-diskreten Simulation}
+	\label{fig:ablauf}
+\end{figure}
+
+
 
