@@ -9,15 +9,6 @@ Im Folgenden werden alle wichtigen Systemkomponenten erläutert. Anschließend w
 
 
 
-%"l, b, r, t"
-\begin{figure}[h]
-	\centering
-	\begin{sideways}
-		\includegraphics[width=20.0cm, trim={0cm 0cm 0cm 0cm}]{img/classDiagram.pdf}
-	\end{sideways}
-		\caption{Aufbau des Auto-Skalierers}
-	\label{fig:classDiagram}
-\end{figure}
 
 
 \section{Komponenten}
@@ -25,7 +16,7 @@ Abbildung \ref{fig:classDiagram} beschreibt den Zusammenhang aller Kern-Komponen
 
 \subsection{Clock}
 \label{sec:aufbau:Clock}
-Die \textit{Clock} erfüllt die Aufgabe eines Taktgebers und ist somit das Herz der Testbench. In einer zeit-diskreten Simulation ist es solcher Taktgeber notwendig, da jede Komponenten über den Beginn eines neuen Intervalls informiert werden muss. Dabei gilt: Ein Intervall gilt erst dann als beendet, sobald jede Komponente ihre Aufgaben innerhalb dieses Intervalls erledigt hat. Nach Initialisierung der Komponenten arbeitet die Clock für eine in der Konfiguration definierte Anzahl an Intervallen (Simulationszeit). Dabei wird in jedem Schritt zuerst der Workload, falls notwendig, geändert. Danach versendet die Clock ein Event, dass den Beginn eines neuen Intervalls bekannt gibt. Alle Komponenten werden benachrichtigt und erledigen daraufhin ihre Arbeit, wie Verarbeitung der aktuell anliegenden Workload oder Ausführen von Skalier-Entscheidungen. Abschließend werden \textit{InfrastructureModel} und \textit{QueueModel} durch die Clock aufgefordert ihren aktuellen Zustand zu publizieren. Basierend darauf führen die Komponenten im nächsten Intervall ihre AUfgaben durch. 
+Die \textit{Clock} erfüllt die Aufgabe eines Taktgebers und ist somit das Herz der Testbench. In einer zeit-diskreten Simulation ist es solcher Taktgeber notwendig, da jede Komponenten über den Beginn eines neuen Intervalls informiert werden muss. Dabei gilt: Ein Intervall gilt erst dann als beendet, sobald jede Komponente ihre Aufgaben innerhalb dieses Intervalls erledigt hat. Nach Initialisierung der Komponenten arbeitet die Clock für eine in der Konfiguration definierte Anzahl an Intervallen (Simulationszeit). Dabei wird in jedem Schritt zuerst der Workload, falls notwendig, geändert. Danach versendet die Clock ein Event, dass den Beginn eines neuen Intervalls bekannt gibt. Alle Komponenten werden benachrichtigt und erledigen daraufhin ihre Arbeit, wie Verarbeitung der aktuell anliegenden Workload oder Ausführen von Skalier-Entscheidungen. Abschließend werden \textit{InfrastructureModel} und \textit{QueueModel} durch die Clock aufgefordert ihren aktuellen Zustand zu publizieren. Basierend darauf führen die Komponenten im nächsten Intervall ihre Aufgaben durch. 
 
 
 \subsection{Infrastructure Model}
@@ -43,9 +34,22 @@ Diese Komponente ist eine Warteschlange für hochzufahrende VMs. Nach dem Erhalt
 \label{sec:aufbau:State}
 Der Zustand der Infrastruktur ist von der Funktionalität abgekapselt. Dieser speichert die aktuell anliegende Workload\textit{(currentArrivalRate)} sowie die aktiven VMs und damit die Kapazität. Der Zustand kann in ein \textit{TransferObject} verpackt und versendet werden. Dieses Objekt beinhaltet zusätzlich Informationen übe die CPU-Auslastung (Diskrepanz zwischen Kapazität und Anzahl der Tasks, die in einem Intervall das System verlassen).
 
+%"l, b, r, t"
+\begin{figure}[!h]
+	\centering
+	\begin{sideways}
+		\includegraphics[width=20.0cm, trim={0cm 0cm 0cm 0cm}]{img/classDiagram.pdf}
+	\end{sideways}
+	\caption{Aufbau des Auto-Skalierers}
+	\label{fig:classDiagram}
+\end{figure}
+
+\newpage
+
 \subsection{Virtual Machine}
 \label{sec:aufbau:VM}
 Eine Virtuelle Maschine ist eindeutig durch ihre Id identifizierbar. Jede VM benötigt eine vordefinierte Zeit zum hochfahren \textit{vmStartUpTime} und kann pro Zeitintervall eine gewisse Anzahl an Jobs verarbeiten\textit{tasksPerInterval}. Die beiden letzten Werte sind bei dieser Testbench für alle Maschinen pro Simulation gleich, werden also einmalig bei Simulationsstart als Konfigurationsparameter mitgegeben.
+
 
 
 
@@ -112,9 +116,119 @@ Der \textit{JSONLoader} ist eine Klasse zum laden und serialisieren der Konfigur
 
 \section{Events}
 \label{sec:Aufbau:Events}
+Für die Kommunikation zwischen den Komponenten, beziehungsweise um das Auslösen einer Handlung (Methodenaufruf) einer speziellen Komponente anzustoßen, werden Events benutzt. Abbildung \ref{fig:eventsDiagram} zeigt, dass alle Events von einem \textit{AbstractEvent} erben, in dem der aktuelle Clock-Zähler und die feste Intervall-Dauer gegeben ist. Diese Informationen sind somit in jedem Event verfügbar, sodass man das Event einem diskreten Zeitintervall zuordnen kann. Im folgenden wird darauf eingegangen, was ein Event absetzt und für was es bestimmt ist.
 
+
+
+\begin{itemize}
+
+
+	\item \textit{FinishSimulationEvent} 
+	\begin{itemize}
+         \item \textbf{Absender:} \textit{Clock}
+         \item \textbf{Empfänger:} Alle Tracker
+         \item \textbf{Grund:} Erstellen der Ausgabedateien, Schließen der File-Writer
+         \item \textbf{Parameter:} Skalierfaktor, zurückrechnen in Ausgabeformat
+ 	\end{itemize} 
+     
+    	\item \textit{StartSimulationEvent} 
+    \begin{itemize}
+    	\item \textbf{Absender:} \textit{Clock}
+    	\item \textbf{Empfänger:} Alle Tracker
+    	\item \textbf{Grund:} Beenden des Schreibens in die jeweiligen Dateien
+    \end{itemize} 
+
+	\item \textit{ClockEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{Clock}
+	\item \textbf{Empfänger:} \textit{InfrastructureModel}, \textit{AutoScaler}
+	\item \textbf{Grund:} Beginn neues Intervall
+\end{itemize} 
+
+	\item \textit{TriggerPublishInfrastructureStateEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{Clock}
+	\item \textbf{Empfänger:}  \textit{InfrastructureModel}
+	\item \textbf{Grund:} Infrastruktur soll Zustand publizieren
+\end{itemize} 
+
+	\item \textit{TriggerPublishQueueStateEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{Clock}
+	\item \textbf{Empfänger:} \textit{QueueModel}
+	\item \textbf{Grund:} Warteschlange soll Zustand publizieren
+\end{itemize} 
+
+	\item \textit{TriggerWorkloadHandlerEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{Clock}
+	\item \textbf{Empfänger:} \textit{WorkloadHandler}
+	\item \textbf{Grund:} Neue Workload publizieren
+\end{itemize} 
+
+	\item \textit{ScalingEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{ScalingController}
+	\item \textbf{Empfänger:} \textit{InfrastructureModel}
+	\item \textbf{Grund:} Neue Skalier-Entscheidung getroffen
+	\item \textbf{Parameter:} Skalier-Modus und jeweilige VM-Instanzen
+\end{itemize} 
+
+	\item \textit{QueueStateEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{QueueModel}
+	\item \textbf{Empfänger:} \textit{QueueTracker}
+	\item \textbf{Grund:} Zustand der Warteschlange soll geschrieben werden
+	\item \textbf{Parameter:} Enthält Infos über Zustand, die in Datei geschrieben werden sollen
+\end{itemize} 
+
+
+
+	\item \textit{WorkloadChangedEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{WorkloadHandler}
+	\item \textbf{Empfänger:} \textit{InfrastructureModel}
+	\item \textbf{Grund:} Veränderung der Workload
+	\item \textbf{Parameter:} Neue Workload
+\end{itemize} 
+
+	\item \textit{DiscardedJobsEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{QueueModel}
+	\item \textbf{Empfänger:} \textit{QueueTracker}
+	\item \textbf{Grund:} Jobs wurden verworfen, da Warteschlange übergelaufen ist
+	\item \textbf{Parameter:} Anzahl der verworfenen Jobs im Zeitintervall
+\end{itemize} 
+
+	\item \textit{InfrastructureStateEvent} 
+\begin{itemize}
+	\item \textbf{Absender:} \textit{InfrastructureModel}
+	\item \textbf{Empfänger:} \textit{InfrastructureTracker}
+	\item \textbf{Grund:}  Zustand der Infrastruktur soll geschrieben werden
+	\item \textbf{Parameter:} Enthält Infos über Zustand, die in Datei geschrieben werden sollen
+\end{itemize} 
+
+
+
+
+
+\end{itemize}
+ 
+
+%"l, b, r, t"
+\begin{figure}[!h]
+	\centering
+	
+	\includegraphics[width=20.0cm, trim={0cm 5cm 6cm 0cm}]{img/eventsDiagram.pdf}
+	
+	\caption{Übersicht der Events}
+	\label{fig:eventsDiagram}
+\end{figure}
+
+
+gtrge
 
 \section{Ablauf}
 
-
+gerger
 

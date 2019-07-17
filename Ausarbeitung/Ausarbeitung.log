@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.11)  17 JUL 2019 18:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.11)  17 JUL 2019 19:19
 entering extended mode
 **./Ausarbeitung.tex
 (Ausarbeitung.tex
@@ -2183,7 +2183,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--23
 
 pdfTeX warning: pdflatex.exe (file ./img/BasicIdea.pdf): PDF inclusion: found P
 DF version <1.7>, but at most version <1.5> allowed
-<img/BasicIdea.pdf, id=161, 963.6pt x 542.025pt>
+<img/BasicIdea.pdf, id=163, 963.6pt x 542.025pt>
 File: img/BasicIdea.pdf Graphic file (type pdf)
 <use img/BasicIdea.pdf>
 Package pdftex.def Info: img/BasicIdea.pdf  used on input line 30.
@@ -2209,34 +2209,38 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 
 pdfTeX warning: pdflatex.exe (file ./img/EventBus.pdf): PDF inclusion: found PD
 F version <1.7>, but at most version <1.5> allowed
-<img/EventBus.pdf, id=196, 963.6pt x 542.025pt>
+<img/EventBus.pdf, id=198, 963.6pt x 542.025pt>
 File: img/EventBus.pdf Graphic file (type pdf)
 <use img/EventBus.pdf>
 Package pdftex.def Info: img/EventBus.pdf  used on input line 22.
 (pdftex.def)             Requested size: 455.24416pt x 231.20708pt.
 ) (sections/aufbau.tex [5 <./img/EventBus.pdf>]
 chapter 3.
-<img/classDiagram.pdf, id=213, 845.1575pt x 597.23125pt>
-File: img/classDiagram.pdf Graphic file (type pdf)
-<use img/classDiagram.pdf>
-Package pdftex.def Info: img/classDiagram.pdf  used on input line 16.
-(pdftex.def)             Requested size: 569.05511pt x 402.12949pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 LaTeX Font Info:    Font shape `T1/SourceSansPro-LF/b/n' will be
-(Font)              scaled to size 13.24796pt on input line 26.
+(Font)              scaled to size 13.24796pt on input line 17.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-LF/sb/n' will be
-(Font)              scaled to size 13.24796pt on input line 26.
+(Font)              scaled to size 13.24796pt on input line 17.
 [6
 
 
 ]
 LaTeX Font Info:    Font shape `T1/SourceSansPro-LF/sb/n' will be
-(Font)              scaled to size 11.03998pt on input line 37.
- [7] [8]
+(Font)              scaled to size 11.03998pt on input line 28.
+
+
+pdfTeX warning: pdflatex.exe (file ./img/classDiagram.pdf): PDF inclusion: foun
+d PDF version <1.7>, but at most version <1.5> allowed
+<img/classDiagram.pdf, id=228, 845.19763pt x 597.19112pt>
+File: img/classDiagram.pdf Graphic file (type pdf)
+<use img/classDiagram.pdf>
+Package pdftex.def Info: img/classDiagram.pdf  used on input line 41.
+(pdftex.def)             Requested size: 569.05511pt x 402.07513pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[7] [8 <./img/classDiagram.pdf>] [9]
 LaTeX Font Info:    Try loading font information for TS1+LinuxLibertineT-TLF on
- input line 85.
+ input line 89.
 
 (C:\Users\Nikolaus\AppData\Roaming\MiKTeX\2.9\tex/latex/libertine\ts1linuxliber
 tinet-tlf.fd
@@ -2244,20 +2248,39 @@ File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 85.
+(Font)              scaled to size 12.0pt on input line 89.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [9]) (sections/konfiguration.tex [10] [11 <./img/classDiagram.pdf, page is rot
-ated 90 degrees>]
+ [10]
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
+(Font)              scaled to size 12.0pt on input line 128.
+ [11]
+
+pdfTeX warning: pdflatex.exe (file ./img/eventsDiagram.pdf): PDF inclusion: fou
+nd PDF version <1.7>, but at most version <1.5> allowed
+<img/eventsDiagram.pdf, id=271, 845.19763pt x 597.19112pt>
+File: img/eventsDiagram.pdf Graphic file (type pdf)
+<use img/eventsDiagram.pdf>
+Package pdftex.def Info: img/eventsDiagram.pdf  used on input line 222.
+(pdftex.def)             Requested size: 569.05511pt x 383.83707pt.
+
+Overfull \hbox (113.81096pt too wide) in paragraph at lines 222--223
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (sections/konfiguration.tex [12] [13 <./img/eventsDiagram.pdf>]
 chapter 4.
-) (sections/evaluation.tex [12
+) (sections/evaluation.tex [14
 
 
 ]
 chapter 5.
-) [13
+) [15
 
 
 ]
@@ -2275,12 +2298,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-(sections/appendix.tex [14
+(sections/appendix.tex [16
 
 
 ]
 chapter A.
-) [15
+) [17
 
 
 ]
@@ -2296,29 +2319,31 @@ Package logreq Info: Writing requests to 'Ausarbeitung.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 38086 strings out of 492946
- 764382 string characters out of 3135518
- 1313195 words of memory out of 3000000
- 40963 multiletter control sequences out of 15000+200000
- 199252 words of font info for 277 fonts, out of 3000000 for 9000
+ 38099 strings out of 492946
+ 764684 string characters out of 3135518
+ 1314195 words of memory out of 3000000
+ 40970 multiletter control sequences out of 15000+200000
+ 204507 words of font info for 279 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
- 73i,20n,81p,9094b,1978s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 73i,20n,81p,9094b,2161s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}{C:/Users/Nikolaus/A
 ppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{C:/Users/N
-ikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{C
-:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/sourcesanspro/a_ggs
-4wk.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine
-/lbtn_7grukw.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/
-libertine/lbtn_76gpa5.enc}<C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/t
-ype1/public/libertine/LinLibertineT.pfb><C:/Users/Nikolaus/AppData/Roaming/MiKT
-eX/2.9/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/Nikolaus/AppDa
-ta/Roaming/MiKTeX/2.9/fonts/type1/adobe/sourcesanspro/SourceSansPro-Bold.pfb><C
-:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/type1/adobe/sourcesanspro/Sou
-rceSansPro-Semibold.pfb><C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/typ
-e1/bera/fvmr8a.pfb>
-Output written on Ausarbeitung.pdf (19 pages, 440459 bytes).
+ikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{C
+:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_naoo
+yc.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/sourcesans
+pro/a_ggs4wk.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/
+libertine/lbtn_7grukw.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/e
+nc/dvips/libertine/lbtn_76gpa5.enc}<C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.
+9/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/Nikolaus/AppData/Roa
+ming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/Nikol
+aus/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineTI.pfb>
+<C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/type1/adobe/sourcesanspro/S
+ourceSansPro-Bold.pfb><C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/type1
+/adobe/sourcesanspro/SourceSansPro-Semibold.pfb><C:/Users/Nikolaus/AppData/Roam
+ing/MiKTeX/2.9/fonts/type1/bera/fvmr8a.pfb>
+Output written on Ausarbeitung.pdf (21 pages, 814025 bytes).
 PDF statistics:
- 416 PDF objects out of 1000 (max. 8388607)
- 68 named destinations out of 1000 (max. 500000)
- 40219 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 498 PDF objects out of 1000 (max. 8388607)
+ 71 named destinations out of 1000 (max. 500000)
+ 40736 words of extra memory for PDF output out of 42996 (max. 10000000)
 
