@@ -11,6 +11,7 @@ public class ClockPOJO {
     private int millisecondsTillWorkloadChange;
 
     private int millisecondsTillPublishInfrastructureState;
+    
     private int millisecondsTillPublishQueueState;
     private int experimentDurationInMinutes;
 

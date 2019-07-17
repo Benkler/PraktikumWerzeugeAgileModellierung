@@ -8,7 +8,7 @@ package org.com.autoscaler.pojos;
 public class VirtualMachineTypePOJO {
 
     
-    private double tasksPerMillisecond;
+    private double millisecondsPerTask;
     private int vmStartUpTimeInMilliSeconds;
 
     public int getVmStartUpTimeInMilliSeconds() {
@@ -20,19 +20,19 @@ public class VirtualMachineTypePOJO {
     }
 
    
-    public double getTasksPerMillisecond() {
-        return tasksPerMillisecond;
-    }
-
    
-
-    public void setTasksPerMillisecond(int tasksPerMillisecond) {
-        this.tasksPerMillisecond = tasksPerMillisecond;
-    }
     
    
   
 
+
+    public double getMillisecondsPerTask() {
+        return millisecondsPerTask;
+    }
+
+    public void setMillisecondsPerTask(double millisecondsPerTask) {
+        this.millisecondsPerTask = millisecondsPerTask;
+    }
 
     public VirtualMachineTypePOJO() {
         super();
@@ -40,7 +40,7 @@ public class VirtualMachineTypePOJO {
 
     @Override
     public String toString() {
-        String output = " VritualMachineType " +"\n tasks per Millisecond: " + tasksPerMillisecond +"\n cm startuptime in milliseconds: " + vmStartUpTimeInMilliSeconds;
+        String output = " VritualMachineType " +"\n tasks per Millisecond: " + millisecondsPerTask +"\n cm startuptime in milliseconds: " + vmStartUpTimeInMilliSeconds;
         return output;
     }
 }

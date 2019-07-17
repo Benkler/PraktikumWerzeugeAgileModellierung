@@ -10,8 +10,11 @@ public class VirtualMachineType {
 
     public VirtualMachineType(VirtualMachineTypePOJO pojo, double intervallDurationInMilliSeconds) {
 
-        this.tasksPerInterval = MathUtil.tasksPerMillisecondInTasksPerIntervall(pojo.getTasksPerMillisecond(),
+        this.tasksPerInterval = MathUtil.tasksPerMillisecondInTasksPerIntervall(1/pojo.getMillisecondsPerTask(),
                 intervallDurationInMilliSeconds);
+        
+        
+        
 
         this.vmStartUpTimeInIntervals = MathUtil.tasksPerMillisecondInTasksPerIntervall(
                 pojo.getVmStartUpTimeInMilliSeconds(), intervallDurationInMilliSeconds);

@@ -189,11 +189,14 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
          */
         ClockPOJO clockPOJO = jsonLoader.loadClockInformation(pathToClock);
         InfrastructurePOJO infrastructurePOJO = jsonLoader.loadInfrastructureInformation(pathToInfrastructure);
+        
 
         /*
          * Get Type with information in milliseconds
          */
         VirtualMachineTypePOJO vmTypePOJO = infrastructurePOJO.getVirtualMachineType();
+        
+        
 
         /*
          * Create type with information in clock ticks

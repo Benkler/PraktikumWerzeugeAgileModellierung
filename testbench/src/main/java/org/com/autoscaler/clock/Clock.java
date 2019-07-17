@@ -119,13 +119,15 @@ public class Clock implements IClock {
 //        }
         
         clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInMilliSeconds);
-
+ 
+        //INfrastruktur
         if (clockTickCount % clockTicksTillPublishInfrastructureState == 0) {
             clockEventPublisher.fireTriggerPublishInfrastructureStateEvent(clockTickCount,
                     intervalDurationInMilliSeconds);
 
         }
 
+        //Queue
         if (clockTickCount % clockTicksTillPublishQueueState == 0) {
 
             clockEventPublisher.fireTriggerPublishQueueStateEvent(clockTickCount, intervalDurationInMilliSeconds);

@@ -61,7 +61,7 @@ public class JSONLoaderTest {
      
 
         
-       assertEquals(infrastructure.getVirtualMachineType().getTasksPerMillisecond(), 1, 0.001); 
+       assertEquals(infrastructure.getVirtualMachineType().getMillisecondsPerTask(), 1, 0.001); 
        assertEquals(infrastructure.getVirtualMachineType().getVmStartUpTimeInMilliSeconds(), 5, 0.001); 
        assertEquals(infrastructure.getAmountOfVmsAtSimulationStart(), 10);
       

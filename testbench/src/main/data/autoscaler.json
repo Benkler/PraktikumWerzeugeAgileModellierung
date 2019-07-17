@@ -4,7 +4,7 @@
 	"lowerThreshold": 0.70,
 	"upperThreshold": 0.90,
 	
-	"vmMax": 20,
+	"vmMax": 60,
 	"vmMin": 2,
 	"timeInMsTillNextScalingDecision": 10000,
 	"cpuUtilWindow" : 10,
