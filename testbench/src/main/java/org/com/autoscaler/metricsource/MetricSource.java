@@ -84,6 +84,7 @@ public class MetricSource implements IMetricSource {
         cpuUtilizationAverage.add(event.getInfrastructureState().getCurrentCPUUtilization());
         log.info("CurrentArrivalRate: " + event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall()
                 + " currentCapacity: " + event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall()
+                + " current CPUUilization to add: " + event.getInfrastructureState().getCurrentCPUUtilization()
                 + "  moving average discrepancy : " + cpuUtilizationAverage.average());
 
        

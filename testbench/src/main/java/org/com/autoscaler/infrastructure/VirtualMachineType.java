@@ -16,9 +16,10 @@ public class VirtualMachineType {
         
         
 
-        this.vmStartUpTimeInIntervals = MathUtil.tasksPerMillisecondInTasksPerIntervall(
-                pojo.getVmStartUpTimeInMilliSeconds(), intervallDurationInMilliSeconds);
-
+        this.vmStartUpTimeInIntervals = MathUtil.millisecondsInClockTicks(pojo.getVmStartUpTimeInMilliSeconds(), intervallDurationInMilliSeconds);
+                
+                
+             
     }
 
     public int getTasksPerInterval() {

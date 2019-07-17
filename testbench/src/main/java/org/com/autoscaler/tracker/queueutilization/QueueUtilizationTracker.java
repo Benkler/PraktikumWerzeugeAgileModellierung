@@ -93,6 +93,8 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
         double processingRateInTasksPerMillisecond = event.getState().getQueueProcessingRateInTasksPerMilliSecond();
         double arrivalRateInTasksPerMillisecond = event.getState().getQueueArrivalRateInTasksPerMilliSecond();
         double queuingDelayInMilliseconds = event.getState().getQueuingDelayInMilliseconds();
+        
+        
 
         // // No duplicate information
         // if (previousAmountOfTasks == amountOfTasks && previousArrivalRate ==

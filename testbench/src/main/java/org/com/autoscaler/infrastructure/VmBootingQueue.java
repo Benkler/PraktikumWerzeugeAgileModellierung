@@ -6,6 +6,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.com.autoscaler.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the Virtual Machines that were selected by the autoscaler to start
@@ -15,6 +17,8 @@ import org.com.autoscaler.util.Pair;
  *
  */
 public class VmBootingQueue {
+    
+    private static final Logger log = LoggerFactory.getLogger(VmBootingQueue.class);
 
     /*
      * The Integer value represents the amount of clock ticks the virtual machine
@@ -34,6 +38,7 @@ public class VmBootingQueue {
     public void addVirtualMachinesToQueue(List<VirtualMachine> vms) {
 
         for (VirtualMachine vm : vms) {
+            log.info("Add VM to Booting queue. Needs to wait " + vm.getVmStartUpTimeInClockIntervals() + " intervals to boot" );
             bootingQueue.add(new Pair<Integer, VirtualMachine>(vm.getVmStartUpTimeInClockIntervals(), vm));
         }
 

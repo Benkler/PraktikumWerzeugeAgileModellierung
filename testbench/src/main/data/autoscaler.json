@@ -1,13 +1,13 @@
 
 
 {
-	"lowerThreshold": 0.70,
-	"upperThreshold": 0.90,
+	"lowerThreshold": 0.25,
+	"upperThreshold": 0.75,
 	
-	"vmMax": 60,
-	"vmMin": 2,
-	"timeInMsTillNextScalingDecision": 10000,
+	"vmMax": 20,
+	"vmMin": 1,
+	"timeInMsTillNextScalingDecision": 1000,
 	"cpuUtilWindow" : 10,
 	"queueLengthWindow": 10,
-	"coolDownTimeInMilliSeconds": 200000
+	"coolDownTimeInMilliSeconds": 100000
 }

@@ -93,8 +93,14 @@ public class InfrastructureModel implements IInfrastructureModel {
          * Amount of tasks the system is able to process
          */
         int currentCapacity = infrastructureState.getCurrentCapacityInTasksPerInterval();
+        double currentCpuUtilization;
 
-        double currentCpuUtilization = (double) processedTasks / (double) currentCapacity;
+        if (currentCapacity == 0) {
+            currentCpuUtilization = 0;
+        } else {
+            currentCpuUtilization = (double) processedTasks / (double) currentCapacity;
+
+        }
 
         cpuUtilization.add(currentCpuUtilization);
 
@@ -197,8 +203,9 @@ public class InfrastructureModel implements IInfrastructureModel {
 
             // scale up by enqueueing in booting queue
         } else if (event.getMode() == ScalingMode.SCALE_UP) {
-            log.info("Execute scaling UP decision by enqueuing into booting queue. Previous amount of virtual machines: "
-                    + infrastructureState.getVirtualMachines().size() + "  ");
+            log.info(
+                    "Execute scaling UP decision by enqueuing into booting queue. Previous amount of virtual machines: "
+                            + infrastructureState.getVirtualMachines().size() + "  ");
 
             enqueueVirtualMachinesInBootingQueue(event.getVirtualMachines());
 
@@ -216,7 +223,7 @@ public class InfrastructureModel implements IInfrastructureModel {
      * clock ticks
      */
     private void enqueueVirtualMachinesInBootingQueue(List<VirtualMachine> vms) {
-        log.info("Enqueue " + vms.size() + " virtual machines into booting queue");
+        log.info("Enqueue " + vms.size() + " virtual machines into booting queue" );
         vmBootingQueue.addVirtualMachinesToQueue(vms);
     }
 
