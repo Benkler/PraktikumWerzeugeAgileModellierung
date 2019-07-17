@@ -56,31 +56,59 @@ Der \textit{AutoScaler} als solcher ist kein Teil der Testbench, da er ja das Te
 
 
 \subsubsection{Scaling Controller}
+Der \textit{ScalingController} bietet lediglich eine Schnittstelle für einen Auto-Skalierer, um Skalier-Entscheidungen an die Infrastruktur zu propagieren. Dabei wird der \textit{ScalingMode} zusammen mit den VMs, die entweder hoch- oder heruntergefahren werden sollen, übergeben.
+
 
 \subsubsection{Metric Source}
-
+Die \textit{MetricSource} bietet eine Schnittstelle für den Auto-Skalierer, um Metriken der Infrastruktur, wie bspw. die CPU-Auslastung oder die Warteschlangenlänge abzugreifen. Diese Metriken liegen immer als moving average vor, wobei das Fenster in den Konfiguration festgelegt werden kann.
 
 
 
 \subsection{Queue Model}
 \label{sec:aufbau:QueueModel}
+Die Warteschlange definiert zwei grundlegende Aufgabe: Zuerst werden alle ankommenden Jobs in der Warteschlange eingereiht. Auch dann, wenn die Infrastruktur nicht völlig ausgelastet ist. Dies liegt an der Natur einer Cloud-Infrastruktur: Ein Job kann nicht in null Zeit ankommen und verarbeitet werden. Diese Verarbeitungszeit wird mit einer Warteschlange simuliert, die als FIFO-Liste aufgebaut ist. Ankommende Jobs können die Warteschlange erst verlassen, wenn sie mindestens für die Warteschlangenverzögerung \textit{(queuing delay)}. \\
+Des Weiteren verhält sich die Warteschlange als Pufferspeicher: Falls die anliegende Last auf dem System größer als dessen Kapazität ist füllt sie sich. Ist es umgekehrt, so leert sie sich wieder. Da Puffer-Speicher in der Realität nicht unendlich groß sind, hat die Warteschlange eine Maximalkapazität. Ist diese erreicht, so werden weitere Jobs verworfen. \\
+Wie auch das \textit{InfrastructureModel} muss die Warteschlange nach einer vordefinierten Zeit ihren Zustand publizieren, sodass \textit{Tracker} und die \textit{MetricSource} diesen auslesen können.
 
 \subsection{Workload Handler}
+Der \textit{WorkloadHandler} verarbeitet die zu simulierende Last auf dem System. Diese ist eine Eingabe als Liste von Werten. Der \textit{WorkloadHandler} verarbeitet nach einer frei konfigurierbaren Zeit den nächsten Eintrag und informiert das \textit{InfrastructureModel}, dass sie die Last geändert hat. Damit wird umgangen, dass tatsächlich Last generiert werden muss. Die Infrastruktur bekommt lediglich Informationen darüber, zu welchem Zeitpunkt wie viel Last anliegt. 
 
 \subsubsection{Workload Info}
-
+\textit{WorkloadInfo} ist eine Klasse, die eine Last zu einem bestimmten Zeitpunkt beschreibt.
 
 \subsection{Tracker}
+Die verschiedenen \textit{Tracker} zeichnen die Simulation zeit-diskret auf. Die Informationen können anschließend benutzt werden, um den Auto-Skalierer zu beurteilen. Alle aufgezeichneten Parameter werden durch Aufzeichnung der Zustände der jeweiligen Komponenten erhoben. Dabei wird ein gleitender Mittelwert bestimmt, um glattere Ergebnisse zu bekommen.
 
 \subsubsection{Queue Utilization Tracker}
+Dieser \textit{Tracker} zeichnet folgende Parameter auf:
+\begin{itemize}
+	\item Anzahl an wartenden Jobs 
+	\item Füllstand in Prozent, gemessen an der maximalen Länge
+	\item Ankunftsrate
+	\item Verarbeitungsrate (Menge an Jobs, die die  Warteschlange verlassen)
+	\item Durchschnittliche Wartezeit in der Warteschlange
+\end{itemize}
 
 \subsubsection{Queue Discarded Jobs Tracker}
+Dieser \textit{Tracker} zeichnet folgende Parameter auf:
+\begin{itemize}
+	\item Anzahl an verworfenen Jobs Pro Intervall
+\end{itemize}
 
 \subsubsection{Infrastructure Utilization Tracker}
+\begin{itemize}
+	\item Ankunftsrate
+	\item Verarbeitungsrate (Menge an Jobs, die das System verlassen)
+	\item Kapazität (Menge an Jobs, die alle VMs verarbeiten können)
+	\item Anzahl der Virtuellen Maschinen
+	\item CPU Auslastung
+\end{itemize}
 
 \subsection{Application Start Up Runner}
+Diese Komponente liest die Konfigurationen via \textit{JSONLoader} und initialisiert alle anderen Komponenten. Dies beinhaltet die Umrechnung der externen Einheit (Parameter gegeben in Millisekunden) in die interne Einheit (gegeben in Clock-Ticks). Anschließend startet sie die Simulation.
 
 \subsection{JSON Loader}
+Der \textit{JSONLoader} ist eine Klasse zum laden und serialisieren der Konfigurationen im JSON-Format. Jede Konfigurations-Datei wird dabei mittels \textit{Object-Mapper} auf eine Klasse abgebildet.
 
 \section{Events}
 \label{sec:Aufbau:Events}

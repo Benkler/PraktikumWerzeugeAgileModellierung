@@ -39,36 +39,38 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1.7}Workload Handler}{8}{subsection.3.1.7}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.7.1}Workload Info}{8}{subsubsection.3.1.7.1}% 
+\contentsline {subsubsection}{\numberline {3.1.7.1}Workload Info}{9}{subsubsection.3.1.7.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.8}Tracker}{8}{subsection.3.1.8}% 
+\contentsline {subsection}{\numberline {3.1.8}Tracker}{9}{subsection.3.1.8}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.8.1}Queue Utilization Tracker}{8}{subsubsection.3.1.8.1}% 
+\contentsline {subsubsection}{\numberline {3.1.8.1}Queue Utilization Tracker}{9}{subsubsection.3.1.8.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.8.2}Queue Discarded Jobs Tracker}{8}{subsubsection.3.1.8.2}% 
+\contentsline {subsubsection}{\numberline {3.1.8.2}Queue Discarded Jobs Tracker}{9}{subsubsection.3.1.8.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.8.3}Infrastructure Utilization Tracker}{8}{subsubsection.3.1.8.3}% 
+\contentsline {subsubsection}{\numberline {3.1.8.3}Infrastructure Utilization Tracker}{9}{subsubsection.3.1.8.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.9}Application Start Up Runner}{8}{subsection.3.1.9}% 
+\contentsline {subsection}{\numberline {3.1.9}Application Start Up Runner}{10}{subsection.3.1.9}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.10}JSON Loader}{8}{subsection.3.1.10}% 
+\contentsline {subsection}{\numberline {3.1.10}JSON Loader}{10}{subsection.3.1.10}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Events}{8}{section.3.2}% 
+\contentsline {section}{\numberline {3.2}Events}{10}{section.3.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Ablauf}{8}{section.3.3}% 
+\contentsline {section}{\numberline {3.3}Ablauf}{10}{section.3.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Konfiguration}{10}{chapter.4}% 
+\contentsline {chapter}{\numberline {4}Konfiguration}{12}{chapter.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Einheiten}{10}{section.4.1}% 
+\contentsline {section}{\numberline {4.1}Einheiten}{12}{section.4.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Anbindung eines Auto-Skalierers}{10}{section.4.2}% 
+\contentsline {section}{\numberline {4.2}Anbindung eines Auto-Skalierers}{12}{section.4.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Evaluation}{11}{chapter.5}% 
+\contentsline {section}{\numberline {4.3}Anbinden eines Trackers}{12}{section.4.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Approximation}{11}{section.5.1}% 
+\contentsline {chapter}{\numberline {5}Evaluation}{13}{chapter.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline Literatur}{12}{chapter*.4}% 
+\contentsline {section}{\numberline {5.1}Approximation}{13}{section.5.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}Anhang}{13}{appendix.A}% 
+\contentsline {chapter}{\nonumberline Literatur}{14}{chapter*.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}BPMN Models}{13}{section.A.1}% 
+\contentsline {chapter}{\numberline {A}Anhang}{15}{appendix.A}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.1}BPMN Models}{15}{section.A.1}% 
