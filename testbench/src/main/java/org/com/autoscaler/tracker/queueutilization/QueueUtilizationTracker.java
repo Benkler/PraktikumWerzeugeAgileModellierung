@@ -40,15 +40,20 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
     FileWriter outputFile;
     CSVWriter writer;
 
-    int previousAmountOfTasks;
-    double previousArrivalRate;
-    double previousProcessingRate;
+    private double previousAmountOfTasks;
+    private double previousArrivalRate;
+    private double previousProcessingRate;
+    
+    private double scalingFactor;
+    
+    
 
     @Override
     public void startSimulation(StartSimulationEvent event) {
         previousAmountOfTasks = 0;
         previousArrivalRate = 0;
         previousProcessingRate = 0;
+        this.scalingFactor = event.getScalingFactor();
         try {
             Path path = Paths.get(System.getProperty("user.home") + "\\Testbench");
             if (!Files.exists(path)) {
@@ -84,15 +89,15 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
         
        
         int clockTIckCount = event.getClockTickCount();
-        int amountOfTasks = event.getState().getTasksInQueue();
-        double arrivalRateInTasksPerInterval = MathUtil.round(event.getState().getQueueArrivalRateInTasksPerInterval(), 2);
-        double processingRateInTasksPerInterval = MathUtil.round(event.getState().getQueueProcessingRateInTasksPerInterval(), 2);
+        double amountOfTasks = scaleValue(event.getState().getTasksInQueue());
+        double arrivalRateInTasksPerInterval = scaleValue(event.getState().getQueueArrivalRateInTasksPerInterval());
+        double processingRateInTasksPerInterval = scaleValue(event.getState().getQueueProcessingRateInTasksPerInterval());
         double queueFillInPercent = event.getState().getQueueFillInPercent();
-        double queuingDelayInIntervals = MathUtil.round(event.getState().getQueueingDelayInIntervals(), 2);
+        double queuingDelayInIntervals = scaleValue(event.getState().getQueueingDelayInIntervals());
         
-        double processingRateInTasksPerMillisecond = event.getState().getQueueProcessingRateInTasksPerMilliSecond();
-        double arrivalRateInTasksPerMillisecond = event.getState().getQueueArrivalRateInTasksPerMilliSecond();
-        double queuingDelayInMilliseconds = event.getState().getQueuingDelayInMilliseconds();
+        double processingRateInTasksPerMillisecond = scaleValue(event.getState().getQueueProcessingRateInTasksPerMilliSecond());
+        double arrivalRateInTasksPerMillisecond = scaleValue(event.getState().getQueueArrivalRateInTasksPerMilliSecond());
+        double queuingDelayInMilliseconds = scaleValue(event.getState().getQueuingDelayInMilliseconds());
         
         
 
@@ -111,6 +116,11 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
         previousArrivalRate = arrivalRateInTasksPerInterval;
         previousProcessingRate = processingRateInTasksPerInterval;
 
+    }
+    
+    private double scaleValue(double value) {
+        
+        return MathUtil.round(value/scalingFactor, 4);
     }
 
 }

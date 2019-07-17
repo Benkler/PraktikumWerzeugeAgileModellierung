@@ -13,7 +13,7 @@ public interface IClockEventPublisher {
     
     public void fireTriggerPublishInfrastructureStateEvent(int clockTickCount, double intervallDurationInMilliSeconds);
     
-    public void fireStartSimulationEvent(int clockTickCount, double intervallDuarationInMilliSeconds);
+    public void fireStartSimulationEvent(int clockTickCount, double intervallDuarationInMilliSeconds, double scalingFactor);
     
     public void fireFinishSimulationEvent(int clockTickCount,double intervallDuarationInMilliSeconds);
     

@@ -65,9 +65,9 @@ public class ClockEventPublisher implements IClockEventPublisher {
     }
 
     @Override
-    public void fireStartSimulationEvent(int clockTickCount, double intercallDuarationInMilliSeconds) {
+    public void fireStartSimulationEvent(int clockTickCount, double intercallDuarationInMilliSeconds, double scalingFactor) {
        log.info("----------------------START SIMULATION EVENT-----------------------------------");
-       StartSimulationEvent event = new StartSimulationEvent(this, clockTickCount, intercallDuarationInMilliSeconds);
+       StartSimulationEvent event = new StartSimulationEvent(this, clockTickCount, intercallDuarationInMilliSeconds, scalingFactor);
        applEventPublisher.publishEvent(event);
         
     }

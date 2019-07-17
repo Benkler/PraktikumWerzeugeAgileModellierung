@@ -45,11 +45,17 @@ public class Clock implements IClock {
     @Override
     public void startClock() {
         state = ClockState.RUNNING;
-        clockEventPublisher.fireStartSimulationEvent(0, intervalDurationInMilliSeconds);
+        /*
+         * Used as scaling factor for workload and virtual machine power --> Need to
+         * scale output as well
+         */
+        double scalingFactor = this.clockTicksTillWorkloadChange*this.intervalDurationInMilliSeconds;
+        clockEventPublisher.fireStartSimulationEvent(0, intervalDurationInMilliSeconds, scalingFactor);
+
         while (clockTickCount <= experimentDurationInClockTicks) {
             fireEvents();
             clockTickCount++;
-            
+
         }
         clockEventPublisher.fireFinishSimulationEvent(clockTickCount, intervalDurationInMilliSeconds);
 
@@ -107,34 +113,30 @@ public class Clock implements IClock {
      * change in workload etc. are executed according to predefined granularity
      */
     private void fireEvents() {
-        
-        
 
         if (clockTickCount % clockTicksTillWorkloadChange == 0) {
             clockEventPublisher.fireTriggerWorkloadHandlerEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
 
-//        if (clockTickCount % clockTicksTillScalingDecision == 0) {
-//            clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount, intervalDurationInMilliSeconds);
-//        }
-        
+        // if (clockTickCount % clockTicksTillScalingDecision == 0) {
+        // clockEventPublisher.fireTriggerAutoScalerEvent(clockTickCount,
+        // intervalDurationInMilliSeconds);
+        // }
+
         clockEventPublisher.fireClockEvent(clockTickCount, intervalDurationInMilliSeconds);
- 
-        //INfrastruktur
+
+        // INfrastruktur
         if (clockTickCount % clockTicksTillPublishInfrastructureState == 0) {
             clockEventPublisher.fireTriggerPublishInfrastructureStateEvent(clockTickCount,
                     intervalDurationInMilliSeconds);
 
         }
 
-        //Queue
+        // Queue
         if (clockTickCount % clockTicksTillPublishQueueState == 0) {
 
             clockEventPublisher.fireTriggerPublishQueueStateEvent(clockTickCount, intervalDurationInMilliSeconds);
         }
-        
-        
-       
 
     }
 

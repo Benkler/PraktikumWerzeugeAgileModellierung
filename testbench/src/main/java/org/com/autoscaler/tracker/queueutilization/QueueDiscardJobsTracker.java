@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import org.com.autoscaler.events.DiscardJobsEvent;
 import org.com.autoscaler.events.FinishSimulationEvent;
 import org.com.autoscaler.events.StartSimulationEvent;
-
+import org.com.autoscaler.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,21 +23,23 @@ import com.opencsv.CSVWriter;
 
 @Component
 public class QueueDiscardJobsTracker implements IQueueDiscardJobsTracker {
-    
+
     @Autowired
     private ApplicationContext context;
 
     private final Logger log = LoggerFactory.getLogger(QueueDiscardJobsTracker.class);
 
     private final String[] header = { "Clock Tick", "Amount of Discarded Jobs" };
-    
+
     File file;
     FileWriter outputFile;
     CSVWriter writer;
+    double scalingFactor;
+
     @Override
     public void startSimulation(StartSimulationEvent event) {
-        
-        
+        this.scalingFactor = event.getScalingFactor();
+
         try {
             Path path = Paths.get(System.getProperty("user.home") + "\\Testbench");
             if (!Files.exists(path)) {
@@ -45,7 +47,7 @@ public class QueueDiscardJobsTracker implements IQueueDiscardJobsTracker {
             }
             file = new File(System.getProperty("user.home") + "\\Testbench\\discardedJobs.csv\\");
             outputFile = new FileWriter(file);
-            writer = new CSVWriter(outputFile, ';', '"', '\'',System.getProperty("line.separator")  );
+            writer = new CSVWriter(outputFile, ';', '"', '\'', System.getProperty("line.separator"));
             writer.writeNext(header);
         } catch (IOException e) {
 
@@ -53,7 +55,7 @@ public class QueueDiscardJobsTracker implements IQueueDiscardJobsTracker {
             int exitCode = SpringApplication.exit(context, (ExitCodeGenerator) () -> 0);
             System.exit(exitCode);
         }
-        
+
     }
 
     @Override
@@ -65,17 +67,22 @@ public class QueueDiscardJobsTracker implements IQueueDiscardJobsTracker {
             int exitCode = SpringApplication.exit(context, (ExitCodeGenerator) () -> 0);
             System.exit(exitCode);
         }
-        
+
     }
 
     @Override
     public void trackDiscardJobsEvent(DiscardJobsEvent event) {
-       int amountOfDiscardedJobs = event.getAmountOfDiscardedTasks();
-       int clockTIckCount = event.getClockTickCount();
-       
-       String[] newLine = { String.valueOf(clockTIckCount), String.valueOf(amountOfDiscardedJobs)};
-       writer.writeNext(newLine);
-        
+        double amountOfDiscardedJobs = scaleValue(event.getAmountOfDiscardedTasks());
+        int clockTIckCount = event.getClockTickCount();
+
+        String[] newLine = { String.valueOf(clockTIckCount), String.valueOf(amountOfDiscardedJobs) };
+        writer.writeNext(newLine);
+
+    }
+
+    private double scaleValue(double value) {
+
+        return MathUtil.round(value / scalingFactor, 4);
     }
 
 }

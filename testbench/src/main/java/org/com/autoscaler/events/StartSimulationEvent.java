@@ -6,10 +6,17 @@ package org.com.autoscaler.events;
  *
  */
 public class StartSimulationEvent extends AbstractEvent{
+    
+    private final double scalingFactor;
 
-    public StartSimulationEvent(Object source, int clockTickCount, double intervalDurationInMilliSeconds) {
+    public StartSimulationEvent(Object source, int clockTickCount, double intervalDurationInMilliSeconds, double scalingFactor) {
         super(source, clockTickCount, intervalDurationInMilliSeconds);
+        this.scalingFactor = scalingFactor;
         // TODO Auto-generated constructor stub
+    }
+
+    public double getScalingFactor() {
+        return scalingFactor;
     }
 
     /**

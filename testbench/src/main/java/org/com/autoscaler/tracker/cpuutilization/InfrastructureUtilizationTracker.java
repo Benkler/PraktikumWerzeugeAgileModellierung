@@ -30,6 +30,8 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
     @Autowired
     private ApplicationContext context;
 
+    private double scalingFactor;
+
     private final Logger log = LoggerFactory.getLogger(InfrastructureUtilizationTracker.class);
     private int oldArrivalRateInTasksPerInterval;
     private int oldCapacityInTasksPerInterval;
@@ -45,7 +47,7 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
 
     @Override
     public void startSimulation(StartSimulationEvent event) {
-
+        this.scalingFactor = event.getScalingFactor();
         oldArrivalRateInTasksPerInterval = 0;
         oldCapacityInTasksPerInterval = 0;
 
@@ -82,12 +84,14 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
     @Override
     public void trackInfrastructureState(InfrastructureStateEvent event) {
         int clockTickCount = event.getClockTickCount();
-        int arrRateInTasksPerInterval = event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall();
-        double arrRateInTasksPerMilliSecond = event.getInfrastructureState()
-                .getCurrentArrivalRateInTasksPerMilliSecond();
-        int curCapInTasksPerIntervall = event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall();
-        double curCapInTasksPerMilliSecond = event.getInfrastructureState().getCurrentCapacityInTasksPerMilliSecond();
-
+        double arrRateInTasksPerInterval = scaleValue(event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall());
+        double arrRateInTasksPerMilliSecond = scaleValue(event.getInfrastructureState()
+                .getCurrentArrivalRateInTasksPerMilliSecond());
+        double curCapInTasksPerIntervall = scaleValue(event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall());
+        double curCapInTasksPerMilliSecond = scaleValue(event.getInfrastructureState().getCurrentCapacityInTasksPerMilliSecond());
+        
+        
+        //Do not need to be scaled
         double cpuutilization = MathUtil.round(event.getInfrastructureState().getCurrentCPUUtilization() * 100.00, 2);
         int amountOfVms = event.getInfrastructureState().getVirtualMachines().size();
 
@@ -108,6 +112,11 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
 
         writer.writeNext(newLine);
 
+    }
+
+    private double scaleValue(double value) {
+
+        return MathUtil.round(value / scalingFactor, 4);
     }
 
 }
