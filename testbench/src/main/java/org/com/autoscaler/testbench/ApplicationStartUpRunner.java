@@ -201,7 +201,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         /*
          * Create type with information in clock ticks
          */
-        VirtualMachineType vmType = new VirtualMachineType(vmTypePOJO, clockPOJO.getIntervalDurationInMilliSeconds());
+        VirtualMachineType vmType = new VirtualMachineType(vmTypePOJO, clockPOJO.getIntervalDurationInMilliSeconds(), clockPOJO.getMillisecondsTillWorkloadChange());
 
         HashMap<Integer, VirtualMachine> vms = instantiateVirtualMachines(vmType,
                 infrastructurePOJO.getAmountOfVmsAtSimulationStart());
@@ -250,8 +250,12 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
             int amountOfTasksToBeProcessed) {
 
         double tasksPerMillisecond = (double) amountOfTasksToBeProcessed / (double) milliSecondsTillWorkloadChange;
+        
+       
 
-        double tasksPerIntervall = tasksPerMillisecond * intervalDurationInMillisecond;
+       // double tasksPerIntervall = tasksPerMillisecond * intervalDurationInMillisecond;
+        
+        double tasksPerIntervall = tasksPerMillisecond * intervalDurationInMillisecond * milliSecondsTillWorkloadChange;
 
         return Math.round((float) tasksPerIntervall);
     }
