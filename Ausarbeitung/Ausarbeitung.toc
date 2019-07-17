@@ -61,16 +61,30 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Einheiten}{16}{section.4.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Anbindung eines Auto-Skalierers}{16}{section.4.2}% 
+\contentsline {section}{\numberline {4.2}Konfigurationsparameter}{16}{section.4.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Anbinden eines Trackers}{16}{section.4.3}% 
+\contentsline {subsection}{\numberline {4.2.1}Clock}{16}{subsection.4.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Evaluation}{17}{chapter.5}% 
+\contentsline {subsection}{\numberline {4.2.2}Infrastructure}{17}{subsection.4.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Approximation}{17}{section.5.1}% 
+\contentsline {subsection}{\numberline {4.2.3}AutoScaler}{17}{subsection.4.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline Literatur}{18}{chapter*.4}% 
+\contentsline {subsection}{\numberline {4.2.4}Queue}{18}{subsection.4.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}Anhang}{19}{appendix.A}% 
+\contentsline {subsection}{\numberline {4.2.5}Workflow}{18}{subsection.4.2.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}BPMN Models}{19}{section.A.1}% 
+\contentsline {subsection}{\numberline {4.2.6}Verh\IeC {\"a}ltnisse zwischen den Zeiten}{18}{subsection.4.2.6}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Anbindung eines Auto-Skalierers}{18}{section.4.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}Anbinden eines Trackers}{18}{section.4.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Evaluation}{19}{chapter.5}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Approximation}{19}{section.5.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline Literatur}{20}{chapter*.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}Anhang}{21}{appendix.A}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.1}BPMN Models}{21}{section.A.1}% 

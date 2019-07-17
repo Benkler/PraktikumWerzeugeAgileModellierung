@@ -1,8 +1,100 @@
 \chapter{Konfiguration}
 \label{ch:Konfiguration}
+Während Kapitel \ref{ch:Aufbau} den Aufbau der Testbench beschreibt, befasst sich dieses mit deren Konfiguration. Da sie so flexibel wie möglich gehalten ist, muss der Benutzer Komponenten wie die Infrastruktur, die Warteschlange, Virtuelle Maschinen und die Auflösung der zeit-diskreten Simulation parametrisieren. Die verwendeten Parameter sollten möglichst nahe der Realität entsprechen, sodass die Simulationsergebnisse korrekt sind. Im folgenden werden die einzelnen Konfigurationsdateien beschreiben, sowie die Anbindung eines individuellen Auto-Skalierers und ein weiterer Tracker.
 
 \section{Einheiten}
-Umrechnung usw.
+Die externe Einheit der zeit-diskreten Simulation wird in Millisekunden angegeben. Intern werden diese in Clock-Ticks umgerechnet. So wird etwa die benötigte Zeit zum Hochfahren einer Virtuellen Maschine (in [ms]) umgerechnet in die Anzahl an Clock-Ticks. Dies ist notwendig, da der Benutzer die Konfigurationsparameter in Millisekunden (oder einer Potenz davon) vorliegen hat. Abhängig von der Auflösung eine Zeitintervalls, also Abstand zwischen zwei Clock-Ticks, wird dieser Wert in Clock-Ticks umgerechnet.
+
+
+\section{Konfigurationsparameter}
+Fünf verschiedene Konfigurationsdateien liegen vor. Diese befinden sich im Verzeichnis \\ \textit{src/main/data}. Für die Zukunft ist geplant, den Pfad dieser Dateien über die Kommandozeile beim Ausführen der Applikation zu übergeben.
+
+\subsection{Clock}
+Die Datei \textit{clock.json} beschreibt die grundlegenden Parameter für die Auflösung der Simulation und die Zeitintervalle, in denen diverse Komponenten angestoßen werden. \\
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+  "millisecondsTillPublishInfrastructureState": 500,
+  "millisecondsTillPublishQueueState": 500,
+  "intervalDurationInMilliSeconds": 100,
+  "millisecondsTillWorkloadChange": 1000,
+  "experimentDurationInMinutes": 7
+}
+\end{lstlisting}
+
+\begin{itemize}
+	\item \textbf{Zeile 2:} Alle 500ms soll die Infrastruktur ihren Zustand publizieren
+	\item \textbf{Zeile 3:} Alle 500ms soll die Warteschlange ihren Zustand publizieren
+	\item \textbf{Zeile 4:} Intervallbreite, Die Zeit zwischen zwei Clock-Ticks soll 100ms betragen 
+	\item \textbf{Zeile 5:} Jede Sekunde soll sich die Workload ändern
+	\item \textbf{Zeile 6:} Die Simulationszeit soll sieben Minuten betragen
+	
+\end{itemize}
+\noindent
+Es ist zu beachten, dass alle Werte (außer die Simulationsdauer) ein Vielfaches der Intervallbreite sind. Ist dies nicht der Fall, kommt es ggf. zu Rundungsfehler, die die Simulationsergebnisse verfälschen. \\
+ \textbf{Beispiel:} Intervallbreite = 100ms; Workload-Änderung alle 1000ms. Daraus folgt, dass die Workload alle 10 Clock-Ticks geändert wird. Wird beispielsweise die Workload-Änderung mit 1049ms angegeben, so wird sie immer noch mit 10 Clock-Ticks umgerechnet (durch interne Rundung).
+ 
+
+
+\subsection{Infrastruktur}
+Die Datei \textit{infrastructure.json} beschreibt
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+  "virtualMachineType": 
+    {
+     "millisecondsPerTask": 500,
+     "vmStartUpTimeInMilliSeconds": 3000
+    },
+  "amountOfVmsAtSimulationStart": 1,
+  "vmMax": 20,
+  "vmMin": 1,
+  "cpuUitilizationWindow" : 20
+}
+\end{lstlisting}
+
+\subsection{AutoScaler}
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+  "lowerThreshold": 0.25,
+  "upperThreshold": 0.75,
+  "vmMax": 20,
+  "vmMin": 1,
+  "timeInMsTillNextScalingDecision": 1000,
+  "cpuUtilWindow" : 10,
+  "queueLengthWindow": 10,
+  "coolDownTimeInMilliSeconds": 100000
+}
+\end{lstlisting}
+
+\subsection{Queue}
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+  "queueLengthMax": 80000,
+  "windowSize" : 20,
+  "queuingDelayInMilliSeconds": 100
+} 
+\end{lstlisting}
+
+\subsection{Workflow}
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+  "workflow": [
+    7.0,
+    5.0,
+    8.0,
+    6.0,
+    6.0,
+    9.0 
+   ]
+}
+\end{lstlisting}
+
+\subsection{Verhältnisse zwischen den Zeiten}
+
 
 
 \section{Anbindung eines Auto-Skalierers}
