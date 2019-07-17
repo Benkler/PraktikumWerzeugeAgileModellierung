@@ -148,6 +148,8 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
         QueuePOJO queuePOJO = jsonLoader.loadQueueInformation(path);
 
+        
+        int scalingFactor = clockPOJO.getMillisecondsTillWorkloadChange();
         /**
          * ############################################IMPORTANT: <br>
          * We use floor here. In case queuing delay is smaller than a multiple of
@@ -163,7 +165,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
         int queuingDelayInClockTicks = MathUtil.millisecondsInClockTicksFloor(queuePOJO.getQueuingDelayInMilliSeconds(),
                 clockPOJO.getIntervalDurationInMilliSeconds());
 
-        queue.initQueue(queuePOJO.getQueueLengthMax(), queuePOJO.getWindowSize(), queuingDelayInClockTicks);
+        queue.initQueue(queuePOJO.getQueueLengthMax()*scalingFactor, queuePOJO.getWindowSize(), queuingDelayInClockTicks);
     }
 
     private void initAutoScalerAndMetricSource(String path, String pathToClock) {
