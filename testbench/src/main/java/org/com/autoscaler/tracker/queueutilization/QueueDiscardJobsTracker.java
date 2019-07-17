@@ -72,7 +72,7 @@ public class QueueDiscardJobsTracker implements IQueueDiscardJobsTracker {
 
     @Override
     public void trackDiscardJobsEvent(DiscardJobsEvent event) {
-        double amountOfDiscardedJobs = scaleValue(event.getAmountOfDiscardedTasks());
+        double amountOfDiscardedJobs = MathUtil.scaleValue(event.getAmountOfDiscardedTasks(), scalingFactor);
         int clockTIckCount = event.getClockTickCount();
 
         String[] newLine = { String.valueOf(clockTIckCount), String.valueOf(amountOfDiscardedJobs) };
@@ -80,9 +80,5 @@ public class QueueDiscardJobsTracker implements IQueueDiscardJobsTracker {
 
     }
 
-    private double scaleValue(double value) {
-
-        return MathUtil.round(value / scalingFactor, 4);
-    }
-
+ 
 }

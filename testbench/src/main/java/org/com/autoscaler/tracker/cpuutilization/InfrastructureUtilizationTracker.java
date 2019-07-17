@@ -84,11 +84,11 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
     @Override
     public void trackInfrastructureState(InfrastructureStateEvent event) {
         int clockTickCount = event.getClockTickCount();
-        double arrRateInTasksPerInterval = scaleValue(event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall());
-        double arrRateInTasksPerMilliSecond = scaleValue(event.getInfrastructureState()
-                .getCurrentArrivalRateInTasksPerMilliSecond());
-        double curCapInTasksPerIntervall = scaleValue(event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall());
-        double curCapInTasksPerMilliSecond = scaleValue(event.getInfrastructureState().getCurrentCapacityInTasksPerMilliSecond());
+        double arrRateInTasksPerInterval = MathUtil.scaleValue(event.getInfrastructureState().getCurrentArrivalRateInTasksPerIntervall(), scalingFactor);
+        double arrRateInTasksPerMilliSecond = MathUtil.scaleValue(event.getInfrastructureState()
+                .getCurrentArrivalRateInTasksPerMilliSecond(), scalingFactor);
+        double curCapInTasksPerIntervall = MathUtil.scaleValue(event.getInfrastructureState().getCurrentCapacityInTasksPerIntervall(), scalingFactor);
+        double curCapInTasksPerMilliSecond = MathUtil.scaleValue(event.getInfrastructureState().getCurrentCapacityInTasksPerMilliSecond(),scalingFactor);
         
         
         //Do not need to be scaled
@@ -114,9 +114,6 @@ public class InfrastructureUtilizationTracker implements IInfrastructureUtilizat
 
     }
 
-    private double scaleValue(double value) {
-
-        return MathUtil.round(value / scalingFactor, 4);
-    }
+    
 
 }

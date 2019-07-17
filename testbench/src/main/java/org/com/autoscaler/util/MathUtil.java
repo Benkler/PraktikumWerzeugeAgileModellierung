@@ -57,6 +57,11 @@ public final class MathUtil {
         return round((tasksPerIntervall / intervallDurationInMilliseconds), 4);
 
     }
+    
+    public static double scaleValue(double value, double scalingFactor) {
+
+        return MathUtil.round(value / scalingFactor, 4);
+    }
 
     public static int generateRandomInteger() {
         /*

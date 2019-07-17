@@ -89,15 +89,15 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
         
        
         int clockTIckCount = event.getClockTickCount();
-        double amountOfTasks = scaleValue(event.getState().getTasksInQueue());
-        double arrivalRateInTasksPerInterval = scaleValue(event.getState().getQueueArrivalRateInTasksPerInterval());
-        double processingRateInTasksPerInterval = scaleValue(event.getState().getQueueProcessingRateInTasksPerInterval());
+        double amountOfTasks = MathUtil.scaleValue(event.getState().getTasksInQueue(), scalingFactor);
+        double arrivalRateInTasksPerInterval = MathUtil.scaleValue(event.getState().getQueueArrivalRateInTasksPerInterval(), scalingFactor);
+        double processingRateInTasksPerInterval = MathUtil.scaleValue(event.getState().getQueueProcessingRateInTasksPerInterval(), scalingFactor);
         double queueFillInPercent = event.getState().getQueueFillInPercent();
-        double queuingDelayInIntervals = scaleValue(event.getState().getQueueingDelayInIntervals());
+        double queuingDelayInIntervals = MathUtil.scaleValue(event.getState().getQueueingDelayInIntervals(), scalingFactor);
         
-        double processingRateInTasksPerMillisecond = scaleValue(event.getState().getQueueProcessingRateInTasksPerMilliSecond());
-        double arrivalRateInTasksPerMillisecond = scaleValue(event.getState().getQueueArrivalRateInTasksPerMilliSecond());
-        double queuingDelayInMilliseconds = scaleValue(event.getState().getQueuingDelayInMilliseconds());
+        double processingRateInTasksPerMillisecond = MathUtil.scaleValue(event.getState().getQueueProcessingRateInTasksPerMilliSecond(), scalingFactor);
+        double arrivalRateInTasksPerMillisecond = MathUtil.scaleValue(event.getState().getQueueArrivalRateInTasksPerMilliSecond(), scalingFactor);
+        double queuingDelayInMilliseconds = MathUtil.scaleValue(event.getState().getQueuingDelayInMilliseconds(), scalingFactor);
         
         
 
@@ -118,9 +118,5 @@ public class QueueUtilizationTracker implements IQueueUtilizationTracker {
 
     }
     
-    private double scaleValue(double value) {
-        
-        return MathUtil.round(value/scalingFactor, 4);
-    }
 
 }
