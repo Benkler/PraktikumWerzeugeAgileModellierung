@@ -11,15 +11,15 @@ Fünf verschiedene Konfigurationsdateien liegen vor. Diese befinden sich im Verz
 
 \subsection{Clock}
 \label{sec:konfiguration:clock}
-Die Datei \textit{clock.json} beschreibt die grundlegenden Parameter für die Auflösung der Simulation und die Zeitintervalle, in denen diverse Komponenten angestoßen werden. \\
+Die Datei \textit{clock.json} beschreibt die grundlegenden Parameter für die Auflösung der Simulation und die Zeitintervalle, in denen diverse Komponenten angestoßen werden. 
 
-\begin{lstlisting}[language=json,firstnumber=1]
+\begin{lstlisting}[language=json,firstnumber=1, caption={clock.json}]
 {
   "millisecondsTillPublishInfrastructureState": 500,
   "millisecondsTillPublishQueueState": 500,
   "intervalDurationInMilliSeconds": 100,
   "millisecondsTillWorkloadChange": 1000,
-  "experimentDurationInMinutes": 7
+  "experimentDurationInMinutes": 7 
 }
 \end{lstlisting}
 
@@ -40,8 +40,7 @@ Es ist zu beachten, dass alle Werte (außer die Simulationsdauer) ein Vielfaches
 \subsection{Infrastruktur}
 \label{sec:konfiguration:infrastruktur}
 Die Datei \textit{infrastructure.json} parametrisiert das \textit{InfrastructureModel}. Die Infrastruktur soll immer nur einen VM-Typ zulassen. 
-
-\begin{lstlisting}[language=json,firstnumber=1]
+\begin{lstlisting}[language=json,firstnumber=1, caption={infrastructure.json}]
 {
   "virtualMachineType": 
     {
@@ -52,6 +51,7 @@ Die Datei \textit{infrastructure.json} parametrisiert das \textit{Infrastructure
   "cpuUitilizationWindow" : 20
 }
 \end{lstlisting}
+
 
 \begin{itemize}
 	\item \textbf{Zeile 2-6:} Beschreibung des VM-Typs; jede VM benötigt 500ms um einen Job abzuarbeiten. Die Zeit zum hochfahren beträgt 3000ms
@@ -66,7 +66,14 @@ Durch einen internen Skalierfaktor ist es möglich, dass die Abarbeitung eines T
 \subsection{AutoScaler}
 Die Datei \textit{autoscaler.json} beschreibt das Verhalten des implementierten Auto-Skalierers. Falls ein anderer implementiert und angebunden wird, so muss auch diese Datei angepasst werden. Eventuell kommen hier weitere Felder hinzu, da ein anderer Scaler andere Konfigurationsparameter erwartet. Diese hier gelten nur für den verwendeten Prototyp.
 
-\begin{lstlisting}[language=json,firstnumber=1]
+
+
+
+
+
+
+
+\begin{lstlisting}[language=json,firstnumber=1, caption={autoscaler.json}]
 {
   "lowerThreshold": 0.25,
   "upperThreshold": 0.75,
@@ -99,7 +106,7 @@ Die Datei \textit{queue.json} beschreibt die Konfigurationsparameter für die Wa
 
 
 
-\begin{lstlisting}[language=json,firstnumber=1]
+\begin{lstlisting}[language=json,firstnumber=1, caption={queue.json}]
 {
   "queueLengthMax": 80000,
   "windowSize" : 20,
@@ -125,34 +132,209 @@ Gegeben sei der erste Wert (=7) aus der Liste. Aus \textit{clock.json} geht herv
 Aus diesem Grund wird intern skaliert, sodass auch mit solch "kleinen" Werten umgegangen werden kann.
 
 
-\begin{lstlisting}[language=json,firstnumber=1]
+\begin{lstlisting}[language=json,firstnumber=1, caption={workflow.json}]
 {
   "workflow": [
     7.0,
     5.0,
     8.0,
     6.0,
-    6.0,
-    9.0 
    ]
 }
 \end{lstlisting}
 
-\subsection{Verhältnisse zwischen den Zeiten}
 
 
 
 \section{Anbindung eines Auto-Skalierers}
 \label{sec:Konfiguration:AnbindungScaler}
+Um einen eigenen Auto-Skalierer zu implementieren, muss eine Klasse erstellt werden, die das Interface \textit{IAutoScaler} in Abbildung \ref{lst:scaler} implementiert. Ein Beispiel dafür ist die Abbildung \ref{lst:customScaler}. \\
+Zuerst muss die bestehende Implementierung entweder gelöscht werden, oder deren Bezeichner im \textit{@Component-Tag} geändert werden. Das Framework benutzt immer den Skalierer mit dem eindeutig vergebenen Namen \textit{@Component(''activeScaler")}. \\
+Falls andere Konfigurationsparameter benutzt werden müssen, wie die die in \textit{initAutoScaler()} definiert sind, so muss eine gröberer Änderung vorgenommen werden, die hier nur oberflächlich skizziert wird:
+\begin{itemize}
+	\item Ergänze/Lösche Parameter in \textit{autoscaler.json}
+	\item Analog dazu Felder+Getter*Setter in \textit{AutoScalerPOJO.java}
+	\item Adaptiere \textit{initAutoScaler()} in \textit{IAutoScaler.java} und der eigenen Implementierung
+	\item Instanziiere der AutoScaler mit den korrekten Attributen in \textit{ApplicationStartUpRunner.java}, Methode \textit{initAutoScalerAndMetricSource()}.
+\end{itemize}
 
-Scaler.json ändern
+\noindent
+Die eigene Implementierung muss die Logik komplett selbst implementieren. Das bedeutet, \textit{handleClockTick()} wird in jedem Intervall vom Taktgeber der Infrastruktur angestoßen. Der Auto-Skalierer ist selbst dafür verantwortlich, wann er welche Skalier-Entscheidung trifft, auf welchen Metriken er diese begründet, wie viele VMs hoch-oder heruntergefahren werden oder wie lange seine CoolDown-Phase ist. Dafür stehen die beiden Schnittstellen \textit{IMetricSource} (Abbildung \ref{lst:metric}) und \textit{IScalingController} (Abbildung \ref{lst:controller}) zu Verfügung. \\
+Die \textit{IMetricSource} stellt eine Schnittstelle zum Abrufen von Metriken da. Außerdem kann darüber abgerufen werden, welche VMs gerade aktiv sind. Dies ist notwendig, denn bei einer Skalier-Entscheidung (Modus \textit{'SCALE\_DOWN'} aus Abbildung \ref{lst:mode}), muss dem \textit{IScalingController} (Abbildung \ref{lst:controller})eine Liste der VMs übergeben werden, die herunterzufahren sind. Identifiziert werden diese über eine eindeutig vergebene ID. Sollten neue VMs hochgefahren werden, müssen diese mit den Parameter, die über die Methode \textit{getVirtualMachineType()} ausgelesen werden können und einer eindeutigen ID (ggf. UUID), erzeugt werden. \\
 
-initialisierung 
+\begin{lstlisting}[language=Java,firstnumber=1, caption={CustomScaler.java}, label=lst:customScaler]
+@Component("activeScaler")
+public class CustomScaler implements IAutoScaler{
+  
+  @Autowired
+  private IScalingController scalingController;
+  
+  @Autowired
+  private IMetricSource metricSource;
+  
+  @Override
+  public void initAutoScaler(double lowerThreshold, double upperThreshold, int vmMin, int vmMax,
+    int coolDownTimeInIntervallTicks, int clockTicksTillScalingDecision) {
+    // implement logic here
+  }
 
-POJO
+  @Override
+  public void handleClockTick(ClockEvent event) {
+    // implement logic here
+  }
+}
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}[language=Java,firstnumber=1, caption={IAutoScaler.java}, label=lst:scaler]
+public interface IAutoScaler {
+
+  /**
+  * AutoScaler is initialized with those parameters
+  */
+  void initAutoScaler(double lowerThreshold, double upperThreshold, int vmMin, int vmMax,
+       int coolDownTimeInIntervallTicks, int clockTicksTillScalingDecision);
+
+  /**
+  * Implement Logic. Proactive scaling decision! Need to check each clockTick if
+  * scaling decision needs to be executed.
+  * This includes to administer coolDown counter.
+  * 
+  * @param event
+  */
+  void handleClockTick(ClockEvent event);
+
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=Java,firstnumber=1, caption={IMetricSource.java}, label=lst:metric]
+public interface IMetricSource {
+
+  /**
+  * Moving Average of CPU-Utilization
+  */
+  public double getCPUUtilization();
+
+  /**
+  * Moving Average of Queue-Length
+  */
+  public int getQueueLength();
+
+  /**
+  * Retrieve currently available List of active Virtual Machines
+  */
+  public List<VirtualMachine> getServiceInstances();
+
+  /**
+  * Return Infrastructure-State at a certain Clock-Interval
+  */
+  public InfrastructureStateTransferObject getInfrastructureState();
+
+
+  /**
+  * Information of currently used VM-Type! For a Scaling decision, it is needed
+  * to instantiate VMs with those parameters
+  */
+  public VirtualMachineType getVirtualMachineType();
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=Java,firstnumber=1, caption={IScalingController.java}, label=lst:controller]
+public interface IScalingController {
+
+  /**
+  * Send Scaling decision to Infrastructure. Scaling mode determine whether
+  * Scaling Up or Down
+  */
+  void setInstances(List<VirtualMachine> updatedInstances, int clockTickCount, double intervallDuratioInMilliSeconds,
+         ScalingMode mode);
+}
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=Java,firstnumber=1, caption={ScalingMode.java}, label=lst:mode]
+public enum ScalingMode {
+  /**
+  * Boot VMs 
+  */
+  SCALE_UP,
+
+  /**
+  * Shut down VMs
+  */
+  SCALE_DOWN;
+}
+
+\end{lstlisting}
+
+
+
 
 \section{Anbinden eines Trackers}
+Ein weiterer Tracker kann in diversen Varianten implementiert werden. So kann er beispielsweise die gesammelten Informationen in eine Datenbank schreiben, oder aber auch als Ausgabedatei in Form eines Bildes visualisieren. Wichtig ist nur, dass er eine Listener-Klasse implementiert, die die gewünschten Event verarbeitet. Beispielsweise kann ein Listener auf folgende Event hören:
 
-scale Value...
+\begin{itemize}
+	\item \textit{StartSimulationEvent und FinishSimulationEvent}: Starten, beenden der Aufzeichnung.
+	\item \textit{QueueStateEvent}: Aufzeichnung diverser Metriken der Warteschlange
+	\item \textit{InfrastructureStateEvent}: Aufzeichnung diverser Metriken der Infrastruktur
+	\item \textit{WorkloadChangedEvent}: Aufzeichnung der Workload-Änderung
+	\item \textit{ScalingEvent}: Aufzeichnung der Skalier-Entscheidung
+\end{itemize}
+\noindent
+Ein solcher Listener ist in Abbildung \ref{lst:listener} zu sehen. Zusätzlich muss ein Interface des eigentlichen Trackers und eine Implementierung bereitgestellt werden, die die Logik des Trackers umsetzt. \\
+Zu beachten ist, dass absolute Werte noch skaliert werden müssen. Das liegt daran, dass das System intern die gegebene Workload und die Verarbeitungsrate der Virtuellen Maschinen mit einem Faktor skaliert, um genauere Ergebnisse zu Erhalten. Relative Werte (in Prozent) sind dadurch korrekt abgebildet, jedoch müssen absolute Werte mit der Methode \textit{scaleValue(double value, double scalingFactor)} aus Abbildung \ref{lst:math} skaliert werden, wobei das Attribut \textit{value} dem ausgelesenen Wert entspricht, und \textit{scalingFactor} einem Wert, der über das \textit{StartSimulationEvent} mitgegeben wird.\\
+
+\begin{lstlisting}[language=Java,firstnumber=1, caption={MathUtil.java}, label=lst:math]
+public final class MathUtil {
+  ....
+  
+    public static double round(double value, int places) {
+    if (places < 0)
+     throw new IllegalArgumentException();
+    BigDecimal bd = new BigDecimal(Double.toString(value));
+    bd = bd.setScale(places, RoundingMode.HALF_UP);
+    return bd.doubleValue();
+  }
+
+  public static double scaleValue(double value, double scalingFactor) {
+    return MathUtil.round(value / scalingFactor, 4);
+  }
+  
+  ....
+}
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=Java,firstnumber=1, caption={CustomListener.java}, label=lst:listener]
+public java CustomListener {
+
+  @Autowired
+  ICustomJobTracker customJobTracker;
+  
+  @EventListener
+  public void listenStartSimulationEvent(StartSimulationEvent event){
+    customJobTracker.start(event);  
+  }
+
+  @EventListener
+  public void listenFinishSimulationEvent(FinishSimulationEvent event){
+    customJobTracker.finish(event);
+  }
+
+  @EventListener
+  public void listenQueueStateEvent(QueueStateEvent event){
+    customJobTracker.process(event);
+  }
+}
+
+\end{lstlisting}
+
+
 
 

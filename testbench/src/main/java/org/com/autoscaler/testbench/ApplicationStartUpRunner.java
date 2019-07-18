@@ -29,6 +29,7 @@ import org.com.autoscaler.workloadhandler.WorkloadTransferObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -61,7 +62,7 @@ public class ApplicationStartUpRunner implements ApplicationRunner {
 
     @Autowired
     public ApplicationStartUpRunner(IClock clock, IQueueModel queue, IInfrastructureModel infrastructureModel,
-            IAutoScaler autoscaler, IWorkloadHandler workloadHandler, IJSONLoader jsonLoader,
+            @Qualifier("activeScaler")IAutoScaler autoscaler, IWorkloadHandler workloadHandler, IJSONLoader jsonLoader,
             IMetricSource metricSOurce) {
         this.clock = clock;
         this.queue = queue;
