@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.11)  18 JUL 2019 01:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.11)  18 JUL 2019 02:08
 entering extended mode
 **./Ausarbeitung.tex
 (Ausarbeitung.tex
@@ -2314,41 +2314,46 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 grees>]
 chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 13--14
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
 
  []
 
-LaTeX Font Info:    Try loading font information for T1+fvm on input line 15.
+LaTeX Font Info:    Try loading font information for T1+fvm on input line 16.
 (C:\Users\Nikolaus\AppData\Roaming\MiKTeX\2.9\tex/latex/bera\t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.35999pt on input line 15.
+(Font)              scaled to size 9.35999pt on input line 16.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvm' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 16.
+(Font)              scaled to size 8.0pt on input line 17.
  [16
 
 
 ]
-[17]) (sections/evaluation.tex [18]
+[17] [18]
+Underfull \hbox (badness 10000) in paragraph at lines 120--122
+
+ []
+
+[19]) (sections/evaluation.tex [20]
 chapter 5.
-) [19
+) [21
 
 
 ]
 chapter without number
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
 (Font)              scaled to size 12.0pt on input line 184.
-(sections/appendix.tex [20
+(sections/appendix.tex [22
 
 
 ]
 chapter A.
-) [21
+) [23
 
 
 ]
@@ -2364,31 +2369,36 @@ Package logreq Info: Writing requests to 'Ausarbeitung.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39822 strings out of 492946
- 787856 string characters out of 3135518
- 1367502 words of memory out of 3000000
- 42582 multiletter control sequences out of 15000+200000
- 214026 words of font info for 305 fonts, out of 3000000 for 9000
+ 39851 strings out of 492946
+ 788349 string characters out of 3135518
+ 1350502 words of memory out of 3000000
+ 42591 multiletter control sequences out of 15000+200000
+ 218744 words of font info for 321 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
  73i,20n,89p,9094b,2196s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_
 ncsllp.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}{C:/Users/N
-ikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{C
-:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_naoo
-yc.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/sourcesans
-pro/a_ggs4wk.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/
-libertine/lbtn_7grukw.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/e
-nc/dvips/libertine/lbtn_76gpa5.enc}<C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.
-9/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/Nikolaus/AppData/Roa
-ming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/Nikol
-aus/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineTI.pfb>
-<C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/type1/adobe/sourcesanspro/S
-ourceSansPro-Bold.pfb><C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/type1
-/adobe/sourcesanspro/SourceSansPro-Semibold.pfb><C:/Users/Nikolaus/AppData/Roam
-ing/MiKTeX/2.9/fonts/type1/bera/fvmr8a.pfb>
-Output written on Ausarbeitung.pdf (26 pages, 859460 bytes).
+ikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/newtx/libertinealt.enc}{C:/U
+sers/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_oexx6f.
+enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbt
+n_nh77jq.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libe
+rtine/lbtn_naooyc.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/d
+vips/sourcesanspro/a_ggs4wk.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/f
+onts/enc/dvips/libertine/lbtn_7grukw.enc}{C:/Users/Nikolaus/AppData/Roaming/MiK
+TeX/2.9/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}<C:/Users/Nikolaus/AppData/Ro
+aming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/Nikol
+aus/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineTB.pfb>
+<C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/libertine/LinL
+ibertineTI.pfb><C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/type1/adobe/
+sourcesanspro/SourceSansPro-Bold.pfb><C:/Users/Nikolaus/AppData/Roaming/MiKTeX/
+2.9/fonts/type1/adobe/sourcesanspro/SourceSansPro-Semibold.pfb><C:/Users/Nikola
+us/AppData/Roaming/MiKTeX/2.9/fonts/type1/bera/fvmr8a.pfb><C:/Users/Nikolaus/Ap
+pData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/rtxmi.pfb><C:/Users/Nikolau
+s/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/newtx/txsys.pfb><C:/Users/Nikol
+aus/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/newtx/zxlri.pfb>
+Output written on Ausarbeitung.pdf (28 pages, 889833 bytes).
 PDF statistics:
- 625 PDF objects out of 1000 (max. 8388607)
+ 650 PDF objects out of 1000 (max. 8388607)
  132 named destinations out of 1000 (max. 500000)
- 41309 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 43357 words of extra memory for PDF output out of 51595 (max. 10000000)
 

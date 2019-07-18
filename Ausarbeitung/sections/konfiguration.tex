@@ -10,6 +10,7 @@ Die externe Einheit der zeit-diskreten Simulation wird in Millisekunden angegebe
 Fünf verschiedene Konfigurationsdateien liegen vor. Diese befinden sich im Verzeichnis \\ \textit{src/main/data}. Für die Zukunft ist geplant, den Pfad dieser Dateien über die Kommandozeile beim Ausführen der Applikation zu übergeben.
 
 \subsection{Clock}
+\label{sec:konfiguration:clock}
 Die Datei \textit{clock.json} beschreibt die grundlegenden Parameter für die Auflösung der Simulation und die Zeitintervalle, in denen diverse Komponenten angestoßen werden. \\
 
 \begin{lstlisting}[language=json,firstnumber=1]
@@ -37,7 +38,8 @@ Es ist zu beachten, dass alle Werte (außer die Simulationsdauer) ein Vielfaches
 
 
 \subsection{Infrastruktur}
-Die Datei \textit{infrastructure.json} beschreibt
+\label{sec:konfiguration:infrastruktur}
+Die Datei \textit{infrastructure.json} parametrisiert das \textit{InfrastructureModel}. Die Infrastruktur soll immer nur einen VM-Typ zulassen. 
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -47,13 +49,22 @@ Die Datei \textit{infrastructure.json} beschreibt
      "vmStartUpTimeInMilliSeconds": 3000
     },
   "amountOfVmsAtSimulationStart": 1,
-  "vmMax": 20,
-  "vmMin": 1,
   "cpuUitilizationWindow" : 20
 }
 \end{lstlisting}
 
+\begin{itemize}
+	\item \textbf{Zeile 2-6:} Beschreibung des VM-Typs; jede VM benötigt 500ms um einen Job abzuarbeiten. Die Zeit zum hochfahren beträgt 3000ms
+	\item \textbf{Zeile 7:} Zu Beginn soll eine VM gestartet sein
+	\item \textbf{Zeile 8:} Anzahl der Intervalle, über die ein gleitender Mittelwert der CPU-Auslastung gemessen wird  
+	
+\end{itemize}
+Durch einen internen Skalierfaktor ist es möglich, dass die Abarbeitung eines Tasks über mehrere Intervallgrenzen hinausgeht. Das CPU-Fenster sollte in Relation zu der Intervallbreite und dem Abstand, mit dem der Zustand der Infrastruktur publiziert wird gesetzt werden (beide Werte in \textit{clock.json} definiert). \\
+\textbf{Beispiel:} Aus \textit{clock.json} geht hervor, dass alle 10 Clock-Ticks der Zustand der Infrastruktur zu publizieren ist. Deshalb sollte der angegebene Wert größer als 10 sein, damit alle Clock-Ticks seit der letzten Publizierung in die Berechnung mit einfließen. Ein Wert von 20 bedeutet somit, dass der Mittelwert der letzten Zustandspublikationen noch mit einfließt.
+
+
 \subsection{AutoScaler}
+Die Datei \textit{autoscaler.json} beschreibt das Verhalten des implementierten Auto-Skalierers. Falls ein anderer implementiert und angebunden wird, so muss auch diese Datei angepasst werden. Eventuell kommen hier weitere Felder hinzu, da ein anderer Scaler andere Konfigurationsparameter erwartet. Diese hier gelten nur für den verwendeten Prototyp.
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -68,7 +79,25 @@ Die Datei \textit{infrastructure.json} beschreibt
 }
 \end{lstlisting}
 
+\begin{itemize}
+	\item \textbf{Zeile 2:} Auslastung, ab die der Scaler runter skalieren soll (25\%)
+	\item \textbf{Zeile 3:} Auslastung, ab die der Scaler hoch skalieren soll (75\%)
+	\item \textbf{Zeile 4:} Maximale Anzahl Virtueller Maschinen; Ist diese erreicht, so wird auch bei einer Auslastung >75\% nicht weiter hoch skaliert
+	\item \textbf{Zeile 5:} Minimale Anzahl Virtueller Maschinen; verhält sich invers zu Zeile 4
+	\item \textbf{Zeile 6:} Zeit zwischen zwei aufeinanderfolgenden Skalier-Entscheidungen
+	\item \textbf{Zeile 7:} Anzahl der zu betrachteten Status-Updates der CPU-Auslastung für einen gleitenden Mittelwert
+	\item \textbf{Zeile 8:} Wie Z.7, nur für die Queue-Länge 
+	\item \textbf{Zeile 9:} Zeit nach einer ausgeführten Skalier-Entscheidung, in der der Scaler nichts ausführen soll 
+	
+\end{itemize}
+
+\noindent
+Zeile 7 und Zeile 8 sind Parameter, die für die \textit{MetricSource} zu Verfügung gestellt werden müssen. Diese müssen also auch bei einem anderen Scaler in der Konfigurationsdatei definiert sein. Auch hier ist zu beachten, dass der Parameter in Zeile 6 ein Vielfaches der Intervallbreite aus \textit{clock.json} ist.
+
 \subsection{Queue}
+Die Datei \textit{queue.json} beschreibt die Konfigurationsparameter für die Warteschlange.
+
+
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -78,7 +107,23 @@ Die Datei \textit{infrastructure.json} beschreibt
 } 
 \end{lstlisting}
 
+\begin{itemize}
+	\item \textbf{Zeile 2:} Maximale Anzahl an Jobs, die in die Warteschlange passen. Ist diese erreicht, so werden weitere Jobs verworfen.
+	\item \textbf{Zeile 3:} Anzahl der Intervalle, über die ein gleitender Mittelwert der Warteschlangen-Länge gemessen wird  
+	\item \textbf{Zeile 4:} Warteschlangenverzögerung, Zeit die ein Jobs braucht zwischen Ankunft im System und verlassen der Warteschlange, bzw. Abarbeitung im System
+	
+\end{itemize}
+
+Die Fenstergröße sollte analog wie die Fenstergröße in Sektion \ref{sec:konfiguration:infrastruktur} gewählt werden. Außerdem ist zu beachten, dass die Verzögerungszeit ebenfalls als Vielfaches der Auflösung zu wählen ist.
+
 \subsection{Workflow}
+Die Datei \textit{workflow.json} beschreibt den Workflow, also die Last die am System zu einem Zeitpunkt anliegen soll. Dabei entspricht jeder Wert der Anzahl an Jobs, die zwischen zwei Workload-Änderungen abzuarbeiten ist. Intern wird dieser Wert also wie folgt umgerechnet:\\
+Gegeben sei der erste Wert (=7) aus der Liste. Aus \textit{clock.json} geht hervor, dass eine Workload-Änderung alle 1000ms passiert. In dieser Zeit sollen also sieben Jobs abgearbeitet werden. Da die Intervallbreite 100ms beträgt, errechnet sich der Wert $\dfrac{7 Jobs * 100ms}{1000ms * Interval}$ = $\dfrac{0.7Jobs}{Interval}$. \\
+
+\vspace{0.2cm}
+\noindent
+Aus diesem Grund wird intern skaliert, sodass auch mit solch "kleinen" Werten umgegangen werden kann.
+
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -99,6 +144,12 @@ Die Datei \textit{infrastructure.json} beschreibt
 
 \section{Anbindung eines Auto-Skalierers}
 \label{sec:Konfiguration:AnbindungScaler}
+
+Scaler.json ändern
+
+initialisierung 
+
+POJO
 
 \section{Anbinden eines Trackers}
 

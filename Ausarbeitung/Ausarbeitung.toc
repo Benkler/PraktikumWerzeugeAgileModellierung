@@ -65,26 +65,26 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.2.1}Clock}{16}{subsection.4.2.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.2}Infrastructure}{17}{subsection.4.2.2}% 
+\contentsline {subsection}{\numberline {4.2.2}Infrastruktur}{17}{subsection.4.2.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.3}AutoScaler}{17}{subsection.4.2.3}% 
+\contentsline {subsection}{\numberline {4.2.3}AutoScaler}{18}{subsection.4.2.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.4}Queue}{18}{subsection.4.2.4}% 
+\contentsline {subsection}{\numberline {4.2.4}Queue}{19}{subsection.4.2.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.5}Workflow}{18}{subsection.4.2.5}% 
+\contentsline {subsection}{\numberline {4.2.5}Workflow}{19}{subsection.4.2.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.6}Verh\IeC {\"a}ltnisse zwischen den Zeiten}{18}{subsection.4.2.6}% 
+\contentsline {subsection}{\numberline {4.2.6}Verh\IeC {\"a}ltnisse zwischen den Zeiten}{20}{subsection.4.2.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Anbindung eines Auto-Skalierers}{18}{section.4.3}% 
+\contentsline {section}{\numberline {4.3}Anbindung eines Auto-Skalierers}{20}{section.4.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}Anbinden eines Trackers}{18}{section.4.4}% 
+\contentsline {section}{\numberline {4.4}Anbinden eines Trackers}{20}{section.4.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Evaluation}{19}{chapter.5}% 
+\contentsline {chapter}{\numberline {5}Evaluation}{21}{chapter.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Approximation}{19}{section.5.1}% 
+\contentsline {section}{\numberline {5.1}Approximation}{21}{section.5.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline Literatur}{20}{chapter*.4}% 
+\contentsline {chapter}{\nonumberline Literatur}{22}{chapter*.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}Anhang}{21}{appendix.A}% 
+\contentsline {chapter}{\numberline {A}Anhang}{23}{appendix.A}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}BPMN Models}{21}{section.A.1}% 
+\contentsline {section}{\numberline {A.1}BPMN Models}{23}{section.A.1}% 
