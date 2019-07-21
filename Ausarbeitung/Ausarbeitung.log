@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.11)  18 JUL 2019 10:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.11)  21 JUL 2019 15:47
 entering extended mode
 **./Ausarbeitung.tex
 (Ausarbeitung.tex
@@ -2144,9 +2144,9 @@ LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sl' in size <12> not a
 vailable
 (Font)              Font shape `T1/LinuxLibertineT-TLF/m/it' tried instead on i
-nput line 86.
+nput line 88.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 86.
+(Font)              scaled to size 12.0pt on input line 88.
  [1
 
 
@@ -2163,17 +2163,6 @@ Package tocbasic Info: character protrusion at lof deactivated on input line 18
 \openout7 = `Ausarbeitung.lof'.
 
  [3
-
-
-]
-Package tocbasic Info: character protrusion at lot deactivated on input line 18
-3.
- (Ausarbeitung.lot)
-\tf@lot=\write8
-\openout8 = `Ausarbeitung.lot'.
-
-
-[4
 
 
 ] (sections/introduction.tex
@@ -2213,12 +2202,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--23
 
 pdfTeX warning: pdflatex.exe (file ./img/BasicIdea.pdf): PDF inclusion: found P
 DF version <1.7>, but at most version <1.5> allowed
-<img/BasicIdea.pdf, id=181, 963.6pt x 542.025pt>
+<img/BasicIdea.pdf, id=194, 963.6pt x 542.025pt>
 File: img/BasicIdea.pdf Graphic file (type pdf)
 <use img/BasicIdea.pdf>
 Package pdftex.def Info: img/BasicIdea.pdf  used on input line 30.
 (pdftex.def)             Requested size: 455.24416pt x 214.07552pt.
-[2 <./img/BasicIdea.pdf>]) (sections/technologien.tex [3]
+[2 <./img/BasicIdea.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+LinuxLibertineT-TLF on
+ input line 43.
+
+(C:\Users\Nikolaus\AppData\Roaming\MiKTeX\2.9\tex/latex/libertine\ts1linuxliber
+tinet-tlf.fd
+File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
+LinuxLibertineT-TLF.
+)
+LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 12.0pt on input line 43.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
+(Font)              scaled to size 12.0pt on input line 43.
+
+Overfull \hbox (8.71092pt too wide) in paragraph at lines 48--49
+[]\T1/LinuxLibertineT-TLF/m/n/12 (-20) Abschlieÿend wird die Ap-pli-ka-ti-on in
+ \T1/LinuxLibertineT-TLF/b/n/12 Ka-pi-tel []5[] \T1/LinuxLibertineT-TLF/m/n/12 
+(-20) eva-lu-iert. Da-für wer-den Evaluationsaufbau-
+ []
+
+) (sections/technologien.tex [3]
 chapter 2.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 8.8pt on input line 9.
@@ -2239,7 +2252,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 
 pdfTeX warning: pdflatex.exe (file ./img/EventBus.pdf): PDF inclusion: found PD
 F version <1.7>, but at most version <1.5> allowed
-<img/EventBus.pdf, id=216, 963.6pt x 542.025pt>
+<img/EventBus.pdf, id=235, 963.6pt x 542.025pt>
 File: img/EventBus.pdf Graphic file (type pdf)
 <use img/EventBus.pdf>
 Package pdftex.def Info: img/EventBus.pdf  used on input line 22.
@@ -2260,7 +2273,7 @@ LaTeX Font Info:    Font shape `T1/SourceSansPro-LF/sb/n' will be
 
 pdfTeX warning: pdflatex.exe (file ./img/classDiagram.pdf): PDF inclusion: foun
 d PDF version <1.7>, but at most version <1.5> allowed
-<img/classDiagram.pdf, id=246, 845.19763pt x 597.19112pt>
+<img/classDiagram.pdf, id=267, 845.19763pt x 597.19112pt>
 File: img/classDiagram.pdf Graphic file (type pdf)
 <use img/classDiagram.pdf>
 Package pdftex.def Info: img/classDiagram.pdf  used on input line 41.
@@ -2268,29 +2281,11 @@ Package pdftex.def Info: img/classDiagram.pdf  used on input line 41.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[7] [8 <./img/classDiagram.pdf>] [9]
-LaTeX Font Info:    Try loading font information for TS1+LinuxLibertineT-TLF on
- input line 89.
-
-(C:\Users\Nikolaus\AppData\Roaming\MiKTeX\2.9\tex/latex/libertine\ts1linuxliber
-tinet-tlf.fd
-File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
-LinuxLibertineT-TLF.
-)
-LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 89.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
- [10]
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 129.
- [11] [12]
+[7] [8 <./img/classDiagram.pdf>] [9] [10] [11] [12]
 
 pdfTeX warning: pdflatex.exe (file ./img/eventsDiagram.pdf): PDF inclusion: fou
 nd PDF version <1.7>, but at most version <1.5> allowed
-<img/eventsDiagram.pdf, id=293, 845.19763pt x 597.19112pt>
+<img/eventsDiagram.pdf, id=312, 845.19763pt x 597.19112pt>
 File: img/eventsDiagram.pdf Graphic file (type pdf)
 <use img/eventsDiagram.pdf>
 Package pdftex.def Info: img/eventsDiagram.pdf  used on input line 232.
@@ -2301,7 +2296,7 @@ Overfull \hbox (113.81096pt too wide) in paragraph at lines 232--233
  []
 
 [13 <./img/eventsDiagram.pdf>]
-<img/ablauf.pdf, id=360, 845.1575pt x 597.23125pt>
+<img/ablauf.pdf, id=379, 845.1575pt x 597.23125pt>
 File: img/ablauf.pdf Graphic file (type pdf)
 <use img/ablauf.pdf>
 Package pdftex.def Info: img/ablauf.pdf  used on input line 257.
@@ -2353,22 +2348,53 @@ Underfull \hbox (badness 10000) in paragraph at lines 288--291
 
 [23]) (sections/evaluation.tex [24]
 chapter 5.
-) [25
+<img/rabbitmq.jpg, id=623, 688.07062pt x 277.035pt>
+File: img/rabbitmq.jpg Graphic file (type jpg)
+<use img/rabbitmq.jpg>
+Package pdftex.def Info: img/rabbitmq.jpg  used on input line 16.
+(pdftex.def)             Requested size: 369.88582pt x 116.80449pt.
+[25
 
 
-]
+ <./img/rabbitmq.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 30--33
+
+ []
+
+<img/vms.jpg, id=640, 724.95844pt x 219.06844pt>
+File: img/vms.jpg Graphic file (type jpg)
+<use img/vms.jpg>
+Package pdftex.def Info: img/vms.jpg  used on input line 39.
+(pdftex.def)             Requested size: 455.24416pt x 137.56924pt.
+<img/cpu.jpg, id=641, 724.95844pt x 220.57407pt>
+File: img/cpu.jpg Graphic file (type jpg)
+<use img/cpu.jpg>
+Package pdftex.def Info: img/cpu.jpg  used on input line 46.
+(pdftex.def)             Requested size: 455.24416pt x 138.51476pt.
+[26 <./img/vms.jpg> <./img/cpu.jpg>]
+<img/queueLength.jpg, id=648, 721.19438pt x 220.57407pt>
+File: img/queueLength.jpg Graphic file (type jpg)
+<use img/queueLength.jpg>
+Package pdftex.def Info: img/queueLength.jpg  used on input line 59.
+(pdftex.def)             Requested size: 455.24416pt x 139.235pt.
+<img/queueArrival.jpg, id=649, 726.46407pt x 218.31563pt>
+File: img/queueArrival.jpg Graphic file (type jpg)
+<use img/queueArrival.jpg>
+Package pdftex.def Info: img/queueArrival.jpg  used on input line 66.
+(pdftex.def)             Requested size: 455.24416pt x 136.81335pt.
+ [27 <./img/queueLength.jpg> <./img/queueArrival.jpg>]) [28]
 chapter without number
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
 (Font)              scaled to size 12.0pt on input line 207.
-(sections/appendix.tex [26
+(sections/appendix.tex [29
 
 
 ]
 chapter A.
-) [27
+[30
 
 
-]
+]) [31]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 215.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 215.
  (Ausarbeitung.aux)
@@ -2381,21 +2407,21 @@ Package logreq Info: Writing requests to 'Ausarbeitung.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 40171 strings out of 492946
- 793695 string characters out of 3135518
- 1362208 words of memory out of 3000000
- 42761 multiletter control sequences out of 15000+200000
- 225645 words of font info for 332 fonts, out of 3000000 for 9000
+ 40253 strings out of 492946
+ 794945 string characters out of 3135518
+ 1362178 words of memory out of 3000000
+ 42789 multiletter control sequences out of 15000+200000
+ 226016 words of font info for 334 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
  73i,20n,89p,9094b,3638s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_
 ncsllp.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}{C:/Users/N
 ikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/newtx/libertinealt.enc}{C:/U
 sers/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_oexx6f.
-enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbt
-n_nh77jq.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libe
-rtine/lbtn_naooyc.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/d
-vips/sourcesanspro/a_ggs4wk.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/f
+enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/sourcesanspro
+/a_ggs4wk.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/lib
+ertine/lbtn_nh77jq.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/fonts/enc/
+dvips/libertine/lbtn_naooyc.enc}{C:/Users/Nikolaus/AppData/Roaming/MiKTeX/2.9/f
 onts/enc/dvips/libertine/lbtn_7grukw.enc}{C:/Users/Nikolaus/AppData/Roaming/MiK
 TeX/2.9/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}<C:/Users/Nikolaus/AppData/Ro
 aming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/Nikol
@@ -2408,9 +2434,9 @@ us/AppData/Roaming/MiKTeX/2.9/fonts/type1/bera/fvmr8a.pfb><C:/Users/Nikolaus/Ap
 pData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/rtxmi.pfb><C:/Users/Nikolau
 s/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/newtx/txsys.pfb><C:/Users/Nikol
 aus/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/newtx/zxlri.pfb>
-Output written on Ausarbeitung.pdf (32 pages, 928235 bytes).
+Output written on Ausarbeitung.pdf (35 pages, 1188240 bytes).
 PDF statistics:
- 827 PDF objects out of 1000 (max. 8388607)
- 264 named destinations out of 1000 (max. 500000)
- 45909 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 936 PDF objects out of 1000 (max. 8388607)
+ 312 named destinations out of 1000 (max. 500000)
+ 45958 words of extra memory for PDF output out of 51595 (max. 10000000)
 

@@ -1,7 +1,7 @@
 \chapter{Aufbau}
 \label{ch:Aufbau}
 Dieses Kapitel beschreibt den konkreten Aufbau der Testbench. Wie in Sektion \ref{sec:Architektur und Technologien:Architektur} beschrieben, ist die verwendete Architektur Event-basiert. Abbildung \ref{fig:classDiagram} skizziert eine vereinfachte Form der Testbench in einer UML-Klassendiagramm ähnlichen Form. Aus Übersichtsgründen sind Utility-Klassen, Transfer-Objekte, POJO's\footnote{Plain Old Java Objects: Werden bspw. für die JSON-Deserialisierung benutzt} und die Event-Listener/Event-Publisher der Komponenten nicht Teil des Diagramms. Für jede Komponente, die eine Nachricht in Form eines Events an andere schicken oder von anderen empfangen möchte, existiert ein Listener beziehungsweise ein Publisher. Methoden des Listeners delegieren nach Empfang von Events die erhaltenen Nachrichten (Methodenaufrufe) an ihre nachgeschaltete Komponente. Komponenten die Nachrichten senden wollen, überreichen diese an ihren jeweiligen Publisher, der diese in Form eines Events auf den Event-Bus legt. Näheres ist in Sektion \ref{sec:Aufbau:Events} erklärt. \\
-Im Folgenden werden alle wichtigen Systemkomponenten erläutert. Anschließend wird ein Überblick über die verschiedenen Event-Typen gegeben. Danach wir der zeitliche, sich periodisch wiederholende Ablauf eines Intervalls in der Testbench vorgestellt.
+Im Folgenden werden alle wichtigen Systemkomponenten erläutert. Anschließend wird ein Überblick über die verschiedenen Event-Typen gegeben. Danach wir der zeitliche, sich periodisch wiederholende Ablauf eines Intervalls in der Testbench vorgestellt. Die Implementierung ist unter \cite{github} zu finden.
 
 
 
@@ -20,10 +20,10 @@ Die \textit{Clock} erfüllt die Aufgabe eines Taktgebers und ist somit das Herz 
 
 
 \subsection{Infrastructure Model}
-Das \textit{InfrastructureModel} bündelt die Haupt-Komponenten der Testbench. Es hat eine Warteschlange für ankommende und wartende Jobs (vgl.\ref{sec:aufbau:QueueModel}), eine Komponente die sich um das Hochfahren der Virtuellen Maschinen kümmert (vgl.\ref{sec:aufbau:BootinQueu}) sowie einen gekapselten Zustand (vgl.\ref{sec:aufbau:State}). \\
-Die Information, wie viel Last in welchem Zeitintervall anliegt, wird im \textit{InfrastructureModel} gespeichert und ggf. durch Erhalt einer Workload-Änderung (\textit{changeWorkload()}) geändert. Basierend darauf, ist sie verantwortlich bei Erhalt eines jeden Clock-Ticks (\textit{handleClockTick()}) die erforderliche Menge an Jobs in der Warteschlange (vgl.\ref{sec:aufbau:QueueModel}) einzureihen. Danach berechnet das \textit{InfrastructureModel} als Abstraktion der Infrastruktur die vorhandene Kapazität an Jobs, die in diesem Intervall abgearbeitet werden können (abhängig von Anzahl der vorhandenen Virtuellem Maschinen) und nimmt diese Anzahl aus der Warteschlange und verarbeitet sie. \\
-Unregelmäßig muss das Model mit Skalier-Entscheidungen des Auto-Skalieres umgehen (\textit{scaleVirtualMachines()}). Dabei werden hochfahrende Virtuelle Maschinen in der \textit{VMBootingQueue} eingereiht und nach abgelaufener Boot-Zeit mit in die Kapazitäts-Berechnung eingenommen. Das herunterfahren ist einfachheitshalber instantan.\\
-Zuletzt kann der Zustand \textit{(vgl.\ref{sec:aufbau:State})} über die Methode \textit{publishInfrastructureState()} publiziert werden. Dieser Vorgang wird wie in Sektion\ref{sec:aufbau:Clock} beschrieben, von \textit{Clock} angestoßen.
+Das \textit{InfrastructureModel} bündelt die Haupt-Komponenten der Testbench. Es hat eine Warteschlange für ankommende und wartende Jobs (vgl. \ref{sec:aufbau:QueueModel}), eine Komponente die sich um das Hochfahren der Virtuellen Maschinen kümmert (vgl. \ref{sec:aufbau:BootinQueu}) sowie einen gekapselten Zustand (vgl. \ref{sec:aufbau:State}). \\
+Die Information, wie viel Last in welchem Zeitintervall anliegt, wird im \textit{InfrastructureModel} gespeichert und ggf. durch Erhalt einer Workload-Änderung (\textit{changeWorkload()}) geändert. Basierend darauf, ist sie verantwortlich bei Erhalt eines jeden Clock-Ticks (\textit{handleClockTick()}) die erforderliche Menge an Jobs in der Warteschlange (vgl. \ref{sec:aufbau:QueueModel}) einzureihen. Danach berechnet das \textit{InfrastructureModel} als Abstraktion der Infrastruktur die vorhandene Kapazität an Jobs, die in diesem Intervall abgearbeitet werden können (abhängig von Anzahl der vorhandenen Virtuellem Maschinen) und nimmt diese Anzahl aus der Warteschlange und verarbeitet sie. \\
+Unregelmäßig muss das Model mit Skalier-Entscheidungen des Auto-Skalieres umgehen (\textit{scaleVirtualMachines()}). Dabei werden hochfahrende Virtuelle Maschinen in der \textit{VMBootingQueue} eingereiht und nach abgelaufener Boot-Zeit mit in die Kapazitäts-Berechnung eingenommen. Das Herunterfahren ist einfachheitshalber instantan.\\
+Zuletzt kann der Zustand \textit{(vgl. \ref{sec:aufbau:State})} über die Methode \textit{publishInfrastructureState()} publiziert werden. Dieser Vorgang wird wie in Sektion \ref{sec:aufbau:Clock} beschrieben, von \textit{Clock} angestoßen.
 
 \subsubsection{VM Booting Queue}
 \label{sec:aufbau:BootinQueu}
@@ -55,7 +55,7 @@ Eine Virtuelle Maschine ist eindeutig durch ihre Id identifizierbar. Jede VM ben
 
 
 \subsection{Auto Scaler}
-Der \textit{AutoScaler} als solcher ist kein Teil der Testbench, da er ja das Testobjekt ist. In diesem Fall ist er lediglich hinzugefügt, um die Funktionalität der Testbench zu testen. Ein Auto-Scaler wird angebunden, indem er System-Metriken wie Auslastung oder Warteschlangenlänge über die Komponente \textit{MetricSource} bezieht und Skalierentscheidungen an die Komponente \textit{ScalingController} weiterreicht. Die Interfaces zur Anbindung eines Auto-Skalierers sind in Sektion\ref{sec:Konfiguration:AnbindungScaler} beschrieben.
+Der \textit{AutoScaler} als solcher ist kein Teil der Testbench, da er ja das Testobjekt ist. In diesem Fall ist er lediglich hinzugefügt, um die Funktionalität der Testbench zu testen. Ein Auto-Scaler wird angebunden, indem er System-Metriken wie Auslastung oder Warteschlangenlänge über die Komponente \textit{MetricSource} bezieht und Skalierentscheidungen an die Komponente \textit{ScalingController} weiterreicht. Die Interfaces zur Anbindung eines Auto-Skalierers sind in Sektion \ref{sec:Konfiguration:AnbindungScaler} beschrieben.
 
 
 

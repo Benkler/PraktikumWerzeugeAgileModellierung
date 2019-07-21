@@ -7,7 +7,7 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {\relax 2.1}{\ignorespaces Grundlegende Idee der Testbench}}{5}{figure.2.1}% 
+\contentsline {figure}{\numberline {\relax 2.1}{\ignorespaces Der Event-Bus}}{5}{figure.2.1}% 
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
@@ -20,6 +20,16 @@
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces RabbitMQ als Message-Broker, Quelle: \cite {rabbit}}}{25}{figure.5.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {\relax 5.2}{\ignorespaces Vergleich der Menge an Virtuellen Maschinen}}{26}{figure.5.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {\relax 5.3}{\ignorespaces Vergleich der CPU Auslastung}}{26}{figure.5.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {\relax 5.4}{\ignorespaces Evaluationsergebnisse der Warteschlangenl\IeC {\"a}nge}}{27}{figure.5.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {\relax 5.5}{\ignorespaces Evaluationsergebnisse der Ankunfts- und Verarbeitungszeit der Warteschlange}}{27}{figure.5.5}% 
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

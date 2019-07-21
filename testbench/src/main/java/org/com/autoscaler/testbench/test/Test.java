@@ -21,5 +21,20 @@ public class Test {
         System.out.println(list);
 
     }
+    
+    
+    
+    public double testMEthd(int input) {
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        return 0;
+    }
 
 }

@@ -156,7 +156,7 @@
 \theinstitute\\[2em]
 \begin{tabular}{l l}
 
-  \ifcurrentbaselanguage{English}{Advisor}{Betreuender Mitarbeiter}: &  \theadvisorone\\
+  \ifcurrentbaselanguage{English}{Advisor}{Betreuer}: &  \theadvisorone\\
   % if there is no second advisor, do not output this line
   \ifthenelse{\equal{\theadvisortwo}{}}{}{%
   \ifcurrentbaselanguage{English}{Second advisor}{Zweiter betreuender Mitarbeiter}: & \theadvisortwo\\

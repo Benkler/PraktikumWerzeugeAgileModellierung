@@ -1,9 +1,9 @@
 
 
 {
-	"millisecondsTillPublishInfrastructureState": 500,
-    "millisecondsTillPublishQueueState": 500,
-	"intervalDurationInMilliSeconds": 100,
+	"millisecondsTillPublishInfrastructureState": 1000,
+    "millisecondsTillPublishQueueState": 1000,
+	"intervalDurationInMilliSeconds": 500,
 	
 	"millisecondsTillWorkloadChange": 1000,
 	"experimentDurationInMinutes": 7

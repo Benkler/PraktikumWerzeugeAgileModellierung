@@ -19,6 +19,12 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{github}{misc}{}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{labeltitlesource}{title}
+      \field{title}{Git-Hub Repository Praktikum: Werkzeuge für agile Modellierung}
+    \endentry
     \entry{ASurveyOn}{inproceedings}{}
       \name{author}{3}{}{%
         {{hash=4c1676eb90e18933d545931c43b55854}{%
@@ -143,6 +149,12 @@
       \verb{doi}
       \verb 10.1145/2930659
       \endverb
+    \endentry
+    \entry{rabbit}{misc}{}
+      \field{sortinit}{W}
+      \field{sortinithash}{ecb89ff85896a47dc313960773ac311d}
+      \field{labeltitlesource}{title}
+      \field{title}{Was ist eigentlich RabbitMQ?}
     \endentry
   \enddatalist
 \endrefsection

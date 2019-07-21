@@ -33,14 +33,20 @@ Die Testbench für einen beliebigen Auto-Skalierer ähnelt einer stark vereinfac
 \end{figure}
 
 \noindent
-Zu einem Zeitpunkt \textit{t} erreicht eine (durch die gegebene Workload spezifizierte) Menge an Jobs das System und wird in der Warteschlange, die als Puffer fungiert, eingereiht. Die Infrastruktur wird durch eine Menge an Virtuellen Maschinen (\textit{VMs}) repräsentiert. Jede VM ist in der Lage in einer Zeiteinheit eine gewisse Menge an Jobs abzuarbeiten. Die Infrastruktur kann also pro Zeiteinheit eine durch die VMs definierte Menge an Jobs aus der Warteschlange nehmen und verarbeiten. Falls die Menge an ankommenden Jobs größer ist, als die Kapazität der Infrastruktur, so wird die Menge an wartenden Jobs in der Warteschlange größer. Wird die Kapazität durch eine Skalierentscheidung des Auto-Skalierers erhöht oder sinkt die anliegende Last am System, so reduziert sich diese Menge wieder. \\
+Zu einem Zeitpunkt \textit{t} erreicht eine (durch die gegebene Workload spezifizierte) Menge an Jobs das System und wird in der Warteschlange, die als Puffer fungiert, eingereiht. Die Infrastruktur wird durch eine Menge an Virtuellen Maschinen (\textit{VMs}) repräsentiert. Jede VM ist in der Lage in einer Zeiteinheit eine gewisse Menge an Jobs abzuarbeiten. Die Infrastruktur kann also pro Zeiteinheit eine durch die VMs definierte Menge an Jobs aus der Warteschlange nehmen und verarbeiten. Falls die Menge an ankommenden Jobs größer ist, als die Kapazität der Infrastruktur, so wird die Menge an wartenden Jobs in der Warteschlange größer. Diese Menge reduziert sich erst dann, wenn die Kapazität größer ist als die Last, wenn also entweder die Last unter dieses Level sinkt, oder aber die Kapazität durch eine Skalierentscheidung ausreichend vergrößert wird.\\
 Allgemein ist die Testbench parametrisierbar. Beispielsweise soll die Warteschlangengröße und die Menge an maximal hinzuzufügenden VMs begrenzt sein. Weiterhin ist die Zeit zwischen Ankunft eines Jobs und dessen Abarbeitung in der Realität nicht gleich null. Diese und weitere Parameter können dynamisch konfiguriert werden, sodass nicht nur der Auto-Skalierer unter verschiedenen Lastbedingungen getestet werden kann, sondern auch auf unterschiedlich konfigurierten Infrastrukturen. \\
 Um eine Skalier-Entscheidung treffen zu können, muss der Auto-Skalierer (je nach Typ) diverse Metriken der Infrastruktur oder der Warteschlange erheben, wie beispielsweise Länge der Warteschlange oder Auslastung der VMs. Dafür ist es notwendig, dass alle wichtigen Komponenten diese Metriken zu Verfügung stellen. \\
 Um im Anschluss an eine Simulation den Auto-Skalierer bewerten zu können, wird der Zustand sämtlicher Komponenten zeitdiskret aufgezeichnet. Dabei werden Informationen wie Auslastung des Systems, Füllstand der Warteschlange, Durchsatz oder Wartezeiten im Puffer aufgezeichnet. Mittels dieser Daten kann dann das Verhalten des Auto-Skalierers, und damit seine Güte bestimmt werden.
 
 \section{Übersicht}
-Im Kapitel... wird bla beschrieben
-
+\begin{itemize}
+	\item \textbf{Kapitel \ref{ch:Architektur und Technologien}} beschreibt die verwendeten Technologien und die zugrundeliegende Architektur.
+	
+	\item In \textbf{Kapitel \ref{ch:Aufbau}} wird der Aufbau der Testbench auf Komponenten, bzw. Klassen-Ebene beschrieben. 
+	\item Die Konfigurationsmöglichkeiten werden in \textbf{Kapitel \ref{ch:Konfiguration}} beschrieben.
+	
+	\item Abschließend wird die Applikation in \textbf{Kapitel \ref{ch:Evaluation} }evaluiert. Dafür werden Evaluationsaufbau- und Ergebnisse vorgestellt. Dieses Kapitel beendet die Dokumentation mit einer Zusammenfassung und einem Ausblick.
+\end{itemize}
 
  
 

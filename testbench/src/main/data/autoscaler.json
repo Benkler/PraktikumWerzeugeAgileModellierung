@@ -8,6 +8,6 @@
 	"vmMin": 1,
 	"timeInMsTillNextScalingDecision": 1000,
 	"cpuUtilWindow" : 10,
-	"queueLengthWindow": 10,
-	"coolDownTimeInMilliSeconds": 100000
+	"queueLengthWindow": 1,
+	"coolDownTimeInMilliSeconds": 10000
 }

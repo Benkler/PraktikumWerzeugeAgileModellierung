@@ -3,13 +3,14 @@
 {
   "virtualMachineType": 
     {
-    "millisecondsPerTask": 500,
-     "vmStartUpTimeInMilliSeconds": 3000
+    "millisecondsPerTask": 278,
+     "vmStartUpTimeInMilliSeconds": 4500
     },
     "amountOfVmsAtSimulationStart": 1,
    
 
-   "cpuUitilizationWindow" : 20
+  
+   "cpuUitilizationWindow" : 10
   
   
 }

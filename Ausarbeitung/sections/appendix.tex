@@ -19,8 +19,60 @@
 %% -------------------
 %% | Example content |
 %% -------------------
-\section{BPMN Models}
+\section{Kofigurations-Dateien }
 \label{sec:appendix:BPMN Models}
+Die folgenden Konfigurationen sind für die Simulation benutzt worden. Zu finden sind diese auch im Git-Hub Repository \cite{github}. Dort befindet sich auch die \textit{workload.json}, die aus Platzgründen nicht in dieses Dokument aufgenommen wird.
+
+\begin{lstlisting}[language=json,firstnumber=1, caption={clock.json}]
+{
+  "millisecondsTillPublishInfrastructureState": 1000,
+  "millisecondsTillPublishQueueState": 1000,
+  "intervalDurationInMilliSeconds": 500,
+  "millisecondsTillWorkloadChange": 1000,
+  "experimentDurationInMinutes": 7
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=json,firstnumber=1, caption={infrastructure.json}]
+{
+  "virtualMachineType": 
+    {
+    "millisecondsPerTask": 278,
+    "vmStartUpTimeInMilliSeconds": 4500
+    },
+  "amountOfVmsAtSimulationStart": 1,
+  "cpuUitilizationWindow" : 10
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=json,firstnumber=1, caption={queue.json}]
+{
+"queueLengthMax": 80000,
+"windowSize" : 20,
+"queuingDelayInMilliSeconds": 0 
+} 
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=json,firstnumber=1, caption={autoscaler.json}]
+{
+  "lowerThreshold": 0.25,
+  "upperThreshold": 0.75,
+  "vmMax": 20,
+  "vmMin": 1,
+  "timeInMsTillNextScalingDecision": 1000,
+  "cpuUtilWindow" : 10,
+  "queueLengthWindow": 1,
+  "coolDownTimeInMilliSeconds": 10000
+}
+\end{lstlisting}
+
+
+
+
+
+
+
 
 
 

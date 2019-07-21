@@ -77,12 +77,18 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.4}Anbinden eines Trackers}{23}{section.4.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Evaluation}{25}{chapter.5}% 
+\contentsline {chapter}{\numberline {5}Evaluation und Einschr\IeC {\"a}nkungen}{25}{chapter.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Approximation}{25}{section.5.1}% 
+\contentsline {section}{\numberline {5.1}Evaluationsaufbau}{25}{section.5.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\nonumberline Literatur}{26}{chapter*.4}% 
+\contentsline {section}{\numberline {5.2}Evaluationsergebnisse}{26}{section.5.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}Anhang}{27}{appendix.A}% 
+\contentsline {section}{\numberline {5.3}Limitierungen}{27}{section.5.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}BPMN Models}{27}{section.A.1}% 
+\contentsline {section}{\numberline {5.4}Zusammenfassung und Ausblick}{28}{section.5.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\nonumberline Literatur}{29}{chapter*.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}Anhang}{30}{appendix.A}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.1}Kofigurations-Dateien}{30}{section.A.1}% 

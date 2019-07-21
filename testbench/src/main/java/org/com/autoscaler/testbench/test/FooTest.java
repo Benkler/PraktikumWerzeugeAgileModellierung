@@ -1,25 +1,41 @@
 package org.com.autoscaler.testbench.test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.com.autoscaler.util.MathUtil;
 
 public class FooTest {
 
     public static void main(String[] args) {
-        double tasksPerMillisecond = 3.6;
-        double intervallDurationInMilliseconds = 100;
+       LinkedList<Integer> list = new LinkedList<Integer>();
+       
+       list.add(4);
+       list.add(5);
+       System.out.println(list);
+       
+       test(list);
+       
+       System.out.println(list);
         
+        String test = "ast";
         
-        double milliSeconds = 50015;
-
-        Math.round((float) (tasksPerMillisecond * intervallDurationInMilliseconds));
-
-        //System.out.println(Math.round((float) (tasksPerMillisecond * intervallDurationInMilliseconds)));
-
-      //  System.out.println(Math.round((float) (milliSeconds / intervallDurationInMilliseconds)));
+        test2(test);
         
+        System.out.println(test);
+                
+       
+       
+    }
+    
+    private static void test(LinkedList<Integer> list){
+        list.removeFirst();
+    }
+    
+    private static void test2(String input) {
         
-        //System.out.println(MathUtil.tasksPerIntervallInTasksPerMillisecond(915, 100));
-       System.out.println(MathUtil.millisecondsInClockTicks(350, 100));
+        input.replace('a', " ".charAt(0));
+        
     }
 
 }
