@@ -20,10 +20,31 @@
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
     \entry{github}{misc}{}
-      \field{sortinit}{G}
-      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \name{author}{1}{}{%
+        {{hash=6f28ee7674aeeca2b141276b86e2bc86}{%
+           family={Benkler},
+           familyi={B\bibinitperiod},
+           given={Niko},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{6f28ee7674aeeca2b141276b86e2bc86}
+      \strng{fullhash}{6f28ee7674aeeca2b141276b86e2bc86}
+      \strng{bibnamehash}{6f28ee7674aeeca2b141276b86e2bc86}
+      \strng{authorbibnamehash}{6f28ee7674aeeca2b141276b86e2bc86}
+      \strng{authornamehash}{6f28ee7674aeeca2b141276b86e2bc86}
+      \strng{authorfullhash}{6f28ee7674aeeca2b141276b86e2bc86}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{note}{Accessed on 21.07.2019}
       \field{title}{Git-Hub Repository Praktikum: Werkzeuge für agile Modellierung}
+      \verb{urlraw}
+      \verb https://github.com/Benkler/PraktikumWerzeugeAgileModellierung
+      \endverb
+      \verb{url}
+      \verb https://github.com/Benkler/PraktikumWerzeugeAgileModellierung
+      \endverb
     \endentry
     \entry{ASurveyOn}{inproceedings}{}
       \name{author}{3}{}{%
@@ -101,6 +122,31 @@
       \verb 10.1007/s10723-014-9314-7
       \endverb
     \endentry
+    \entry{rabbit}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=e9e2d0d2eea3f0906f81e00174609a5f}{%
+           family={Orkan},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{e9e2d0d2eea3f0906f81e00174609a5f}
+      \strng{fullhash}{e9e2d0d2eea3f0906f81e00174609a5f}
+      \strng{bibnamehash}{e9e2d0d2eea3f0906f81e00174609a5f}
+      \strng{authorbibnamehash}{e9e2d0d2eea3f0906f81e00174609a5f}
+      \strng{authornamehash}{e9e2d0d2eea3f0906f81e00174609a5f}
+      \strng{authorfullhash}{e9e2d0d2eea3f0906f81e00174609a5f}
+      \field{sortinit}{O}
+      \field{sortinithash}{dad3efd0836470093a7b4a7bb756eb8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed on 19.07.2019}
+      \field{title}{Was ist eigentlich RabbitMQ?}
+      \verb{urlraw}
+      \verb https://www.orkork.de/development/was-ist-eigentlich-rabbitmq/
+      \endverb
+      \verb{url}
+      \verb https://www.orkork.de/development/was-ist-eigentlich-rabbitmq/
+      \endverb
+    \endentry
     \entry{PEAS}{article}{}
       \name{author}{5}{}{%
         {{hash=f77614ae1fefea4e69a0448594acca02}{%
@@ -149,12 +195,6 @@
       \verb{doi}
       \verb 10.1145/2930659
       \endverb
-    \endentry
-    \entry{rabbit}{misc}{}
-      \field{sortinit}{W}
-      \field{sortinithash}{ecb89ff85896a47dc313960773ac311d}
-      \field{labeltitlesource}{title}
-      \field{title}{Was ist eigentlich RabbitMQ?}
     \endentry
   \enddatalist
 \endrefsection
