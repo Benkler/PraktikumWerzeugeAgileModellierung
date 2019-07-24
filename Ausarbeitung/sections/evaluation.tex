@@ -7,7 +7,7 @@ In diesem Kapitel wird das Evaluationsdesign und die Ergebnisse vorgestellt. Au�
 \section{Evaluationsaufbau}
 \label{sec:Evaluation:Aufbau}
 Um die Testbench zu evaluieren, sind Experimente mit einem Auto-Skalierer auf realer Infrastruktur durchgeführt worden. Diese bestand dabei aus folgenden Komponenten: \\
-Ein \textit{Workload-Service} in Form einer VM produziert eine reale Last, die über den \textit{Message-Broker} \textit{RabbitMQ}\footnote{https://www.rabbitmq.com/} an die Cloud-Service-Infrastruktur weitergegeben wird. Im speziellen wird hier die PaaS-Cloud von Bosch (\textit{Bosch IoT Cloud}) verwendet. In der Cloud befindet sich ein \textit{Python-Consumer} als skalierbarer Microservice, der diese Anfragen bearbeitet. Der verwendete Auto-Skaliere bekommt seine Metriken dabei von der Cloud-Infrastruktur, um so Instanzen des Microservices je nach Auslastung weg- oder hinzuzunehmen. Zwar ist die Implementierung des realen Auto-Skalierers eine Andere, von der Logik verhält er sich dennoch gleich.
+Ein \textit{Workload-Service} in Form einer VM produziert eine reale Last, die über den \textit{Message-Broker} \textit{RabbitMQ}\footnote{https://www.rabbitmq.com/} an die Cloud-Service-Infrastruktur weitergegeben wird. Im speziellen wird hier die PaaS-Cloud von Bosch (\textit{Bosch IoT Cloud}) verwendet. In der Cloud befindet sich ein \textit{Python-Consumer} als skalierbarer Microservice, der diese Anfragen bearbeitet. Der verwendete Auto-Skalierer bekommt seine Metriken dabei von der Cloud-Infrastruktur, um so Instanzen des Microservices je nach Auslastung weg- oder hinzuzunehmen. Zwar ist die Implementierung des realen Auto-Skalierers eine Andere, von der Logik verhält er sich dennoch gleich.
 
 
 %"l, b, r, t"
@@ -49,7 +49,8 @@ In Abbildung \ref{fig:cpuResult} wird die CPU-Auslastung aufgetragen. Auch hier 
 \end{figure}
 
 \noindent
-Das Diagramm in Abbildung \ref{fig:queueLength} vergleicht die simulierte und die tatsächliche Warteschlangen-Länge. Hier weichen die Simulationsergebnisse von der Realität ab. Ein Grund dafür können die approximierten Konfigurations-Parameter sein. Dennoch ist die auch in der Simulation an den Ausschlägen zu erkennen, wann die Kapazität der Infrastruktur nicht ausreichend für die anliegende Last ist.\\
+Das Diagramm in Abbildung \ref{fig:queueLength} vergleicht die simulierte und die tatsächliche Warteschlangen-Länge. Hier weichen die Simulationsergebnisse von der Realität ab. Dies liegt vor allem an der CPU: Da bei der realen Infrastruktur langsamer gemessen wird, werden vom Auto-Skalierer verzögerte Ressourcen provisioniert, wodurch die Warteschlangenlänge in der Realität schneller ansteigt.
+. Dennoch ist die auch in der Simulation an den Ausschlägen zu erkennen, wann die Kapazität der Infrastruktur nicht ausreichend für die anliegende Last ist.\\
 Ankunfts-und Verarbeitungsrate (Abbildung \ref{fig:queueArrival}) der Simulation stimmen hingegen mit der Realität relativ genau überein. Die Ankunftsrate (blaue Linie) der Simulation ist bis auf wenige nicht vorhandenen  Ausschläge ähnlich. Die Glättung der Kurve in der Simulation ist ein Effekt der Mittelwertbildung. 
 
 
